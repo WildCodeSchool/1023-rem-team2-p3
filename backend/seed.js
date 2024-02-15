@@ -25,7 +25,7 @@ const seed = async () => {
     for (let i = 0; i < 10; i += 1) {
       queries.push(
         database.query(
-          "insert into user (lastname, firstname, email, hashedPassword, is_admin, birthday) values (?,?,?,?,?,?)",
+          "insert into user (lastname, firstname, email, hashedPassword, is_admin, birthday, status) values (?,?,?,?,?,?,?)",
           [
             faker.name.lastName(),
             faker.name.firstName(),
@@ -33,6 +33,7 @@ const seed = async () => {
             faker.internet.password(),
             "user",
             faker.date.birthdate(),
+            "active",
           ]
         )
       );

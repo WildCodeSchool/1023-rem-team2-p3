@@ -11,13 +11,14 @@ const getAllEvents = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-  const { city, date, address, quantity } = req.body;
+  const { city, date, address, quantity, status } = req.body;
   try {
     const [event] = await tables.event.createEvents(
       city,
       date,
       address,
-      quantity
+      quantity,
+      status
     );
     res.status(201).json(event);
   } catch (error) {
@@ -26,7 +27,7 @@ const createEvent = async (req, res) => {
 };
 const updateEvents = async (req, res) => {
   const id = parseInt(req.params.id);
-  const { city, date, address, quantity } = req.body;
+  const { city, date, address, quantity, status } = req.body;
 
   // Créer un objet pour stocker uniquement les champs à mettre à jour
   const updateFields = {};
@@ -42,6 +43,9 @@ const updateEvents = async (req, res) => {
   }
   if (quantity !== undefined) {
     updateFields.quantity = quantity;
+  }
+  if (status !== undefined) {
+    updateFields.status = status;
   }
 
   try {

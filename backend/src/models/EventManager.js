@@ -5,10 +5,10 @@ class EventManager extends AbstractManager {
     super({ table: "event" });
   }
 
-  async createEvents(city, date, address, quantity) {
+  async createEvents(city, date, address, quantity, status) {
     return this.database.query(
-      `INSERT INTO ${this.table} (city, date, address, quantity) VALUES (?,?,?,?)`,
-      [city, date, address, quantity]
+      `INSERT INTO ${this.table} (city, date, address, quantity, status) VALUES (?,?,?,?,?)`,
+      [city, date, address, quantity, status]
     );
   }
 
