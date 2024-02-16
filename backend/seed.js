@@ -84,15 +84,14 @@ const seed = async () => {
     // }
     // await database.query("truncate note");
 
-    // // Insert fake data into the 'note' table
-    // for (let i = 0; i < 10; i += 1) {
-    //   queries.push(
-    //     database.query(
-    //       "insert into note(note_physique, note_vitesse, note_passe, note_tir, note_dribble, note_vista, note_cf, note_plongeon, note_arrets, note_dega, note_pied_faible, note_gen, user_id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)",
-    //       [faker.lorem.word()]
-    //     )
-    //   );
-    // }
+    // Insert fake data into the 'note' table
+    for (let i = 0; i < 10; i += 1) {
+      queries.push(
+        database.query(
+          "insert into note(note_physique, note_vitesse, note_passe, note_tir, note_dribble, note_vista, note_cf, note_plongeon, note_arrets, note_dega, note_pied_faible, note_gen, user_id) values (50, 60, 40, 50, 60, 40, 50, 60, 40, 50, 60, 40, 1),(50, 60, 40, 50, 60, 40, 50, 60, 40, 50, 60, 40, 2), (50, 60, 40, 50, 60, 40, 50, 60, 40, 50, 60, 40, 3), (50, 60, 40, 50, 60, 40, 50, 60, 40, 50, 60, 40, 4), (50, 60, 40, 50, 60, 40, 50, 60, 40, 50, 60, 40, 5)"
+        )
+      );
+    }
     // await database.query("truncate score_card");
 
     // // Insert fake data into the 'score_card' table
