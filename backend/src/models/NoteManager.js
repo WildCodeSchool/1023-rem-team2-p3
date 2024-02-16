@@ -62,40 +62,19 @@ class NoteManager extends AbstractManager {
   // The U of CRUD - Update operation
   // TODO: Implement the update operation to modify an existing item
 
-  async update({
-    id,
-    note_physique,
-    note_vitesse,
-    note_passe,
-    note_tir,
-    note_dribble,
-    note_vista,
-    note_cf,
-    note_plongeon,
-    note_arrets,
-    note_dega,
-    note_pied_faible,
-    note_gen,
-    user_id,
-  }) {
+  async update(id, updateFields) {
+    const setClause = Object.keys(updateFields)
+      .map((key) => `${key} = ?`)
+      .join(", ");
+    // Create an array of values based on the values of the updateFields object
+    const values = Object.values(updateFields);
+
+    // Add the id at the end of the values array
+    values.push(id);
+
     return this.database.query(
-      `update ${this.table} set note_physique = ?, note_vitesse = ?, note_passe = ?, note_tir = ?, note_dribble = ?, note_vista = ?, note_cf = ?, note_plongeon = ?, note_arrets = ?, note_dega = ?, note_pied_faible = ?, note_gen = ?, user_id = ? where id = ?`,
-      [
-        note_physique,
-        note_vitesse,
-        note_passe,
-        note_tir,
-        note_dribble,
-        note_vista,
-        note_cf,
-        note_plongeon,
-        note_arrets,
-        note_dega,
-        note_pied_faible,
-        note_gen,
-        user_id,
-        id,
-      ]
+      `UPDATE ${this.table} SET ${setClause} WHERE id = ?`,
+      values
     );
   }
 }
