@@ -45,9 +45,10 @@ CREATE TABLE stock_event (
 CREATE TABLE discount (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     percent_value INT NOT NULL,
-    promo_code VARCHAR(80),
+    promo_code VARCHAR(80) NOT NULL,
     quantity INT NOT NULL,
     duree_de_validite TIMESTAMP NOT NULL,
+    status tinyint(1) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
