@@ -48,7 +48,7 @@ CREATE TABLE discount (
     promo_code VARCHAR(80) NOT NULL,
     quantity INT NOT NULL,
     duree_de_validite TIMESTAMP NOT NULL,
-    status tinyint(1) NOT NULL,
+    status BOOLEAN NOT NULL DEFAULT true,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
