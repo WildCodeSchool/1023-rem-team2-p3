@@ -7,16 +7,31 @@ const router = express.Router();
 /* ************************************************************************* */
 
 // Import itemControllers module for handling item-related operations
-const itemControllers = require("./controllers/itemControllers");
+// const itemControllers = require("./controllers/itemControllers");
+const eventControllers = require("./controllers/EventController");
 
 // Route to get a list of items
-router.get("/items", itemControllers.browse);
+// router.get("/items", itemControllers.browse);
 
 // Route to get a specific item by ID
-router.get("/items/:id", itemControllers.read);
+// router.get("/items/:id", itemControllers.read);
 
 // Route to add a new item
-router.post("/items", itemControllers.add);
+// router.post("/items", itemControllers.add);
+
+// Route to get All Event
+router.get("/events", eventControllers.getAllEvents);
+// Route to get a specific Event by ID
+router.get("/events/:id", eventControllers.getEventById);
+
+// Route to create a new Event
+router.post("/events", eventControllers.createEvent);
+
+// Route to update an Event
+router.put("/events/:id", eventControllers.updateEvents);
+
+// Route to delete an Event
+router.delete("/events/:id", eventControllers.deleteEvent);
 
 /* ************************************************************************* */
 
