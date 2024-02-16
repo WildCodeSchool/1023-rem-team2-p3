@@ -4,10 +4,15 @@
 
 // Import the manager modules responsible for handling data operations on the tables
 
+
 const NoteManager = require("./models/NoteManager");
+
+const EventManager = require("./models/EventManager");
 
 const managers = [
   NoteManager,
+  EventManager,
+
   // Add other managers here
 ];
 
