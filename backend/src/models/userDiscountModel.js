@@ -19,10 +19,17 @@ class discountManager extends AbstractManager {
     return add;
   }
 
-  async getEventById(id) {
+  async getControllerById(id) {
     return this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [
       id,
     ]);
+  }
+
+  async getIdController({ user_id, discount_id }) {
+    return this.database.query(
+      `SELECT id FROM ${this.table} WHERE user_id = ? and discount_id = ?`,
+      [user_id, discount_id]
+    );
   }
 }
 module.exports = discountManager;
