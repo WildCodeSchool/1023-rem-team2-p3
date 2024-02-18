@@ -12,33 +12,6 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-// const getUserByEmail = async (req, res) => {
-//   try {
-//     const { email, password } = req.body;
-//     if (!email || !password) {
-//       return res.status(401).json({ error: "Email and password are required" });
-//     } else {
-//       const [user] = await tables.user.getUserByEmail(email);
-//       if (!user.length) {
-//         return res.status(404).json({ error: "User Not Found" });
-//       } else {
-//         const isMatch = await argon2.verify(user[0].hashedPassword, password);
-//         if (!isMatch) {
-//           return res
-//             .status(401)
-//             .json({ error: "Mail Invalid or Invalid Password" });
-//         } else {
-//           const token = jwt.sign({ user_id: user[0].id }, "privateKey", {
-//             expiresIn: "0.5h",
-//           });
-//           return res.status(200).json({ token });
-//         }
-//       }
-//     }
-//   } catch (error) {
-//     return res.status(500).json({ error: error.message });
-//   }
-// };
 const getUserByEmail = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -58,7 +31,7 @@ const getUserByEmail = async (req, res, next) => {
         .json({ error: "Mail Invalid or Invalid Password" });
     }
 
-    const token = jwt.sign({ user_id: user[0].id }, "privateKey", {
+    const token = jwt.sign({ userId: user[0].id }, "privateKey", {
       expiresIn: "0.5h",
     });
     return res.status(200).json({ token });

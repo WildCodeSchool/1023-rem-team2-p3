@@ -15,7 +15,6 @@ const verifyToken = (req, res, next) => {
     }
     // de verifier le token
     const { userId } = jwt.verify(token, "privateKey");
-
     req.params = { userId };
     next();
   } catch (error) {
