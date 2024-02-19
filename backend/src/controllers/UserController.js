@@ -140,6 +140,33 @@ const deleteUser = async (req, res) => {
   }
 };
 
+// methode pour réinisialiser le mot de passe
+const createPasswordResetToken = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const token = await tables.user.createPasswordResetToken(email);
+    await tables.user.sendPasswordResetEmail(email, token, req);
+    res.status(200).json({ message: "Email de réinitialisation envoyé" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+    const [user] = await tables.user.getUserByResetToken(token);
+    if (!user.length) {
+      return res.status(404).json({ error: "Token invalide ou expiré" });
+    }
+
+    await tables.user.resetPassword(user[0], newPassword);
+    res.status(200).json({ message: "Mot de passe réinitialisé" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getAllUsers,
   addUser,
@@ -147,4 +174,6 @@ module.exports = {
   getUserByEmail,
   getUserById,
   deleteUser,
+  createPasswordResetToken,
+  resetPassword,
 };

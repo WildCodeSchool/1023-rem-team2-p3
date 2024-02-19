@@ -58,4 +58,8 @@ router.get("/me", verifyToken, userControllers.getUserById);
 // Route to create a new User with hashedPassword
 router.post("/users", hashedPassword, userControllers.addUser);
 
+// ROUTES FOR USER TO REINITIALIZE PASSWORD
+router.post("/reset-password", userControllers.createPasswordResetToken);
+router.put("/reset-password", userControllers.resetPassword);
+
 module.exports = router;
