@@ -104,6 +104,20 @@ const noteController = {
       res.status(500).json({ message: error.toString() });
     }
   },
+
+  deleteNote: async (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    try {
+      const [result] = await tables.note.delete(id);
+      if (result.affectedRows) {
+        res.json({ message: "Note deleted" });
+      } else {
+        res.json({ message: "Error" });
+      }
+    } catch (error) {
+      res.status(500).json({ message: error.toString() });
+    }
+  },
 };
 
 module.exports = noteController;
