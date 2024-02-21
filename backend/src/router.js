@@ -8,6 +8,10 @@ router.use(express.json());
 /* ************************************************************************* */
 
 // Import itemControllers module for handling item-related operations
+
+const itemControllers = require("./controllers/itemControllers");
+const discountController = require("./controllers/discountController");
+const userDiscountController = require("./controllers/userDiscountController");
 const noteController = require("./controllers/noteController");
 const scoreCardController = require("./controllers/scoreCardController");
 const privilegeController = require("./controllers/privilegeController");
@@ -60,5 +64,13 @@ router.put("/events/:id", eventControllers.updateEvents);
 router.delete("/events/:id", eventControllers.deleteEvent);
 
 /* ************************************************************************* */
+
+router.get("/discount", discountController.getDiscount);
+router.post("/discount", discountController.addDiscount);
+router.put("/discount/:id", discountController.updateDiscount);
+// router.delete("/discount/:id", discountController.deleteDiscount);
+
+router.get("/userDiscount", userDiscountController.getUserDiscount);
+router.post("/userDiscount", userDiscountController.addUserDiscount);
 
 module.exports = router;
