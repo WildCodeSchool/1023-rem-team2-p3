@@ -1,50 +1,22 @@
 /* eslint-disable camelcase */
 const AbstractManager = require("./AbstractManager");
 
-class NoteManager extends AbstractManager {
+class ScoreCardManager extends AbstractManager {
   constructor() {
     // Call the constructor of the parent class (AbstractManager)
     // and pass the table name "note" as configuration
-    super({ table: "note" });
+    super({ table: "score_card" });
   }
 
   // The C of CRUD - Create operation
-  async create({
-    note_physique,
-    note_vitesse,
-    note_passe,
-    note_tir,
-    note_dribble,
-    note_vista,
-    note_cf,
-    note_plongeon,
-    note_arrets,
-    note_dega,
-    note_pied_faible,
-    note_gen,
-    user_id,
-  }) {
+  async create({ photo_user, note_id }) {
     return this.database.query(
-      `insert into ${this.table} (note_physique, note_vitesse, note_passe, note_tir, note_dribble, note_vista, note_cf, note_plongeon, note_arrets, note_dega, note_pied_faible, note_gen, user_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        note_physique,
-        note_vitesse,
-        note_passe,
-        note_tir,
-        note_dribble,
-        note_vista,
-        note_cf,
-        note_plongeon,
-        note_arrets,
-        note_dega,
-        note_pied_faible,
-        note_gen,
-        user_id,
-      ]
+      `insert into ${this.table} (photo_user, note_id) values (?, ?)`,
+      [photo_user, note_id]
     );
   }
-  // The Rs of CRUD - Read operations
 
+  // The Rs of CRUD - Read operations
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     return this.database.query(`select * from ${this.table} where id = ?`, [
@@ -80,10 +52,8 @@ class NoteManager extends AbstractManager {
 
   // The D of CRUD - Delete operation
   // TODO: Implement the delete operation to remove an item by its ID
-
   async delete(id) {
     return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [id]);
   }
 }
-
-module.exports = NoteManager;
+module.exports = ScoreCardManager;
