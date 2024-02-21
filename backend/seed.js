@@ -105,23 +105,22 @@ const seed = async () => {
     // await database.query("truncate privilege");
 
     // // Insert fake data into the 'privilege' table
-    // for (let i = 0; i < 10; i += 1) {
-    //   queries.push(
-    //     database.query(
-    //       "insert into privilege(name, price, product_id, user_id) values (premium, 49€, 1, 1), (premium, 49€, 1, 2), (premium, 49€, 1, 3), (premium, 49€, 1, 4), (premium, 49€, 1, 5)"
-    //     )
-    //   );
-    // }
+    for (let i = 0; i < 10; i += 1) {
+      queries.push(
+        database.query(
+          "insert into privilege(name, price, product_id, user_id) values ('premium', 49, 1, 1), ('basic', 39, 1, 2)"
+        )
+      );
+    }
     // await database.query("truncate product");
 
     // // Insert fake data into the 'product' table
     // for (let i = 0; i < 10; i += 1) {
-    //   queries.push(
-    //     database.query(
-    //       "insert into product(name, img, size, color) values (?,?,?,?)",
-    //       [faker.lorem.word()]
-    //     )
-    //   );
+    // queries.push(
+    //  database.query(
+    //    "insert into product(name, img, size, color) values ('classic', 'crumpon1.jpg', 35, 'black')"
+    //  )
+    // );
     // }
     // await database.query("truncate order");
 

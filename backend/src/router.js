@@ -15,24 +15,24 @@ const privilegeController = require("./controllers/privilegeController");
 // Route to get a list of items
 router.get(`/note`, noteController.getNote);
 router.get(`/score_card`, scoreCardController.getScoreCard);
-router.get(`/privelege`, privilegeController.getPrivilege);
+router.get(`/privilege`, privilegeController.getPrivilege);
 
 // Route to get a specific item by ID
 router.get(`/note/:id`, noteController.getNoteById);
 router.get(`/score_card/:id`, scoreCardController.getScoreCardById);
-router.get(`/privelege/:id`, privilegeController.getPrivilegeById);
+router.get(`/privilege/:id`, privilegeController.getPrivilegeById);
 // Route to add a new item
 router.post(`/note`, noteController.addNote);
 router.post(`/score_card`, scoreCardController.addScoreCard);
-router.post(`/privelege`, privilegeController.addPrivilege);
+router.post(`/privilege`, privilegeController.addPrivilege);
 // Route to update an existing item
 router.put(`/note/:id`, noteController.updateNote);
 router.put(`/score_card/:id`, scoreCardController.updateScoreCardById);
-router.put(`/privelege/:id`, privilegeController.updatePrivilege);
+router.put(`/privilege/:id`, privilegeController.updatePrivilege);
 // Route to delete an existing item
 router.delete(`/note/:id`, noteController.deleteNote);
 router.delete(`/score_card/:id`, scoreCardController.deleteScoreCard);
-router.delete(`/privelege/:id`, privilegeController.deletePrivilege);
+router.delete(`/privilege/:id`, privilegeController.deletePrivilege);
 
 // const itemControllers = require("./controllers/itemControllers");
 const eventControllers = require("./controllers/EventController");

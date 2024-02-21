@@ -5,7 +5,7 @@ class PrivilegeManager extends AbstractManager {
   constructor() {
     // Call the constructor of the parent class (AbstractManager)
     // and pass the table name "note" as configuration
-    super({ table: "score_card" });
+    super({ table: "privilege" });
   }
 
   // The C of CRUD - Create operation
