@@ -27,8 +27,8 @@ const seed = async () => {
         database.query(
           "insert into user (lastname, firstname, email, hashedPassword, is_admin, birthday) values (?,?,?,?,?,?)",
           [
-            faker.name.lastName(),
-            faker.name.firstName(),
+            faker.person.lastName(),
+            faker.person.firstName(),
             faker.internet.email(),
             faker.internet.password(),
             "user",
@@ -70,14 +70,27 @@ const seed = async () => {
     //     )
     //   );
     // }
+
     // await database.query("truncate user_info");
 
-    // // Insert fake data into the 'user_info' table
+    // Insert fake data into the 'user_info' table
     // for (let i = 0; i < 10; i += 1) {
     //   queries.push(
     //     database.query(
     //       "insert into user_info(avatar, taille, poids, pointure, pied_fort, poste, sexe, numero_de_telephone, adresse_postale, ville, user_id) values (?,?,?,?,?,?,?,?,?,?,?)",
-    //       [faker.lorem.word()]
+    //       [
+    //         faker.image.avatar(), // Génère une image avatar aléatoire
+    //         faker.datatype.number(), // Génère un nombre aléatoire
+    //         faker.datatype.number(), // Génère un nombre aléatoire
+    //         faker.datatype.number(), // Génère un nombre aléatoire
+    //         faker.lorem.word(), // Génère un mot aléatoire pour pied_fort
+    //         faker.lorem.word(), // Génère un mot aléatoire pour le poste
+    //         faker.random.arrayElement(['male', 'female']), // Génère un sexe aléatoire
+    //         faker.phone.phoneNumber(), // Génère un numéro de téléphone aléatoire
+    //         faker.address.streetAddress(), // Génère une adresse postale aléatoire
+    //         faker.address.city(), // Génère une ville aléatoire
+    //         faker.random.uuid(), // Génère un identifiant utilisateur aléatoire (vous devrez peut-être adapter cela en fonction de votre système d'authentification)
+    //       ]
     //     )
     //   );
     // }
@@ -114,14 +127,20 @@ const seed = async () => {
     //     )
     //   );
     // }
-    // await database.query("truncate product");
 
-    // // Insert fake data into the 'product' table
+    //     await database.query("truncate product");
+
+    //     // Insert fake data into the 'product' table
     // for (let i = 0; i < 10; i += 1) {
     //   queries.push(
     //     database.query(
     //       "insert into product(name, img, size, color) values (?,?,?,?)",
-    //       [faker.lorem.word()]
+    //       [
+    //         faker.commerce.productName(), // Génère un nom de produit aléatoire
+    //         faker.image.imageUrl(), // Génère une URL d'image aléatoire pour le produit
+    //         faker.random.arrayElement(['S', 'M', 'L', 'XL']), // Génère une taille aléatoire parmi les choix disponibles
+    //         faker.commerce.color(), // Génère une couleur aléatoire pour le produit
+    //       ]
     //     )
     //   );
     // }
