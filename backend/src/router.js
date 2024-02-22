@@ -40,6 +40,12 @@ router.delete(`/privilege/:id`, privilegeController.deletePrivilege);
 
 // const itemControllers = require("./controllers/itemControllers");
 const eventControllers = require("./controllers/EventController");
+
+const userControllers = require("./controllers/UserController");
+const verifyToken = require("./services/auth");
+const hashedPassword = require("./services/hashedPassword");
+
+
 // Route to get a list of items
 // router.get("/items", itemControllers.browse);
 
@@ -51,19 +57,55 @@ const eventControllers = require("./controllers/EventController");
 
 // Route to get All Event
 router.get("/events", eventControllers.getAllEvents);
+
+/* ************************************************************************* */
 // Route to get a specific Event by ID
 router.get("/events/:id", eventControllers.getEventById);
+
+/* ************************************************************************* */
 
 // Route to create a new Event
 router.post("/events", eventControllers.createEvent);
 
+/* ************************************************************************* */
+
 // Route to update an Event
 router.put("/events/:id", eventControllers.updateEvents);
+
+/* ************************************************************************* */
 
 // Route to delete an Event
 router.delete("/events/:id", eventControllers.deleteEvent);
 
 /* ************************************************************************* */
+
+
+//* *** SPECIFIC ROUTES FOR USER ****
+// Route to get All Users
+router.get("/users", userControllers.getAllUsers);
+
+// Route to create a new User with hashedPassword
+router.post("/users", hashedPassword, userControllers.addUser);
+
+// Route to update User
+router.put("/users", verifyToken, userControllers.updateUser);
+
+// Route to delete User
+router.delete("/users", verifyToken, userControllers.deleteUser);
+
+// Route to login and logout User
+router.post("/login", userControllers.getUserByEmail);
+router.post("/logout", userControllers.logout);
+// Route to get User when login
+router.get("/me", verifyToken, userControllers.getUserById);
+
+// ROUTES FOR USER TO REINITIALIZE PASSWORD
+router.post(
+  "/reset-password",
+  verifyToken,
+  userControllers.createPasswordResetToken
+);
+router.put("/reset-password", verifyToken, userControllers.resetPassword);
 
 router.get("/discount", discountController.getDiscount);
 router.post("/discount", discountController.addDiscount);
@@ -72,5 +114,6 @@ router.put("/discount/:id", discountController.updateDiscount);
 
 router.get("/userDiscount", userDiscountController.getUserDiscount);
 router.post("/userDiscount", userDiscountController.addUserDiscount);
+
 
 module.exports = router;
