@@ -12,45 +12,46 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-const getUserByEmail = async (req, res, next) => {
+const getUserByEmail = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(401).json({ error: "Email and password are required" });
+      res.status(401).json({ error: "Email and password are required" });
+    } else {
+      const [user] = await tables.user.getUserByEmail(email);
+      if (user.length) {
+        const isMatch = await argon2.verify(user[0].hashedPassword, password);
+        if (typeof isMatch === "boolean" && isMatch) {
+          const token = jwt.sign(
+            { payload: user[0].id },
+            process.env.SECRET_KEY_JWT,
+            { expiresIn: "0,5h" }
+          );
+          res.status(200).send(token);
+        } else {
+          res.status(401).send("verifier vos informations");
+        }
+      } else {
+        res.status(401).send("l'adresse mail n'existe pas");
+      }
     }
-
-    const [user] = await tables.user.getUserByEmail(email);
-    if (!user.length) {
-      return res.status(404).json({ error: "User Not Found" });
-    }
-
-    const isMatch = await argon2.verify(user[0].hashedPassword, password);
-    if (!isMatch) {
-      return res
-        .status(401)
-        .json({ error: "Mail Invalid or Invalid Password" });
-    }
-
-    const token = jwt.sign({ userId: user[0].id }, "privateKey", {
-      expiresIn: "0.5h",
-    });
-    return res.status(200).json({ token });
   } catch (error) {
-    next(error);
+    res.status(500).send(error);
   }
 };
 
 const getUserById = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const userId = req.payload;
     const [user] = await tables.user.getUserById(userId);
     if (user.length) {
       delete user[0].hashedPassword;
-      return res.status(200).json({
+      res.status(200).json({
         message: `Welcome To THE LAB ${user[0].firstname} !`,
       });
+    } else {
+      res.status(404).send({ error: "User Not Found" });
     }
-    return res.status(404).send({ error: "User Not Found" });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -87,15 +88,15 @@ const addUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const id = parseInt(req.params.id, 10);
+  const id = req.payload;
   const {
     lastname,
     firstname,
     // email,
     hashedPassword,
-    isAdmin,
+    // isAdmin,
     birthday,
-    status,
+    // status,
   } = req.body;
 
   const updateFields = {};
@@ -112,15 +113,15 @@ const updateUser = async (req, res) => {
   if (hashedPassword !== undefined) {
     updateFields.hashedPassword = hashedPassword;
   }
-  if (isAdmin !== undefined) {
-    updateFields.isAdmin = isAdmin;
-  }
+  // if (isAdmin !== undefined) {
+  //   updateFields.isAdmin = isAdmin;
+  // }
   if (birthday !== undefined) {
     updateFields.birthday = birthday;
   }
-  if (status !== undefined) {
-    updateFields.status = status;
-  }
+  // if (status !== undefined) {
+  //   updateFields.status = status;
+  // }
 
   try {
     const [user] = await tables.user.updateUser(id, updateFields);
@@ -131,12 +132,31 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  const { id } = req.params;
   try {
+    const id = req.payload;
     const [user] = await tables.user.deleteUser(id);
-    res.status(200).json(user);
+    if (user.affectedRows) {
+      res.status(200).json({
+        message: "La suppression de l'utilisateur a été effectuée avec succès",
+      });
+    } else {
+      res.status(401).send("Problème lors de la suppression de l'utilisateur");
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+const logout = async (req, res) => {
+  try {
+    const id = req.payload;
+    const token = jwt.sign({ payload: id }, process.env.SECRET_KEY_JWT, {
+      expiresIn: "0h",
+    });
+
+    res.status(200).send(token);
+  } catch (error) {
+    res.status(500).send(error);
   }
 };
 
@@ -174,6 +194,7 @@ module.exports = {
   getUserByEmail,
   getUserById,
   deleteUser,
+  logout,
   createPasswordResetToken,
   resetPassword,
 };

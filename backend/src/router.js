@@ -24,8 +24,6 @@ const hashedPassword = require("./services/hashedPassword");
 
 // Route to get All Event
 router.get("/events", eventControllers.getAllEvents);
-// Route to get All Users
-router.get("/users", userControllers.getAllUsers);
 
 /* ************************************************************************* */
 // Route to get a specific Event by ID
@@ -35,8 +33,6 @@ router.get("/events/:id", eventControllers.getEventById);
 
 // Route to create a new Event
 router.post("/events", eventControllers.createEvent);
-// Route to login User
-router.post("/login", userControllers.getUserByEmail);
 
 /* ************************************************************************* */
 
@@ -51,15 +47,30 @@ router.delete("/events/:id", eventControllers.deleteEvent);
 /* ************************************************************************* */
 
 //* *** SPECIFIC ROUTES FOR USER ****
-
-// Route to get User when login
-router.get("/me", verifyToken, userControllers.getUserById);
+// Route to get All Users
+router.get("/users", userControllers.getAllUsers);
 
 // Route to create a new User with hashedPassword
 router.post("/users", hashedPassword, userControllers.addUser);
 
+// Route to update User
+router.put("/users", verifyToken, userControllers.updateUser);
+
+// Route to delete User
+router.delete("/users", verifyToken, userControllers.deleteUser);
+
+// Route to login and logout User
+router.post("/login", userControllers.getUserByEmail);
+router.post("/logout", userControllers.logout);
+// Route to get User when login
+router.get("/me", verifyToken, userControllers.getUserById);
+
 // ROUTES FOR USER TO REINITIALIZE PASSWORD
-router.post("/reset-password", userControllers.createPasswordResetToken);
-router.put("/reset-password", userControllers.resetPassword);
+router.post(
+  "/reset-password",
+  verifyToken,
+  userControllers.createPasswordResetToken
+);
+router.put("/reset-password", verifyToken, userControllers.resetPassword);
 
 module.exports = router;

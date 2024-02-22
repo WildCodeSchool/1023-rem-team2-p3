@@ -58,6 +58,8 @@ class UserManager extends AbstractManager {
     return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [id]);
   }
 
+  // METHODES A AJOUTER APRES LA CREATION DU BACKOFFICE //
+
   async desactivateUser(id) {
     return this.database.query(
       `UPDATE ${this.table} SET status = 'inactive' WHERE id = ?`,
@@ -78,6 +80,15 @@ class UserManager extends AbstractManager {
       [id]
     );
   }
+
+  async setUserNotAdmin(id) {
+    return this.database.query(
+      `UPDATE ${this.table} SET is_admin = user WHERE id = ?`,
+      [id]
+    );
+  }
+
+  // ********************************************* //
 
   // Methode pour réinisialiser le mot de passe
 
