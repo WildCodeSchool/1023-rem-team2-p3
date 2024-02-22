@@ -4,7 +4,7 @@
 require("dotenv").config();
 
 // Import Faker library for generating fake data
-// const { faker } = require("@faker-js/faker");
+const { faker } = require("@faker-js/faker");
 
 // Import database client
 const database = require("./database/client");
@@ -23,6 +23,7 @@ const seed = async () => {
 
     // Insert fake data into the 'user' table
 
+
     for (let i = 0; i < 10; i += 1) {
       queries.push(
         database.query(
@@ -30,11 +31,19 @@ const seed = async () => {
           [
             faker.person.lastName(),
             faker.person.firstName(),
+
             faker.internet.email(),
             faker.internet.password(),
             "user",
             faker.date.birthdate(),
+
+            "active",
           ]
+        )
+      );
+    }
+
+      ]
         )
       );
     }
@@ -55,6 +64,7 @@ const seed = async () => {
     //     )
     //   );
     // }
+
 
     // await database.query("truncate event");
 
@@ -140,6 +150,15 @@ const seed = async () => {
     // for (let i = 0; i < 10; i += 1) {
     //   queries.push(
     //     database.query(
+    //       "insert into privilege(name, price, product_id, user_id) values ('premium', 49, 1, 1), ('basic', 39, 1, 2)"
+    //     )
+    //   );
+    // }
+
+
+    // for (let i = 0; i < 10; i += 1) {
+    //   queries.push(
+    //     database.query(
     //       "insert into privilege(name, price, product_id, user_id) values (?,?,?,?)",
     //       [faker.lorem.word()]
     //     )
@@ -153,6 +172,7 @@ const seed = async () => {
         )
       );
     }
+
     // await database.query("truncate product");
 
 

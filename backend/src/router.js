@@ -18,13 +18,13 @@ router.put("/user/info/:id", upload, userInfoController.edit); // USER_INFO
 
 // Import itemControllers module for handling item-related operations
 
-const itemControllers = require("./controllers/itemControllers");
+// const itemControllers = require("./controllers/itemControllers");
 const discountController = require("./controllers/discountController");
 const userDiscountController = require("./controllers/userDiscountController");
 const noteController = require("./controllers/noteController");
 const scoreCardController = require("./controllers/scoreCardController");
 const privilegeController = require("./controllers/privilegeController");
-
+const paymentController = require("./controllers/paymentController");
 // Route to get a list of items
 router.get(`/note`, noteController.getNote);
 router.get(`/score_card`, scoreCardController.getScoreCard);
@@ -124,6 +124,12 @@ router.put("/discount/:id", discountController.updateDiscount);
 
 router.get("/userDiscount", userDiscountController.getUserDiscount);
 router.post("/userDiscount", userDiscountController.addUserDiscount);
+
+router.get("/payment", paymentController.getPayment);
+router.post("/payment", paymentController.addPayment);
+router.put("/payment/:bill_number", paymentController.updatePayment);
+// router.delete("/payment/:id", paymentController.deletePayment);
+
 
 
 module.exports = router;

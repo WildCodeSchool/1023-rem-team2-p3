@@ -16,17 +16,20 @@ const UserManager = require("./models/UserManager");
 const PrivilegeManager = require("./models/PrivilegeManager");
 const discountManager = require("./models/discountModel");
 const userDiscountManager = require("./models/userDiscountModel");
+const paymentManager = require("./models/paymentManager");
 
 
 const managers = [
   NoteManager,
   ScoreCardManager,
   EventManager,
+  paymentManager,
   UserManager,
   PrivilegeManager, 
   discountManager,
   userDiscountManager,
   UserInfoManager
+
 
 
 
