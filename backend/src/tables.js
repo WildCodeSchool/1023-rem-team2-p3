@@ -4,6 +4,9 @@
 
 // Import the manager modules responsible for handling data operations on the tables
 
+const UserInfoManager = require("./models/UserInfoManager");
+
+
 const NoteManager = require("./models/NoteManager");
 const ScoreCardManager = require("./models/ScoreCardManager");
 const EventManager = require("./models/EventManager");
@@ -23,6 +26,8 @@ const managers = [
   PrivilegeManager, 
   discountManager,
   userDiscountManager,
+  UserInfoManager
+
 
 
   // Add other managers here
