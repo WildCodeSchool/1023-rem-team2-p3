@@ -3,14 +3,28 @@
 /* ************************************************************************* */
 
 // Import the manager modules responsible for handling data operations on the tables
-const ItemManager = require("./models/ItemManager");
+
+const NoteManager = require("./models/NoteManager");
+const ScoreCardManager = require("./models/ScoreCardManager");
 const EventManager = require("./models/EventManager");
+
 const UserManager = require("./models/UserManager");
 
+const PrivilegeManager = require("./models/PrivilegeManager");
+const discountManager = require("./models/discountModel");
+const userDiscountManager = require("./models/userDiscountModel");
+
+
 const managers = [
-  ItemManager,
+  NoteManager,
+  ScoreCardManager,
   EventManager,
   UserManager,
+  PrivilegeManager, 
+  discountManager,
+  userDiscountManager,
+
+
   // Add other managers here
 ];
 

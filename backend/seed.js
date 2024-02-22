@@ -4,7 +4,7 @@
 require("dotenv").config();
 
 // Import Faker library for generating fake data
-const { faker } = require("@faker-js/faker");
+// const { faker } = require("@faker-js/faker");
 
 // Import database client
 const database = require("./database/client");
@@ -22,22 +22,22 @@ const seed = async () => {
     // Optional: Truncate tables (remove existing data)
 
     // Insert fake data into the 'user' table
-    for (let i = 0; i < 10; i += 1) {
-      queries.push(
-        database.query(
-          "insert into user (lastname, firstname, email, hashedPassword, is_admin, birthday, status) values (?,?,?,?,?,?,?)",
-          [
-            faker.name.lastName(),
-            faker.name.firstName(),
-            faker.internet.email(),
-            faker.internet.password(),
-            "user",
-            faker.date.birthdate(),
-            "active",
-          ]
-        )
-      );
-    }
+    // for (let i = 0; i < 10; i += 1) {
+    //   queries.push(
+    //     database.query(
+    //       "insert into user (lastname, firstname, email, hashedPassword, is_admin, birthday, status) values (?,?,?,?,?,?,?)",
+    //       [
+    //         faker.name.lastName(),
+    //         faker.name.firstName(),
+    //         faker.internet.email(),
+    //         faker.internet.password(),
+    //         "user",
+    //         faker.date.birthdate(),
+    //         "active",
+    //       ]
+    //     )
+    //   );
+    // }
     // await database.query("truncate event");
 
     // // Insert fake data into the 'event' table
@@ -84,12 +84,11 @@ const seed = async () => {
     // }
     // await database.query("truncate note");
 
-    // // Insert fake data into the 'note' table
+    // Insert fake data into the 'note' table
     // for (let i = 0; i < 10; i += 1) {
     //   queries.push(
     //     database.query(
-    //       "insert into note(note_physique, note_vitesse, note_passe, note_tir, note_dribble, note_vista, note_cf, note_plongeon, note_arrets, note_dega, note_pied_faible, note_gen, user_id) values (?,?,?,?,?,?,?,?,?,?,?,?,?)",
-    //       [faker.lorem.word()]
+    //       "insert into note(note_physique, note_vitesse, note_passe, note_tir, note_dribble, note_vista, note_cf, note_plongeon, note_arrets, note_dega, note_pied_faible, note_gen, user_id) values (50, 60, 40, 50, 60, 40, 50, 60, 40, 50, 60, 40, 1),(50, 60, 40, 50, 60, 40, 50, 60, 40, 50, 60, 40, 2), (50, 60, 40, 50, 60, 40, 50, 60, 40, 50, 60, 40, 3), (50, 60, 40, 50, 60, 40, 50, 60, 40, 50, 60, 40, 4), (50, 60, 40, 50, 60, 40, 50, 60, 40, 50, 60, 40, 5)"
     //     )
     //   );
     // }
@@ -97,34 +96,31 @@ const seed = async () => {
 
     // // Insert fake data into the 'score_card' table
     // for (let i = 0; i < 10; i += 1) {
-    //   queries.push(
-    //     database.query(
-    //       "insert into score_card(photo_user, note_id) values (?,?)",
-    //       [faker.lorem.word()]
-    //     )
-    //   );
+    // queries.push(
+    // database.query(
+    //   "insert into score_card (photo_user, note_id) values ('url_photo_1.jpg', 1)"
+    // )
+    // );
     // }
     // await database.query("truncate privilege");
 
     // // Insert fake data into the 'privilege' table
-    // for (let i = 0; i < 10; i += 1) {
-    //   queries.push(
-    //     database.query(
-    //       "insert into privilege(name, price, product_id, user_id) values (?,?,?,?)",
-    //       [faker.lorem.word()]
-    //     )
-    //   );
-    // }
+    for (let i = 0; i < 10; i += 1) {
+      queries.push(
+        database.query(
+          "insert into privilege(name, price, product_id, user_id) values ('premium', 49, 1, 1), ('basic', 39, 1, 2)"
+        )
+      );
+    }
     // await database.query("truncate product");
 
     // // Insert fake data into the 'product' table
     // for (let i = 0; i < 10; i += 1) {
-    //   queries.push(
-    //     database.query(
-    //       "insert into product(name, img, size, color) values (?,?,?,?)",
-    //       [faker.lorem.word()]
-    //     )
-    //   );
+    // queries.push(
+    //  database.query(
+    //    "insert into product(name, img, size, color) values ('classic', 'crumpon1.jpg', 35, 'black')"
+    //  )
+    // );
     // }
     // await database.query("truncate order");
 
