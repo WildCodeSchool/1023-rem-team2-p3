@@ -4,7 +4,7 @@
 require("dotenv").config();
 
 // Import Faker library for generating fake data
-// const { faker } = require("@faker-js/faker");
+const { faker } = require("@faker-js/faker");
 
 // Import database client
 const database = require("./database/client");
@@ -22,22 +22,22 @@ const seed = async () => {
     // Optional: Truncate tables (remove existing data)
 
     // Insert fake data into the 'user' table
-    // for (let i = 0; i < 10; i += 1) {
-    //   queries.push(
-    //     database.query(
-    //       "insert into user (lastname, firstname, email, hashedPassword, is_admin, birthday, status) values (?,?,?,?,?,?,?)",
-    //       [
-    //         faker.name.lastName(),
-    //         faker.name.firstName(),
-    //         faker.internet.email(),
-    //         faker.internet.password(),
-    //         "user",
-    //         faker.date.birthdate(),
-    //         "active",
-    //       ]
-    //     )
-    //   );
-    // }
+    for (let i = 0; i < 10; i += 1) {
+      queries.push(
+        database.query(
+          "insert into user (lastname, firstname, email, hashedPassword, is_admin, birthday, status) values (?,?,?,?,?,?,?)",
+          [
+            faker.name.lastName(),
+            faker.name.firstName(),
+            faker.internet.email(),
+            faker.internet.password(),
+            "user",
+            faker.date.birthdate(),
+            "active",
+          ]
+        )
+      );
+    }
     // await database.query("truncate event");
 
     // // Insert fake data into the 'event' table
@@ -105,13 +105,13 @@ const seed = async () => {
     // await database.query("truncate privilege");
 
     // // Insert fake data into the 'privilege' table
-    for (let i = 0; i < 10; i += 1) {
-      queries.push(
-        database.query(
-          "insert into privilege(name, price, product_id, user_id) values ('premium', 49, 1, 1), ('basic', 39, 1, 2)"
-        )
-      );
-    }
+    // for (let i = 0; i < 10; i += 1) {
+    //   queries.push(
+    //     database.query(
+    //       "insert into privilege(name, price, product_id, user_id) values ('premium', 49, 1, 1), ('basic', 39, 1, 2)"
+    //     )
+    //   );
+    // }
     // await database.query("truncate product");
 
     // // Insert fake data into the 'product' table
