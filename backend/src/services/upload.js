@@ -10,7 +10,6 @@ const storage = multer.diskStorage({
     cb(null, `${uniqueSuffix}-${file.originalname}`);
   },
 });
-// choisir l'extention de fichier
 
 const fileFilter = (req, file, cb) => {
   if (

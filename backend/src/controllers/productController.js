@@ -25,7 +25,7 @@ const read = async (req, res, next) => {
 };
 
 const edit = async (req, res) => {
-  const { id } = req.params.id;
+  const { id } = req.params;
   const { name, color } = req.body;
 
   const img = req.file.path;
@@ -46,7 +46,6 @@ const edit = async (req, res) => {
       id,
       updateFields
     );
-    // console.log(result.affectedRows);
     if (result.affectedRows) {
       res.status(201).send("created");
     } else {

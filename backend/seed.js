@@ -23,21 +23,21 @@ const seed = async () => {
 
     // Insert fake data into the 'user' table
 
-    for (let i = 0; i < 10; i += 1) {
-      queries.push(
-        database.query(
-          "insert into user (lastname, firstname, email, hashedPassword, is_admin, birthday) values (?,?,?,?,?,?)",
-          [
-            faker.person.lastName(),
-            faker.person.firstName(),
-            faker.internet.email(),
-            faker.internet.password(),
-            "user",
-            faker.date.birthdate(),
-          ]
-        )
-      );
-    }
+    // for (let i = 0; i < 10; i += 1) {
+    //   queries.push(
+    //     database.query(
+    //       "insert into user (lastname, firstname, email, hashedPassword, is_admin, birthday) values (?,?,?,?,?,?)",
+    //       [
+    //         faker.person.lastName(),
+    //         faker.person.firstName(),
+    //         faker.internet.email(),
+    //         faker.internet.password(),
+    //         "user",
+    //         faker.date.birthdate(),
+    //       ]
+    //     )
+    //   );
+    // }
 
     // for (let i = 0; i < 10; i += 1) {
     //   queries.push(
@@ -154,7 +154,6 @@ const seed = async () => {
       );
     }
     // await database.query("truncate product");
-
 
     //     await database.query("truncate product");
 
