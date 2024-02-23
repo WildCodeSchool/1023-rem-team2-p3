@@ -13,17 +13,17 @@ const UserManager = require("./models/UserManager");
 const PrivilegeManager = require("./models/PrivilegeManager");
 const discountManager = require("./models/discountModel");
 const userDiscountManager = require("./models/userDiscountModel");
-
+const StockEventManager = require("./models/StockEventManager");
 
 const managers = [
   NoteManager,
   ScoreCardManager,
   EventManager,
   UserManager,
-  PrivilegeManager, 
+  PrivilegeManager,
   discountManager,
   userDiscountManager,
-
+  StockEventManager,
 
   // Add other managers here
 ];

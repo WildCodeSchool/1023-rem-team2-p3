@@ -7,14 +7,18 @@ router.use(express.json());
 // Define Your API Routes Here
 /* ************************************************************************* */
 
-// Import itemControllers module for handling item-related operations
+const verifyToken = require("./services/auth");
+const hashedPassword = require("./services/hashedPassword");
 
-const itemControllers = require("./controllers/itemControllers");
+// const itemControllers = require("./controllers/itemControllers");
+const userControllers = require("./controllers/UserController");
+const eventControllers = require("./controllers/EventController");
 const discountController = require("./controllers/discountController");
 const userDiscountController = require("./controllers/userDiscountController");
 const noteController = require("./controllers/noteController");
 const scoreCardController = require("./controllers/scoreCardController");
 const privilegeController = require("./controllers/privilegeController");
+const stockEventController = require("./controllers/StockEventController");
 
 // Route to get a list of items
 router.get(`/note`, noteController.getNote);
@@ -39,21 +43,15 @@ router.delete(`/score_card/:id`, scoreCardController.deleteScoreCard);
 router.delete(`/privilege/:id`, privilegeController.deletePrivilege);
 
 // const itemControllers = require("./controllers/itemControllers");
-const eventControllers = require("./controllers/EventController");
 
-const userControllers = require("./controllers/UserController");
-const verifyToken = require("./services/auth");
-const hashedPassword = require("./services/hashedPassword");
+// Route to get All Inscriptions for an Event
+router.get("/stockEvent", stockEventController.getAllStockEvents);
+// Route to create a new Inscription for an Event
+router.post("/stockEvent", stockEventController.createStockEvent);
+// Route to check if a user is already inscribed for an Event
+router.post("/stockEvent/check", stockEventController.checkUserEvent);
 
-
-// Route to get a list of items
-// router.get("/items", itemControllers.browse);
-
-// Route to get a specific item by ID
-// router.get("/items/:id", itemControllers.read);
-
-// Route to add a new item
-// router.post("/items", itemControllers.add);
+/* ************************************************************************* */
 
 // Route to get All Event
 router.get("/events", eventControllers.getAllEvents);
@@ -78,7 +76,6 @@ router.put("/events/:id", eventControllers.updateEvents);
 router.delete("/events/:id", eventControllers.deleteEvent);
 
 /* ************************************************************************* */
-
 
 //* *** SPECIFIC ROUTES FOR USER ****
 // Route to get All Users
@@ -114,6 +111,5 @@ router.put("/discount/:id", discountController.updateDiscount);
 
 router.get("/userDiscount", userDiscountController.getUserDiscount);
 router.post("/userDiscount", userDiscountController.addUserDiscount);
-
 
 module.exports = router;

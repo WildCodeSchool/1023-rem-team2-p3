@@ -16,9 +16,9 @@ CREATE TABLE user (
     firstname VARCHAR(80) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     hashedPassword VARCHAR(255) NOT NULL,
-    is_admin ENUM ('user', 'admin', 'superAdmin') NOT NULL,
+    is_admin ENUM ('user', 'admin', 'superAdmin') DEFAULT 'user',
     birthday DATE NOT NULL,
-    status ENUM('active', 'inactive') NOT NULL,
+    status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -29,7 +29,7 @@ CREATE TABLE event (
     date DATE NOT NULL,
     address VARCHAR(250) NOT NULL,
     quantity INT NOT NULL,
-    status ENUM('active', 'inactive') NOT NULL,
+    status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
