@@ -1,6 +1,8 @@
 const express = require("express");
+
 const router = express.Router();
 const userInfoController = require("./controllers/userInfoController");
+const productController = require("./controllers/productController");
 const upload = require("./services/upload");
 
 router.get("/user/info", userInfoController.browse); // USER_INFO
@@ -11,14 +13,21 @@ router.post("/user/info", upload, userInfoController.add); // USER_INFO
 
 router.put("/user/info/:id", upload, userInfoController.edit); // USER_INFO
 
+// Route pour récupérer tous les produits
+router.get("/products", productController.browse);
 
-/* ************************************************************************* */
-// Define Your API Routes Here
-/* ************************************************************************* */
+// Route pour récupérer un produit par son ID
+router.get("/products/:id", productController.read);
 
-// Import itemControllers module for handling item-related operations
+// Route pour ajouter un nouveau produit
+router.post("/products", upload, productController.add);
 
-const itemControllers = require("./controllers/itemControllers");
+// Route pour mettre à jour un produit existant
+router.put("/products/:id", upload, productController.edit);
+
+// Route pour supprimer un produit
+router.delete("/products/:id", productController.remove);
+
 const discountController = require("./controllers/discountController");
 const userDiscountController = require("./controllers/userDiscountController");
 const noteController = require("./controllers/noteController");
@@ -54,7 +63,6 @@ const userControllers = require("./controllers/UserController");
 const verifyToken = require("./services/auth");
 const hashedPassword = require("./services/hashedPassword");
 
-
 // Route to get a list of items
 // router.get("/items", itemControllers.browse);
 
@@ -70,7 +78,6 @@ router.get("/events", eventControllers.getAllEvents);
 /* ************************************************************************* */
 // Route to get a specific Event by ID
 router.get("/events/:id", eventControllers.getEventById);
-
 
 // router.delete('/user/info/:id', userInfoController.delete);  // USER_INFO
 
@@ -88,7 +95,6 @@ router.put("/events/:id", eventControllers.updateEvents);
 router.delete("/events/:id", eventControllers.deleteEvent);
 
 /* ************************************************************************* */
-
 
 //* *** SPECIFIC ROUTES FOR USER ****
 // Route to get All Users
@@ -124,6 +130,5 @@ router.put("/discount/:id", discountController.updateDiscount);
 
 router.get("/userDiscount", userDiscountController.getUserDiscount);
 router.post("/userDiscount", userDiscountController.addUserDiscount);
-
 
 module.exports = router;
