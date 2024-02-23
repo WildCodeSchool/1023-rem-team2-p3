@@ -4,7 +4,7 @@
 require("dotenv").config();
 
 // Import Faker library for generating fake data
-// const { faker } = require("@faker-js/faker");
+const { faker } = require("@faker-js/faker");
 
 // Import database client
 const database = require("./database/client");
@@ -22,6 +22,32 @@ const seed = async () => {
     // Optional: Truncate tables (remove existing data)
 
     // Insert fake data into the 'user' table
+
+
+    for (let i = 0; i < 10; i += 1) {
+      queries.push(
+        database.query(
+          "insert into user (lastname, firstname, email, hashedPassword, is_admin, birthday) values (?,?,?,?,?,?)",
+          [
+            faker.person.lastName(),
+            faker.person.firstName(),
+
+            faker.internet.email(),
+            faker.internet.password(),
+            "user",
+            faker.date.birthdate(),
+
+            "active",
+          ]
+        )
+      );
+    }
+
+      ]
+        )
+      );
+    }
+
     // for (let i = 0; i < 10; i += 1) {
     //   queries.push(
     //     database.query(
@@ -38,6 +64,8 @@ const seed = async () => {
     //     )
     //   );
     // }
+
+
     // await database.query("truncate event");
 
     // // Insert fake data into the 'event' table
@@ -71,14 +99,27 @@ const seed = async () => {
     //     )
     //   );
     // }
+
     // await database.query("truncate user_info");
 
-    // // Insert fake data into the 'user_info' table
+    // Insert fake data into the 'user_info' table
     // for (let i = 0; i < 10; i += 1) {
     //   queries.push(
     //     database.query(
     //       "insert into user_info(avatar, taille, poids, pointure, pied_fort, poste, sexe, numero_de_telephone, adresse_postale, ville, user_id) values (?,?,?,?,?,?,?,?,?,?,?)",
-    //       [faker.lorem.word()]
+    //       [
+    //         faker.image.avatar(), // Génère une image avatar aléatoire
+    //         faker.datatype.number(), // Génère un nombre aléatoire
+    //         faker.datatype.number(), // Génère un nombre aléatoire
+    //         faker.datatype.number(), // Génère un nombre aléatoire
+    //         faker.lorem.word(), // Génère un mot aléatoire pour pied_fort
+    //         faker.lorem.word(), // Génère un mot aléatoire pour le poste
+    //         faker.random.arrayElement(['male', 'female']), // Génère un sexe aléatoire
+    //         faker.phone.phoneNumber(), // Génère un numéro de téléphone aléatoire
+    //         faker.address.streetAddress(), // Génère une adresse postale aléatoire
+    //         faker.address.city(), // Génère une ville aléatoire
+    //         faker.random.uuid(), // Génère un identifiant utilisateur aléatoire (vous devrez peut-être adapter cela en fonction de votre système d'authentification)
+    //       ]
     //     )
     //   );
     // }
@@ -105,6 +146,25 @@ const seed = async () => {
     // await database.query("truncate privilege");
 
     // // Insert fake data into the 'privilege' table
+
+    // for (let i = 0; i < 10; i += 1) {
+    //   queries.push(
+    //     database.query(
+    //       "insert into privilege(name, price, product_id, user_id) values ('premium', 49, 1, 1), ('basic', 39, 1, 2)"
+    //     )
+    //   );
+    // }
+
+
+    // for (let i = 0; i < 10; i += 1) {
+    //   queries.push(
+    //     database.query(
+    //       "insert into privilege(name, price, product_id, user_id) values (?,?,?,?)",
+    //       [faker.lorem.word()]
+    //     )
+    //   );
+    // }
+
     for (let i = 0; i < 10; i += 1) {
       queries.push(
         database.query(
@@ -112,15 +172,32 @@ const seed = async () => {
         )
       );
     }
+
     // await database.query("truncate product");
 
-    // // Insert fake data into the 'product' table
+
+    //     await database.query("truncate product");
+
+    //     // Insert fake data into the 'product' table
     // for (let i = 0; i < 10; i += 1) {
+
+    //   queries.push(
+    //     database.query(
+    //       "insert into product(name, img, size, color) values (?,?,?,?)",
+    //       [
+    //         faker.commerce.productName(), // Génère un nom de produit aléatoire
+    //         faker.image.imageUrl(), // Génère une URL d'image aléatoire pour le produit
+    //         faker.random.arrayElement(['S', 'M', 'L', 'XL']), // Génère une taille aléatoire parmi les choix disponibles
+    //         faker.commerce.color(), // Génère une couleur aléatoire pour le produit
+    //       ]
+    //     )
+    //   );
     // queries.push(
     //  database.query(
     //    "insert into product(name, img, size, color) values ('classic', 'crumpon1.jpg', 35, 'black')"
     //  )
     // );
+
     // }
     // await database.query("truncate order");
 
