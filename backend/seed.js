@@ -23,7 +23,6 @@ const seed = async () => {
 
     // Insert fake data into the 'user' table
 
-
     for (let i = 0; i < 10; i += 1) {
       queries.push(
         database.query(
@@ -43,10 +42,10 @@ const seed = async () => {
       );
     }
 
-      ]
-        )
-      );
-    }
+    //   ]
+    //     )
+    //   );
+    // }
 
     // for (let i = 0; i < 10; i += 1) {
     //   queries.push(
@@ -64,7 +63,6 @@ const seed = async () => {
     //     )
     //   );
     // }
-
 
     // await database.query("truncate event");
 
@@ -155,7 +153,6 @@ const seed = async () => {
     //   );
     // }
 
-
     // for (let i = 0; i < 10; i += 1) {
     //   queries.push(
     //     database.query(
@@ -165,16 +162,15 @@ const seed = async () => {
     //   );
     // }
 
-    for (let i = 0; i < 10; i += 1) {
-      queries.push(
-        database.query(
-          "insert into privilege(name, price, product_id, user_id) values ('premium', 49, 1, 1), ('basic', 39, 1, 2)"
-        )
-      );
-    }
+    // for (let i = 0; i < 10; i += 1) {
+    //   queries.push(
+    //     database.query(
+    //       "insert into privilege(name, price, product_id, user_id) values ('premium', 49, 1, 1), ('basic', 39, 1, 2)"
+    //     )
+    //   );
+    // }
 
     // await database.query("truncate product");
-
 
     //     await database.query("truncate product");
 

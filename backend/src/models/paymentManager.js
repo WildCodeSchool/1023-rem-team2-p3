@@ -43,6 +43,20 @@ class PaymentManager extends AbstractManager {
       [bill_number]
     );
   }
+
+  async getPaymentById({ bill_number }) {
+    return this.database.query(
+      `select * from ${this.table} where bill_number = ?`,
+      [bill_number]
+    );
+  }
+
+  async updateStatusPayment({ bill_number }) {
+    return this.database.query(
+      `UPDATE ${this.table} SET status = true WHERE bill_number = ?`,
+      [bill_number]
+    );
+  }
 }
 
 module.exports = PaymentManager;

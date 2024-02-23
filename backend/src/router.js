@@ -1,4 +1,5 @@
 const express = require("express");
+
 const router = express.Router();
 const userInfoController = require("./controllers/userInfoController");
 const upload = require("./services/upload");
@@ -10,7 +11,6 @@ router.get("/user/info/:id", userInfoController.read); // USER_INFO
 router.post("/user/info", upload, userInfoController.add); // USER_INFO
 
 router.put("/user/info/:id", upload, userInfoController.edit); // USER_INFO
-
 
 /* ************************************************************************* */
 // Define Your API Routes Here
@@ -25,6 +25,7 @@ const noteController = require("./controllers/noteController");
 const scoreCardController = require("./controllers/scoreCardController");
 const privilegeController = require("./controllers/privilegeController");
 const paymentController = require("./controllers/paymentController");
+const orderController = require("./controllers/orderController");
 // Route to get a list of items
 router.get(`/note`, noteController.getNote);
 router.get(`/score_card`, scoreCardController.getScoreCard);
@@ -54,7 +55,6 @@ const userControllers = require("./controllers/UserController");
 const verifyToken = require("./services/auth");
 const hashedPassword = require("./services/hashedPassword");
 
-
 // Route to get a list of items
 // router.get("/items", itemControllers.browse);
 
@@ -70,7 +70,6 @@ router.get("/events", eventControllers.getAllEvents);
 /* ************************************************************************* */
 // Route to get a specific Event by ID
 router.get("/events/:id", eventControllers.getEventById);
-
 
 // router.delete('/user/info/:id', userInfoController.delete);  // USER_INFO
 
@@ -88,7 +87,6 @@ router.put("/events/:id", eventControllers.updateEvents);
 router.delete("/events/:id", eventControllers.deleteEvent);
 
 /* ************************************************************************* */
-
 
 //* *** SPECIFIC ROUTES FOR USER ****
 // Route to get All Users
@@ -130,6 +128,7 @@ router.post("/payment", paymentController.addPayment);
 router.put("/payment/:bill_number", paymentController.updatePayment);
 // router.delete("/payment/:id", paymentController.deletePayment);
 
-
+router.get("/order", orderController.getOrder);
+router.post("/order", orderController.addOrders);
 
 module.exports = router;

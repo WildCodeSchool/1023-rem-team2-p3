@@ -150,7 +150,6 @@ CREATE TABLE privilege (
 
 CREATE TABLE orders (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    order_number VARCHAR(80) NOT NULL,
     payment_bill_number INT NOT NULL,
     CONSTRAINT fk_order_payment_bill_number FOREIGN KEY (payment_bill_number) REFERENCES payment(bill_number),
     product_id INT,
