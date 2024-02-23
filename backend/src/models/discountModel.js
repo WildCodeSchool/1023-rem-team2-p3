@@ -63,6 +63,13 @@ class discountManager extends AbstractManager {
     );
     return status;
   }
+
+  async queryAddDiscountById({ id }) {
+    return this.database.query(
+      `SELECT percent_value FROM ${this.table} where id = ?`,
+      [id]
+    );
+  }
 }
 
 module.exports = discountManager;

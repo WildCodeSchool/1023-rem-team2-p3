@@ -16,9 +16,9 @@ CREATE TABLE user (
     firstname VARCHAR(80) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     hashedPassword VARCHAR(255) NOT NULL,
-    is_admin ENUM ('user', 'admin', 'superAdmin') NOT NULL,
+    is_admin ENUM ('user', 'admin', 'superAdmin') DEFAULT 'user',
     birthday DATE NOT NULL,
-    status ENUM('active', 'inactive') NOT NULL,
+    status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -29,7 +29,7 @@ CREATE TABLE event (
     date DATE NOT NULL,
     address VARCHAR(250) NOT NULL,
     quantity INT NOT NULL,
-    status ENUM('active', 'inactive') NOT NULL,
+    status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -56,18 +56,17 @@ CREATE TABLE discount (
 );
 
 CREATE TABLE payment (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    bill_number VARCHAR(80) NOT NULL,
-    amount DECIMAL NOT NULL,
+    bill_number INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    amount DECIMAL(10, 2) NOT NULL,
     payment_method VARCHAR(80) NOT NULL,
-    status VARCHAR(80) NOT NULL,
+    status BOOLEAN NOT NULL DEFAULT false,
     discount_id INT,
     CONSTRAINT fk_payment_discount_id FOREIGN KEY (discount_id) REFERENCES discount(id),
     user_id INT NOT NULL,
     CONSTRAINT fk_payment_user_id FOREIGN KEY (user_id) REFERENCES user(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+) AUTO_INCREMENT=1000;
 
 CREATE TABLE user_discount (
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -150,9 +149,8 @@ CREATE TABLE privilege (
 
 CREATE TABLE orders (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    order_number VARCHAR(80) NOT NULL,
-    payment_id INT NOT NULL,
-    CONSTRAINT fk_order_payment_id FOREIGN KEY (payment_id) REFERENCES payment(id),
+    payment_bill_number INT NOT NULL,
+    CONSTRAINT fk_order_payment_bill_number FOREIGN KEY (payment_bill_number) REFERENCES payment(bill_number),
     product_id INT,
     CONSTRAINT fk_order_product_id FOREIGN KEY (product_id) REFERENCES product(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

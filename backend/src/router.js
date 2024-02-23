@@ -1,17 +1,24 @@
 const express = require("express");
-
 const router = express.Router();
-const userInfoController = require("./controllers/userInfoController");
-const productController = require("./controllers/productController");
 const upload = require("./services/upload");
 
-router.get("/user/info", userInfoController.browse); // USER_INFO
+const verifyToken = require("./services/auth");
+const hashedPassword = require("./services/hashedPassword");
 
-router.get("/user/info/:id", userInfoController.read); // USER_INFO
+const discountController = require("./controllers/discountController");
+const userDiscountController = require("./controllers/userDiscountController");
+const noteController = require("./controllers/noteController");
+const scoreCardController = require("./controllers/scoreCardController");
+const privilegeController = require("./controllers/privilegeController");
+const userInfoController = require("./controllers/userInfoController");
+const stockEventController = require("./controllers/StockEventController");
+const paymentController = require("./controllers/paymentController");
+const orderController = require("./controllers/orderController");
+const userControllers = require("./controllers/UserController");
+const eventControllers = require("./controllers/EventController");
+const productController = require("./controllers/productController");
 
-router.post("/user/info", upload, userInfoController.add); // USER_INFO
 
-router.put("/user/info/:id", upload, userInfoController.edit); // USER_INFO
 
 // Route pour récupérer tous les produits
 router.get("/products", productController.browse);
@@ -25,14 +32,11 @@ router.post("/products", upload, productController.add);
 // Route pour mettre à jour un produit existant
 router.put("/products/:id", upload, productController.edit);
 
+
 // Route pour supprimer un produit
 router.delete("/products/:id", productController.remove);
 
-const discountController = require("./controllers/discountController");
-const userDiscountController = require("./controllers/userDiscountController");
-const noteController = require("./controllers/noteController");
-const scoreCardController = require("./controllers/scoreCardController");
-const privilegeController = require("./controllers/privilegeController");
+
 
 // Route to get a list of items
 router.get(`/note`, noteController.getNote);
@@ -56,21 +60,17 @@ router.delete(`/note/:id`, noteController.deleteNote);
 router.delete(`/score_card/:id`, scoreCardController.deleteScoreCard);
 router.delete(`/privilege/:id`, privilegeController.deletePrivilege);
 
-// const itemControllers = require("./controllers/itemControllers");
-const eventControllers = require("./controllers/EventController");
 
-const userControllers = require("./controllers/UserController");
-const verifyToken = require("./services/auth");
-const hashedPassword = require("./services/hashedPassword");
 
-// Route to get a list of items
-// router.get("/items", itemControllers.browse);
+// Route to get All Inscriptions for an Event
+router.get("/stockEvent", stockEventController.getAllStockEvents);
+// Route to create a new Inscription for an Event
+router.post("/stockEvent", stockEventController.createStockEvent);
+// Route to check if a user is already inscribed for an Event
+router.post("/stockEvent/check", stockEventController.checkUserEvent);
 
-// Route to get a specific item by ID
-// router.get("/items/:id", itemControllers.read);
 
-// Route to add a new item
-// router.post("/items", itemControllers.add);
+/* ************************************************************************* */
 
 // Route to get All Event
 router.get("/events", eventControllers.getAllEvents);
@@ -130,5 +130,25 @@ router.put("/discount/:id", discountController.updateDiscount);
 
 router.get("/userDiscount", userDiscountController.getUserDiscount);
 router.post("/userDiscount", userDiscountController.addUserDiscount);
+
+
+
+router.get("/payment", paymentController.getPayment);
+router.post("/payment", paymentController.addPayment);
+router.put("/payment/:bill_number", paymentController.updatePayment);
+// router.delete("/payment/:id", paymentController.deletePayment);
+
+router.get("/user/info", userInfoController.browse); // USER_INFO
+
+router.get("/user/info/:id", userInfoController.read); // USER_INFO
+
+router.post("/user/info", upload, userInfoController.add); // USER_INFO
+
+router.put("/user/info/:id", upload, userInfoController.edit); // USER_INFO
+
+router.get("/order", orderController.getOrder);
+router.post("/order", orderController.addOrders);
+
+
 
 module.exports = router;
