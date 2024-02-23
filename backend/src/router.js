@@ -1,7 +1,7 @@
 const express = require("express");
+
 const router = express.Router();
 const upload = require("./services/upload");
-
 
 
 
@@ -24,6 +24,9 @@ const privilegeController = require("./controllers/privilegeController");
 const userInfoController = require("./controllers/userInfoController");
 const stockEventController = require("./controllers/StockEventController");
 const paymentController = require("./controllers/paymentController");
+const orderController = require("./controllers/orderController");
+
+
 
 // Route to get a list of items
 router.get(`/note`, noteController.getNote);
@@ -47,7 +50,10 @@ router.delete(`/note/:id`, noteController.deleteNote);
 router.delete(`/score_card/:id`, scoreCardController.deleteScoreCard);
 router.delete(`/privilege/:id`, privilegeController.deletePrivilege);
 
-// const itemControllers = require("./controllers/itemControllers");
+
+
+
+
 
 // Route to get All Inscriptions for an Event
 router.get("/stockEvent", stockEventController.getAllStockEvents);
@@ -55,6 +61,7 @@ router.get("/stockEvent", stockEventController.getAllStockEvents);
 router.post("/stockEvent", stockEventController.createStockEvent);
 // Route to check if a user is already inscribed for an Event
 router.post("/stockEvent/check", stockEventController.checkUserEvent);
+
 
 /* ************************************************************************* */
 
@@ -64,7 +71,6 @@ router.get("/events", eventControllers.getAllEvents);
 /* ************************************************************************* */
 // Route to get a specific Event by ID
 router.get("/events/:id", eventControllers.getEventById);
-
 
 // router.delete('/user/info/:id', userInfoController.delete);  // USER_INFO
 
@@ -130,6 +136,9 @@ router.get("/user/info/:id", userInfoController.read); // USER_INFO
 router.post("/user/info", upload, userInfoController.add); // USER_INFO
 
 router.put("/user/info/:id", upload, userInfoController.edit); // USER_INFO
+
+router.get("/order", orderController.getOrder);
+router.post("/order", orderController.addOrders);
 
 
 module.exports = router;

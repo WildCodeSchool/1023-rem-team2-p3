@@ -6,7 +6,6 @@
 
 const UserInfoManager = require("./models/UserInfoManager");
 
-
 const NoteManager = require("./models/NoteManager");
 const ScoreCardManager = require("./models/ScoreCardManager");
 const EventManager = require("./models/EventManager");
@@ -20,7 +19,7 @@ const userDiscountManager = require("./models/userDiscountModel");
 const StockEventManager = require("./models/StockEventManager");
 
 const paymentManager = require("./models/paymentManager");
-
+const orderManager = require("./models/orderManger");
 
 
 const managers = [
@@ -32,6 +31,7 @@ const managers = [
   PrivilegeManager,
   discountManager,
   userDiscountManager,
+  orderManager,
   StockEventManager,
   UserInfoManager
   // Add other managers here
