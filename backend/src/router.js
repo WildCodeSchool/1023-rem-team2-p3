@@ -1,21 +1,10 @@
 const express = require("express");
-
 const router = express.Router();
 const upload = require("./services/upload");
-
-
-
-/* ************************************************************************* */
-// Define Your API Routes Here
-/* ************************************************************************* */
 
 const verifyToken = require("./services/auth");
 const hashedPassword = require("./services/hashedPassword");
 
-// const itemControllers = require("./controllers/itemControllers");
-
-const userControllers = require("./controllers/UserController");
-const eventControllers = require("./controllers/EventController");
 const discountController = require("./controllers/discountController");
 const userDiscountController = require("./controllers/userDiscountController");
 const noteController = require("./controllers/noteController");
@@ -25,6 +14,27 @@ const userInfoController = require("./controllers/userInfoController");
 const stockEventController = require("./controllers/StockEventController");
 const paymentController = require("./controllers/paymentController");
 const orderController = require("./controllers/orderController");
+const userControllers = require("./controllers/UserController");
+const eventControllers = require("./controllers/EventController");
+const productController = require("./controllers/productController");
+
+
+
+// Route pour récupérer tous les produits
+router.get("/products", productController.browse);
+
+// Route pour récupérer un produit par son ID
+router.get("/products/:id", productController.read);
+
+// Route pour ajouter un nouveau produit
+router.post("/products", upload, productController.add);
+
+// Route pour mettre à jour un produit existant
+router.put("/products/:id", upload, productController.edit);
+
+
+// Route pour supprimer un produit
+router.delete("/products/:id", productController.remove);
 
 
 
@@ -49,9 +59,6 @@ router.put(`/privilege/:id`, privilegeController.updatePrivilege);
 router.delete(`/note/:id`, noteController.deleteNote);
 router.delete(`/score_card/:id`, scoreCardController.deleteScoreCard);
 router.delete(`/privilege/:id`, privilegeController.deletePrivilege);
-
-
-
 
 
 
@@ -125,10 +132,12 @@ router.get("/userDiscount", userDiscountController.getUserDiscount);
 router.post("/userDiscount", userDiscountController.addUserDiscount);
 
 
+
 router.get("/payment", paymentController.getPayment);
 router.post("/payment", paymentController.addPayment);
 router.put("/payment/:bill_number", paymentController.updatePayment);
 // router.delete("/payment/:id", paymentController.deletePayment);
+
 router.get("/user/info", userInfoController.browse); // USER_INFO
 
 router.get("/user/info/:id", userInfoController.read); // USER_INFO
@@ -139,6 +148,7 @@ router.put("/user/info/:id", upload, userInfoController.edit); // USER_INFO
 
 router.get("/order", orderController.getOrder);
 router.post("/order", orderController.addOrders);
+
 
 
 module.exports = router;

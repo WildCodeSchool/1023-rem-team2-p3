@@ -16,6 +16,9 @@ const PrivilegeManager = require("./models/PrivilegeManager");
 const discountManager = require("./models/discountModel");
 const userDiscountManager = require("./models/userDiscountModel");
 
+
+const ProductManager = require("./models/ProductManager");
+
 const StockEventManager = require("./models/StockEventManager");
 
 const paymentManager = require("./models/paymentManager");
@@ -31,6 +34,7 @@ const managers = [
   PrivilegeManager,
   discountManager,
   userDiscountManager,
+  ProductManager,
   orderManager,
   StockEventManager,
   UserInfoManager

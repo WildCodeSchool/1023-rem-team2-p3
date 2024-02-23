@@ -1,5 +1,6 @@
-const tables = require("../tables");
+/* eslint-disable camelcase */
 const fs = require("fs");
+const tables = require("../tables");
 
 const browse = async (req, res, next) => {
   try {
@@ -24,10 +25,9 @@ const read = async (req, res, next) => {
   }
 };
 
-const edit = async (req, res, next) => {
-  const id = req.params.id;
+const edit = async (req, res) => {
+  const { id } = req.params.id;
   const {
-    avatar,
     taille,
     poids,
     pointure,
@@ -40,11 +40,7 @@ const edit = async (req, res, next) => {
     user_id,
   } = req.body;
 
-  // Vérifier s'il y a un fichier d'avatar téléchargé
-  if (req.file) {
-    // Mettre à jour l'avatar dans le corps de la requête avec le chemin du fichier téléchargé
-    req.body.avatar = req.file.path;
-  }
+  const avatar = req.file.path;
 
   const updateFields = {};
   if (avatar !== undefined) {

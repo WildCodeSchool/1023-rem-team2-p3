@@ -2,15 +2,14 @@ const multer = require("multer");
 
 // l'emplacement de fichier
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, "uploads");
   },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + "-" + file.originalname);
+  filename: (req, file, cb) => {
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    cb(null, `${uniqueSuffix}-${file.originalname}`);
   },
 });
-// choisir l'extention de fichier
 
 const fileFilter = (req, file, cb) => {
   if (
@@ -32,4 +31,4 @@ const upload = multer({
   maxSize,
 });
 
-module.exports = upload.single("avatar");
+module.exports = upload.single("img");
