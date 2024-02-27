@@ -11,57 +11,61 @@ const getAllEvents = async (req, res) => {
 };
 
 const createEvent = async (req, res) => {
-  const { city, date, address, quantity, status } = req.body;
   try {
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
+    const { city, date, address, quantity } = req.body;
     const [event] = await tables.event.createEvents(
       city,
       date,
       address,
-      quantity,
-      status
+      quantity
     );
-    res.status(201).json(event);
+    if (event.affectedRows) {
+      res.status(200).send("Evenement ajouté");
+    } else {
+      res
+        .status(401)
+        .send({ error: "Problème lors de l'ajout de l'évenement" });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 const updateEvents = async (req, res) => {
-  const id = parseInt(req.params.id);
-  const { city, date, address, quantity, status } = req.body;
-
-  // Créer un objet pour stocker uniquement les champs à mettre à jour
-  const updateFields = {};
-
-  if (city !== undefined) {
-    updateFields.city = city;
-  }
-  if (date !== undefined) {
-    updateFields.date = date;
-  }
-  if (address !== undefined) {
-    updateFields.address = address;
-  }
-  if (quantity !== undefined) {
-    updateFields.quantity = quantity;
-  }
-  if (status !== undefined) {
-    updateFields.status = status;
-  }
-
   try {
-    // Mettre à jour uniquement les champs qui ont été envoyés dans la requête
-    const [event] = await tables.event.updateEvent(id, updateFields);
-    res.status(200).json(event);
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
+    const eventId = parseInt(req.params.id);
+    const { city, date, address, quantity } = req.body;
+    const [event] = await tables.event.updateEvent(eventId, req.body);
+    if (event.affectedRows) {
+      res.status(200).json({ message: "Evenement modifié" });
+    } else {
+      res.status(401).json({ error: "Problème lors de la modification" });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
 const deleteEvent = async (req, res) => {
-  const { id } = req.params;
+  const id = req.params.id;
   try {
     const [event] = await tables.event.deleteEvent(id);
-    res.status(200).json(event);
+    if (event.affectedRows) {
+      res.status(200).json({ message: "Evenement supprimé" });
+    } else {
+      res.status(401).json({ error: "Problème lors de la suppression" });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -71,9 +75,31 @@ const getEventById = async (req, res) => {
   const { id } = req.params;
   try {
     const [event] = await tables.event.getEventById(id);
-    res.status(200).json(event);
+    console.log("event", event);
+    if (!event.length) {
+      res.status(404).json({ error: "Evenement non Existant" });
+    } else {
+      res.status(200).json(event);
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+const desactivatedEvents = async (req, res) => {
+  console.log("Avant", req.body);
+  try {
+    const { id } = req.body;
+    console.log("Apres", req.body);
+    const [result] = await tables.event.desactivateEvent(parseInt(id, 10));
+    if (result.affectedRows) {
+      res.status(200).json({ message: "Evenement est maintenant désactivé" });
+    } else {
+      res.status(401).send("Problème lors de la modification de l'évenement");
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: error.message });
   }
 };
 
@@ -83,4 +109,5 @@ module.exports = {
   updateEvents,
   deleteEvent,
   getEventById,
+  desactivatedEvents,
 };

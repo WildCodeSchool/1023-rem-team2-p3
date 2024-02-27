@@ -5,6 +5,12 @@ const tables = require("../tables");
 
 const getAllUsers = async (req, res) => {
   try {
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
     const [users] = await tables.user.getAllUsers();
     res.status(200).json(users);
   } catch (error) {
@@ -25,7 +31,7 @@ const getUserByEmail = async (req, res) => {
           const token = jwt.sign(
             { payload: user[0].id },
             process.env.SECRET_KEY_JWT,
-            { expiresIn: "0,5h" }
+            { expiresIn: "0.5h" }
           );
           res.status(200).send(token);
         } else {
@@ -59,23 +65,13 @@ const getUserById = async (req, res) => {
 
 const addUser = async (req, res) => {
   try {
-    const {
-      lastname,
-      firstname,
-      email,
-      hashedPassword,
-      isAdmin,
-      birthday,
-      status,
-    } = req.body;
+    const { lastname, firstname, email, hashedPassword, birthday } = req.body;
     const [results] = await tables.user.addUser(
       lastname,
       firstname,
       email,
       hashedPassword,
-      isAdmin,
-      birthday,
-      status
+      birthday
     );
     if (!results.affectedRows) {
       res.send("User not added");
@@ -87,53 +83,45 @@ const addUser = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {
-  const id = req.payload;
-  const {
-    lastname,
-    firstname,
-    // email,
-    hashedPassword,
-    // isAdmin,
-    birthday,
-    // status,
-  } = req.body;
-
-  const updateFields = {};
-
-  if (lastname !== undefined) {
-    updateFields.lastname = lastname;
-  }
-  if (firstname !== undefined) {
-    updateFields.firstname = firstname;
-  }
-  //   if (email !== undefined) {
-  //     updateFields.email = email;
-  //   }
-  if (hashedPassword !== undefined) {
-    updateFields.hashedPassword = hashedPassword;
-  }
-  // if (isAdmin !== undefined) {
-  //   updateFields.isAdmin = isAdmin;
-  // }
-  if (birthday !== undefined) {
-    updateFields.birthday = birthday;
-  }
-  // if (status !== undefined) {
-  //   updateFields.status = status;
-  // }
-
+const updateUserWithoutPassword = async (req, res) => {
   try {
-    const [user] = await tables.user.updateUser(id, updateFields);
-    res.status(200).json(user);
+    const id = req.payload;
+    const { lastname, firstname, birthday } = req.body;
+    const [user] = await tables.user.updateUser(id, req.body);
+    if (user.affectedRows) {
+      res.status(200).json({ message: "Utilisateur modifié avec succès" });
+    } else {
+      res.status(401).send("Problème lors de la modification de l'utilisateur");
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+const updatePassword = async (req, res) => {
+  try {
+    const id = req.payload;
+    const { hashedPassword } = req.body;
+    const [user] = await tables.user.updateUserOnlyPassword(id, hashedPassword);
+    if (user.affectedRows) {
+      res.status(200).json({ message: "Mot de passe modifié avec succès" });
+    } else {
+      res.status(401).send("Problème lors de la modification du mot de passe");
+    }
+  } catch (error) {
+    res.status(500).send(error);
   }
 };
 
 const deleteUser = async (req, res) => {
   try {
     const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+    console.log("admin", admin[0].is_admin);
+
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
     const [user] = await tables.user.deleteUser(id);
     if (user.affectedRows) {
       res.status(200).json({
@@ -147,20 +135,21 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const logout = async (req, res) => {
-  try {
-    const id = req.payload;
-    const token = jwt.sign({ payload: id }, process.env.SECRET_KEY_JWT, {
-      expiresIn: "0h",
-    });
+// const logout = async (req, res) => {
+//   try {
+//     const id = req.payload;
+//     const token = jwt.sign({ payload: id }, process.env.SECRET_KEY_JWT, {
+//       expiresIn: "0h",
+//     });
 
-    res.status(200).send(token);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
+//     res.status(200).send(token);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// };
 
 // methode pour réinisialiser le mot de passe
+
 const createPasswordResetToken = async (req, res) => {
   try {
     const { email } = req.body;
@@ -187,14 +176,84 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const setUserAdmin = async (req, res) => {
+  try {
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+    if (admin[0].is_admin !== "superAdmin") {
+      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
+    const userId = req.body;
+    console.log("userId", userId.id);
+    const [result] = await tables.user.setUserAdmin(userId.id);
+    if (result.affectedRows) {
+      res.status(200).json({ message: "Utilisateur est maintenant Admin" });
+    } else {
+      res.status(401).send("Problème lors de la modification de l'utilisateur");
+    }
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
+const setUserNotAdmin = async (req, res) => {
+  try {
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+
+    if (admin[0].is_admin !== "superAdmin") {
+      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
+    const userId = req.body;
+    const [result] = await tables.user.setUserNotAdmin(userId.id);
+    if (result.affectedRows) {
+      res.status(200).json({ message: "Utilisateur n'est plus Admin" });
+    } else {
+      res.status(401).send("Problème lors de la modification de l'utilisateur");
+    }
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
+const desactivateUser = async (req, res) => {
+  try {
+    const id = req.payload;
+    const [result] = await tables.user.desactivateUser(id);
+    if (result.affectedRows) {
+      res.status(200).json({ message: "Utilisateur est maintenant désactivé" });
+    } else {
+      res.status(401).send("Problème lors de la modification de l'utilisateur");
+    }
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
+const activateUser = async (req, res) => {
+  try {
+    const id = req.payload;
+    const [result] = await tables.user.activateUser(id);
+    if (result.affectedRows) {
+      res.status(200).json({ message: "Utilisateur est maintenant activé" });
+    } else {
+      res.status(401).send("Problème lors de la modification de l'utilisateur");
+    }
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+};
+
 module.exports = {
   getAllUsers,
   addUser,
-  updateUser,
+  updateUserWithoutPassword,
+  updatePassword,
   getUserByEmail,
   getUserById,
   deleteUser,
-  logout,
+  // logout,
   createPasswordResetToken,
   resetPassword,
+  setUserAdmin,
+  setUserNotAdmin,
+  desactivateUser,
+  activateUser,
 };
