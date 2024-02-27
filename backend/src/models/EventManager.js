@@ -5,10 +5,10 @@ class EventManager extends AbstractManager {
     super({ table: "event" });
   }
 
-  async createEvents(city, date, address, quantity, status) {
+  async createEvents(city, date, address, quantity) {
     return this.database.query(
-      `INSERT INTO ${this.table} (city, date, address, quantity, status) VALUES (?,?,?,?,?)`,
-      [city, date, address, quantity, status]
+      `INSERT INTO ${this.table} (city, date, address, quantity) VALUES (?,?,?,?)`,
+      [city, date, address, quantity]
     );
   }
 
@@ -42,6 +42,14 @@ class EventManager extends AbstractManager {
     return this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [
       id,
     ]);
+  }
+
+  async desactivateEvent(id) {
+    return this.database.query(
+      // `UPDATE ${this.table} SET status = "inactive" WHERE id = ?`,
+      `select * from ${this.table}`
+      // [id]
+    );
   }
 }
 module.exports = EventManager;

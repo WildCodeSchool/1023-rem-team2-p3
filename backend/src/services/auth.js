@@ -14,8 +14,8 @@ const verifyToken = (req, res, next) => {
       res.status(401).send("le token doit etre de type ....");
     }
     // de verifier le token
-    const { userId } = jwt.verify(token, "privateKey");
-    req.params = { userId };
+    const { payload } = jwt.verify(token, process.env.SECRET_KEY_JWT);
+    req.payload = payload;
     next();
   } catch (error) {
     res.status(500).send(error);

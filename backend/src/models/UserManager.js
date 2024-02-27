@@ -9,24 +9,16 @@ class UserManager extends AbstractManager {
     super({ table: "user" });
   }
 
-  async addUser(
-    lastname,
-    firstname,
-    email,
-    hashedPassword,
-    isAdmin,
-    birthday,
-    status
-  ) {
+  async addUser(lastname, firstname, email, hashedPassword, birthday) {
     return this.database.query(
-      `INSERT INTO ${this.table} (lastname, firstname, email, hashedPassword, is_admin, birthday, status) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [lastname, firstname, email, hashedPassword, isAdmin, birthday, status]
+      `INSERT INTO ${this.table} (lastname, firstname, email, hashedPassword, birthday) VALUES (?, ?, ?, ?, ?)`,
+      [lastname, firstname, email, hashedPassword, birthday]
     );
   }
 
   async getAllUsers() {
     return this.database.query(
-      `SELECT lastname, firstname, email, is_admin, birthday, status FROM ${this.table}`
+      `SELECT id ,lastname, firstname, email, is_admin, birthday, status FROM ${this.table}`
     );
   }
 
@@ -39,6 +31,13 @@ class UserManager extends AbstractManager {
     return this.database.query(
       `UPDATE ${this.table} SET ${setClause} WHERE id = ?`,
       values
+    );
+  }
+
+  updateUserOnlyPassword(id, hashedPassword) {
+    return this.database.query(
+      `UPDATE ${this.table} set hashedPassword = ? where id=?`,
+      [hashedPassword, id]
     );
   }
 
@@ -57,38 +56,6 @@ class UserManager extends AbstractManager {
   async deleteUser(id) {
     return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [id]);
   }
-
-  // METHODES A AJOUTER APRES LA CREATION DU BACKOFFICE //
-
-  async desactivateUser(id) {
-    return this.database.query(
-      `UPDATE ${this.table} SET status = 'inactive' WHERE id = ?`,
-      [id]
-    );
-  }
-
-  async activateUser(id) {
-    return this.database.query(
-      `UPDATE ${this.table} SET status = 'active' WHERE id = ?`,
-      [id]
-    );
-  }
-
-  async setUserAdmin(id) {
-    return this.database.query(
-      `UPDATE ${this.table} SET is_admin = admin WHERE id = ?`,
-      [id]
-    );
-  }
-
-  async setUserNotAdmin(id) {
-    return this.database.query(
-      `UPDATE ${this.table} SET is_admin = user WHERE id = ?`,
-      [id]
-    );
-  }
-
-  // ********************************************* //
 
   // Methode pour réinisialiser le mot de passe
 
@@ -147,6 +114,38 @@ class UserManager extends AbstractManager {
       resetPasswordExpires: null,
     });
   }
+
+  // METHODES A AJOUTER APRES LA CREATION DU BACKOFFICE //
+
+  async desactivateUser(id) {
+    return this.database.query(
+      `UPDATE ${this.table} SET status = 'inactive' WHERE id = ?`,
+      [id]
+    );
+  }
+
+  async activateUser(id) {
+    return this.database.query(
+      `UPDATE ${this.table} SET status = 'active' WHERE id = ?`,
+      [id]
+    );
+  }
+
+  async setUserAdmin(userId) {
+    return this.database.query(
+      `UPDATE ${this.table} SET is_admin = 'admin' WHERE id = ?`,
+      [userId]
+    );
+  }
+
+  async setUserNotAdmin(id) {
+    return this.database.query(
+      `UPDATE ${this.table} SET is_admin = 'user' WHERE id = ?`,
+      [id]
+    );
+  }
+
+  // ********************************************* //
 }
 
 module.exports = UserManager;

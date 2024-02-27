@@ -7,7 +7,9 @@ class StockEventManager extends AbstractManager {
   }
 
   async getAllStockEvent() {
-    return this.database.query(`SELECT * FROM ${this.table}`);
+    return this.database.query(
+      `select se.id ,event_id ,city ,date ,address ,user_id ,lastname ,firstname ,email ,se.created_at from ${this.table} as se JOIN event ON se.event_id = event.id JOIN user ON se.user_id = user.id ;`
+    );
   }
 
   async createStockEvent(event_id, user_id) {
@@ -21,6 +23,13 @@ class StockEventManager extends AbstractManager {
     return this.database.query(
       `UPDATE event SET quantity = quantity - 1 WHERE id = ?`,
       [event_id]
+    );
+  }
+
+  async checkUserEventById(user_id) {
+    return this.database.query(
+      `SELECT * FROM ${this.table} WHERE user_id = ?`,
+      [user_id]
     );
   }
 

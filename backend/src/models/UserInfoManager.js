@@ -6,24 +6,45 @@ class UserInfoManager extends AbstractManager {
   }
 
   async getAllUserInfo() {
-    const [rows] = await this.database.query(`SELECT * FROM ${this.table}`);
-    return rows;
+    return this.database.query(`SELECT * FROM ${this.table}`);
   }
 
-  async getUserInfoById(userId) {
-    const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE id = ?`,
-      [userId]
+  async getUserInfoById(id) {
+    return this.database.query(
+      `SELECT avatar,taille,poids,pointure,pied_fort,poste,sexe,numero_de_telephone,adresse_postale,ville FROM ${this.table} WHERE user_id = ?`,
+      [id]
     );
-    return rows;
   }
 
-  async addUserInfo(userInfo) {
-    const [result] = await this.database.query(
-      `INSERT INTO ${this.table} SET ?`,
-      userInfo
+  async addUserInfo(
+    avatar,
+    taille,
+    poids,
+    pointure,
+    pied_fort,
+    poste,
+    sexe,
+    numero_de_telephone,
+    adresse_postale,
+    ville,
+    user_id
+  ) {
+    return this.database.query(
+      `INSERT INTO ${this.table} (avatar, taille, poids, pointure, pied_fort, poste, sexe, numero_de_telephone, adresse_postale, ville, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        avatar,
+        taille,
+        poids,
+        pointure,
+        pied_fort,
+        poste,
+        sexe,
+        numero_de_telephone,
+        adresse_postale,
+        ville,
+        user_id,
+      ]
     );
-    return result;
   }
 
   async updateSpecificUserInfoById(id, updateFields) {
@@ -31,23 +52,16 @@ class UserInfoManager extends AbstractManager {
     const setClause = Object.keys(updateFields)
       .map((key) => `${key} = ?`)
       .join(", ");
-
     // Créer un tableau de valeurs basé sur les valeurs de l'objet updateFields
     const values = Object.values(updateFields);
 
     // Ajouter l'ID à la fin du tableau de valeurs
     values.push(id);
-    try {
-      // Exécuter la requête de mise à jour
-      const [result] = await this.database.query(
-        `UPDATE ${this.table} SET ${setClause} WHERE id = ?`,
-        values
-      );
-
-      return result;
-    } catch (error) {
-      throw error;
-    }
+    // Exécuter la requête de mise à jour
+    return this.database.query(
+      `UPDATE ${this.table} SET ${setClause} WHERE user_id = ?`,
+      values
+    );
   }
 
   // async deleteUserInfoById(userId) {

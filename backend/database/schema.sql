@@ -90,7 +90,7 @@ CREATE TABLE user_info (
     numero_de_telephone VARCHAR(80),
     adresse_postale TEXT,
     ville VARCHAR(80),
-    user_id INT NOT NULL,
+    user_id INT NOT NULL UNIQUE,
     CONSTRAINT fk_user_info_user_id FOREIGN KEY (user_id) REFERENCES user(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
