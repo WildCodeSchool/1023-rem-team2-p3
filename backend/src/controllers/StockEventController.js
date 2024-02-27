@@ -19,7 +19,6 @@ const createStockEvent = async (req, res) => {
   try {
     const event_id = req.body;
     const user_id = req.payload;
-    console.log("user_id", user_id);
     const checkUserInEvent = await tables.stock_event.checkUserEvent(
       event_id.event_id,
       user_id
@@ -68,7 +67,6 @@ const checkUserEvent = async (req, res) => {
       event_id,
       user_id,
     });
-    console.log("stockEvent", stockEvent);
     if (stockEvent.length === 0) {
       return res
         .status(404)

@@ -45,7 +45,6 @@ class EventManager extends AbstractManager {
   }
 
   async desactivateEvent(id) {
-    console.log("id", id);
     return this.database.query(
       // `UPDATE ${this.table} SET status = "inactive" WHERE id = ?`,
       `select * from ${this.table}`

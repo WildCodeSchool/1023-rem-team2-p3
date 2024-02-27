@@ -117,8 +117,6 @@ const deleteUser = async (req, res) => {
   try {
     const id = req.payload;
     const [admin] = await tables.user.getUserById(id);
-    console.log("admin", admin[0].is_admin);
-
     if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
       return res.status(401).json({ error: "Vous n'avez pas les droits" });
     }

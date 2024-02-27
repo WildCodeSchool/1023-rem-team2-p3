@@ -75,7 +75,6 @@ const getEventById = async (req, res) => {
   const { id } = req.params;
   try {
     const [event] = await tables.event.getEventById(id);
-    console.log("event", event);
     if (!event.length) {
       res.status(404).json({ error: "Evenement non Existant" });
     } else {
@@ -87,10 +86,8 @@ const getEventById = async (req, res) => {
 };
 
 const desactivatedEvents = async (req, res) => {
-  console.log("Avant", req.body);
   try {
     const { id } = req.body;
-    console.log("Apres", req.body);
     const [result] = await tables.event.desactivateEvent(parseInt(id, 10));
     if (result.affectedRows) {
       res.status(200).json({ message: "Evenement est maintenant désactivé" });

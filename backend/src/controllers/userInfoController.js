@@ -116,7 +116,6 @@ const add = async (req, res) => {
     }
     // Vérifier si l'utilisateur a déjà ajouté ses informations
     const exist = await tables.user_info.getUserInfoById(user_id);
-    console.log("exist", exist);
     if (exist[0].length) {
       fs.unlinkSync(req.file.path);
       return res
@@ -164,8 +163,6 @@ const add = async (req, res) => {
       ville,
       user_id
     );
-    console.log("result", result);
-
     // Vérifier si l'opération d'insertion a réussi
     if (result.affectedRows) {
       res.json({ message: "User info added !" });
@@ -174,7 +171,6 @@ const add = async (req, res) => {
       fs.unlinkSync(req.file.path);
     }
   } catch (error) {
-    console.log("error", error);
     res.status(500).send({ message: "Error !" });
     fs.unlinkSync(req.file.path);
   }
