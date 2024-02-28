@@ -10,20 +10,17 @@ class ProductManager extends AbstractManager {
     return rows;
   }
 
-  async getProductById(productId) {
-    const [rows] = await this.database.query(
-      `SELECT * FROM ${this.table} WHERE id = ?`,
-      [productId]
-    );
-    return rows;
+  async getProductById(id) {
+    return this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [
+      id,
+    ]);
   }
 
-  async addProduct(productInfo) {
-    const [result] = await this.database.query(
-      `INSERT INTO ${this.table} SET ?`,
-      productInfo
+  async addProduct(name, img, color) {
+    return this.database.query(
+      `INSERT INTO ${this.table} (name, img, color) VALUES (?, ?, ?)`,
+      [name, img, color]
     );
-    return result;
   }
 
   async updateSpecificProductById(id, updateFields) {
@@ -39,7 +36,7 @@ class ProductManager extends AbstractManager {
   }
 
   async deleteProductById(productId) {
-    await this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [
+    return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [
       productId,
     ]);
   }
