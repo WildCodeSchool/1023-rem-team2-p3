@@ -9,7 +9,7 @@ class ScoreCardManager extends AbstractManager {
   }
 
   // The C of CRUD - Create operation
-  async create({ photo_user, note_id }) {
+  async create(photo_user, note_id) {
     return this.database.query(
       `insert into ${this.table} (photo_user, note_id) values (?, ?)`,
       [photo_user, note_id]
@@ -19,16 +19,27 @@ class ScoreCardManager extends AbstractManager {
   // The Rs of CRUD - Read operations
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
-    return this.database.query(`select * from ${this.table} where id = ?`, [
-      id,
-    ]);
+    return this.database.query(
+      `select note_physique,
+    note_vitesse,
+    note_passe,
+    note_tir,
+    note_dribble,
+    note_vista,
+    note_cf,
+    note_plongeon,
+    note_arrets,
+    note_dega,
+    note_pied_faible,
+    note_gen, photo_user from note join ${this.table} AS sc on sc.note_id = note.id where user_id = ?`,
+      [id]
+    );
   }
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    return this.database.query(`select * from ${this.table}`);
     // Return the array of items
-    return rows;
   }
 
   // The U of CRUD - Update operation

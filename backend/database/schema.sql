@@ -138,10 +138,10 @@ CREATE TABLE privilege (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(80) NOT NULL,
     price DECIMAL(10,2) NOT NULL,
-    product_id INT NOT NULL,
+    product_id INT,
     CONSTRAINT fk_privilege_product_id
     FOREIGN KEY (product_id) REFERENCES product(id),
-    user_id INT,
+    user_id INT NOT NULL,
     CONSTRAINT fk_privilege_user_id
     FOREIGN KEY (user_id) REFERENCES user(id)
 );

@@ -47,16 +47,16 @@ class NoteManager extends AbstractManager {
 
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
-    return this.database.query(`select * from ${this.table} where id = ?`, [
-      id,
-    ]);
+    return this.database.query(
+      `select * from ${this.table} where user_id = ?`,
+      [id]
+    );
   }
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    return this.database.query(`select * from ${this.table}`);
     // Return the array of items
-    return rows;
   }
 
   // The U of CRUD - Update operation
@@ -73,7 +73,7 @@ class NoteManager extends AbstractManager {
     values.push(id);
 
     return this.database.query(
-      `UPDATE ${this.table} SET ${setClause} WHERE id = ?`,
+      `UPDATE ${this.table} SET ${setClause} WHERE user_id = ?`,
       values
     );
   }
@@ -82,7 +82,9 @@ class NoteManager extends AbstractManager {
   // TODO: Implement the delete operation to remove an item by its ID
 
   async delete(id) {
-    return this.database.query(`DELETE FROM ${this.table} WHERE id = ?`, [id]);
+    return this.database.query(`DELETE FROM ${this.table} WHERE user_id = ?`, [
+      id,
+    ]);
   }
 }
 

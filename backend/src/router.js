@@ -134,27 +134,73 @@ router.put("/products/:id", verifyToken, upload, productController.edit);
 router.delete("/products/:id", verifyToken, productController.remove);
 
 // --------------------ROUTES FOR NOTE--------------------//
-// Route to get a list of items
-router.get(`/note`, noteController.getNote);
-router.get(`/score_card`, scoreCardController.getScoreCard);
-router.get(`/privilege`, privilegeController.getPrivilege);
+
+// (specific ADMIN OR SUPERADMIN)
+// Route pour récuperer toutes les notes
+router.get(`/note`, verifyToken, noteController.getNote);
+// Route pour ajouter des notes
+router.post(`/note`, verifyToken, noteController.addNote);
+// Route pour modifier les notes
+router.put(`/note/:id`, verifyToken, noteController.updateNote);
+// Route pour supprimer les notes
+router.delete(`/note/:id`, verifyToken, noteController.deleteNote);
+// (specific USER )
+// Route pour récupérer les notes par user_id
+router.get(`/mynote`, verifyToken, noteController.getNoteById);
+
+// --------------------ROUTES FOR SCORE_CARD--------------------//
+
+// (specific ADMIN OR SUPERADMIN)
+// Route pour récupérer toutes les scores_card
+router.get(`/score_card`, verifyToken, scoreCardController.getScoreCard);
+// Route pour ajouter des images pour les scores_card
+router.post(
+  `/score_card`,
+  verifyToken,
+  upload,
+  scoreCardController.addScoreCard
+);
+// Route pour supprimer les scores_card
+router.delete(
+  `/score_card/:id`,
+  verifyToken,
+  scoreCardController.deleteScoreCard
+);
+// (specific USER )
+// Route pour récupérer les scores_card par user_id
+router.get(`/myscore_card`, verifyToken, scoreCardController.getScoreCardById);
+
+// router.put(
+//   `/score_card/:id`,
+//   verifyToken,
+//   scoreCardController.updateScoreCardById
+// );
+
+// --------------------ROUTES FOR privilege-------------------//
+
+// (specific ADMIN OR SUPERADMIN)
+// Route pour récupérer tous les privilèges
+router.get(`/privilege`, verifyToken, privilegeController.getPrivilege);
+// Route pour récupérer le privilège
+// router.get(`/privilege/:id`, verifyToken, privilegeController.getPrivilegeById);
+
+// (specific USER )
+// Route pour ajouter des privilèges
+router.post(`/privilege`, verifyToken, privilegeController.addPrivilege);
+
+// Route pour modifier les privilèges
+// router.put(`/privilege/:id`, verifyToken, privilegeController.updatePrivilege);
+// Route pour supprimer les privilèges
+// router.delete(
+//   `/privilege/:id`,
+//   verifyToken,
+//   privilegeController.deletePrivilege
+// );
 
 // Route to get a specific item by ID
-router.get(`/note/:id`, noteController.getNoteById);
-router.get(`/score_card/:id`, scoreCardController.getScoreCardById);
-router.get(`/privilege/:id`, privilegeController.getPrivilegeById);
 // Route to add a new item
-router.post(`/note`, noteController.addNote);
-router.post(`/score_card`, scoreCardController.addScoreCard);
-router.post(`/privilege`, privilegeController.addPrivilege);
 // Route to update an existing item
-router.put(`/note/:id`, noteController.updateNote);
-router.put(`/score_card/:id`, scoreCardController.updateScoreCardById);
-router.put(`/privilege/:id`, privilegeController.updatePrivilege);
 // Route to delete an existing item
-router.delete(`/note/:id`, noteController.deleteNote);
-router.delete(`/score_card/:id`, scoreCardController.deleteScoreCard);
-router.delete(`/privilege/:id`, privilegeController.deletePrivilege);
 
 /* ************************************************************************* */
 
