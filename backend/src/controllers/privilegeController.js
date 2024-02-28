@@ -4,20 +4,33 @@ const tables = require("../tables");
 const privilegeController = {
   addPrivilege: async (req, res) => {
     try {
-      const privilege = req.body;
-      const [result] = await tables.privilege.create(privilege);
+      const { name, price, product_id } = req.body;
+      const user_id = req.payload;
+      const [result] = await tables.privilege.create(
+        name,
+        price,
+        product_id,
+        user_id
+      );
       if (result.affectedRows) {
-        res.json({ message: "privilege added" });
+        res.status(200).json({ message: "privilege added" });
       } else {
-        res.json({ message: "Error" });
+        res.status(400).json({ message: "Error" });
       }
     } catch (error) {
       res.sendStatus(500);
     }
   },
 
+  // eslint-disable-next-line consistent-return
   getPrivilege: async (req, res) => {
     try {
+      const user_id = req.payload;
+      const [admin] = await tables.user.getUserById(user_id);
+
+      if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+        return res.status(401).json({ error: "Vous n'avez pas les droits" });
+      }
       const [privilege] = await tables.privilege.readAll();
       res.send(privilege);
     } catch (error) {

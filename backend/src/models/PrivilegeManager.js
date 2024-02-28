@@ -9,7 +9,7 @@ class PrivilegeManager extends AbstractManager {
   }
 
   // The C of CRUD - Create operation
-  async create({ name, price, product_id, user_id }) {
+  async create(name, price, product_id, user_id) {
     return this.database.query(
       `insert into ${this.table} (name, price, product_id, user_id) values (?, ?, ?, ?)`,
       [name, price, product_id, user_id]
