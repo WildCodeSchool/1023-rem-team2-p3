@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const fs = require("fs");
 const tables = require("../tables");
 
@@ -25,79 +26,94 @@ const read = async (req, res, next) => {
 };
 
 const edit = async (req, res) => {
-  const { id } = req.params;
-  const { name, color } = req.body;
-
-  const img = req.file.path;
-
-  const updateFields = {};
-  if (name !== undefined) {
-    updateFields.name = name;
-  }
-  if (img !== undefined) {
-    updateFields.img = img;
-  }
-  if (color !== undefined) {
-    updateFields.color = color;
-  }
-
   try {
+    const userId = req.payload;
+    const img = req.file.path;
+    const { name, color } = req.body;
+    const [admin] = await tables.user.getUserById(userId);
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
+    // Récupérer l'ancienne photo de l'utilisateur
+    const { id } = req.params;
+    const oldProductInfo = await tables.product.getProductById(id);
+    const oldImgPath = oldProductInfo[0][0].img;
+    const updateFields = {
+      name,
+      img,
+      color,
+    };
+    // Créer un nouvel objet qui ne contient que les champs qui ne sont pas undefined
+    const definedFields = Object.entries(updateFields).reduce(
+      (a, [k, v]) => (v === undefined ? a : { ...a, [k]: v }),
+      {}
+    );
+    console.info(definedFields);
     const [result] = await tables.product.updateSpecificProductById(
       id,
-      updateFields
+      definedFields
     );
+    console.info(id);
     if (result.affectedRows) {
-      res.status(201).send("created");
+      if (req.file) {
+        fs.unlinkSync(oldImgPath);
+      }
+      res.status(201).send("Votre produit a été mise à jour avec succès");
     } else {
       fs.unlinkSync(req.file.path);
       res.status(401).send("erreur lors de l'enregistrement");
     }
   } catch (error) {
     fs.unlinkSync(req.file.path);
-
     res.status(500).send(error);
   }
 };
 
-const add = async (req, res, next) => {
+const add = async (req, res) => {
   try {
-    const product = req.body;
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
 
-    if (req.file) {
-      product.img = req.file.path;
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      fs.unlinkSync(req.file.path);
+      return res.status(401).json({ error: "Vous n'avez pas les droits" });
     }
-
-    const result = await tables.product.addProduct(product);
-
+    const { name, color } = req.body;
+    if (!name || !color) {
+      fs.unlinkSync(req.file.path);
+      return res.status(400).json({ message: "Missing fields" });
+    }
+    const img = req.file.path;
+    const [result] = await tables.product.addProduct(name, img, color);
     if (result.affectedRows) {
       res.json({ message: "Product added !" });
     } else {
+      fs.unlinkSync(req.file.path);
       res.json({ message: "Error !" });
     }
   } catch (error) {
-    next(error);
+    fs.unlinkSync(req.file.path);
+    res.status(500).json({ message: error });
   }
 };
 
-const remove = async (req, res, next) => {
+const remove = async (req, res) => {
   try {
     const productId = req.params.id;
-    const product = await tables.product.getProductById(productId);
-    if (!product) {
+    const [product] = await tables.product.getProductById(productId);
+    console.info(product);
+    if (product[0].length === 0) {
       res.status(404).json({ message: "Product not found" });
-      return;
     }
-
-    await tables.product.deleteProductById(productId);
+    const [deleteProduct] = await tables.product.deleteProductById(productId);
 
     // Supprimer le fichier image associé s'il existe
-    if (product.img) {
-      fs.unlinkSync(product.img);
+    if (deleteProduct.affectedRows) {
+      fs.unlinkSync(product[0].img);
+      res.json({ message: "Product deleted successfully" });
     }
-
-    res.json({ message: "Product deleted successfully" });
   } catch (error) {
-    next(error);
+    res.status(500).json({ message: error });
   }
 };
 

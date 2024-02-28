@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable camelcase */
 const fs = require("fs");
 const tables = require("../tables");
@@ -75,7 +76,7 @@ const edit = async (req, res) => {
     };
     // Si un nouveau fichier a été téléchargé, ajouter l'avatar aux champs à mettre à jour
     if (req.file) {
-      updateFields.avatar = req.file.path;
+      updateFields.avatar = avatar;
     }
     // Créer un nouvel objet qui ne contient que les champs qui ne sont pas undefined
     const definedFields = Object.entries(updateFields).reduce(
@@ -108,9 +109,9 @@ const edit = async (req, res) => {
 
 const add = async (req, res) => {
   try {
-    //Récupérer l'id de l'utilisateur depuis le token
+    // Récupérer l'id de l'utilisateur depuis le token
     const user_id = req.payload;
-    //Vérifier la validité du token
+    // Vérifier la validité du token
     if (!user_id) {
       return res.status(401).json({ message: "Token Invalide" });
     }

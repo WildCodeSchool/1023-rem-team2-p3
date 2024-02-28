@@ -1,4 +1,5 @@
 const express = require("express");
+
 const router = express.Router();
 const upload = require("./services/upload");
 
@@ -44,11 +45,11 @@ router.put("/reset-password", verifyToken, userControllers.resetPassword);
 // Route to get User when login
 router.get("/me", verifyToken, userControllers.getUserById);
 
-////////////////////////////////////////
+/// /////////////////////////////////////
 // router.post("/logout", userControllers.logout); Pas necessaire pour le moment , juste suppression du token dans le localStorage et redirection vers la page de login
-////////////////////////////////////////
+/// /////////////////////////////////////
 
-//*************************//
+//* ************************//
 // (specific ADMIN OR SUPERADMIN)
 // Route to get All Users
 router.get("/users", verifyToken, userControllers.getAllUsers);
@@ -62,7 +63,7 @@ router.put("/users/notadmin", verifyToken, userControllers.setUserNotAdmin);
 // router.put("/users/desactivate", userControllers.desactivateUser);
 // Route to activate User
 // router.put("/users/activate", userControllers.activateUser);
-//*************************//
+// * ************************//
 
 // --------------------ROUTES FOR EVENT--------------------//
 
@@ -71,26 +72,26 @@ router.get("/events", eventControllers.getAllEvents);
 // Route to get a specific Event by ID
 router.get("/events/:id", eventControllers.getEventById);
 
-//*************************//
+//* ************************//
 // (specific ADMIN OR SUPERADMIN)
 // Route to create a new Event
 router.post("/events", verifyToken, eventControllers.createEvent);
 // Route to update an Event
 router.put("/events/:id", verifyToken, eventControllers.updateEvents);
 // Route to desactivate an Event
-//DEMANDER A YOUSSEF//
+// DEMANDER A YOUSSEF//
 router.put("/events/desactivate", eventControllers.desactivatedEvents); // "error": "Unknown column 'NaN' in 'where clause'"
 // Route to delete an Event
 // router.delete("/events/:id", eventControllers.deleteEvent);
-//*************************//
+//* ************************//
 
 // --------------------ROUTES FOR STOCK_EVENT--------------------//
 
-//*************************//
+//* ************************//
 // (specific ADMIN OR SUPERADMIN)
 // Route to get All Inscriptions for an Event
 router.get("/stockEvent", verifyToken, stockEventController.getAllStockEvents);
-//*************************//
+//* ************************//
 // (specific USER)
 // Route to create a new Inscription for an Event
 router.post("/stockEvent", verifyToken, stockEventController.createStockEvent);
@@ -102,36 +103,37 @@ router.post(
 );
 
 // --------------------ROUTES FOR USERINFOS--------------------//
-//*************************//
+//* ************************//
 // (specific ADMIN OR SUPERADMIN)
-//Route to get all user infos
+// Route to get all user infos
 router.get("/user/info", verifyToken, userInfoController.browse);
-//*************************//
+//* ************************//
 // (specific USER)
-//Route to get a specific user info by ID
+// Route to get a specific user info by ID
 router.get("/user/informations", verifyToken, userInfoController.read);
-//Route to add a new user info
+// Route to add a new user info
 router.post("/user/info", verifyToken, upload, userInfoController.add);
-//Route to update a user info
+// Route to update a user info
 router.put("/user/info", verifyToken, upload, userInfoController.edit);
 
 // --------------------ROUTES FOR PRODUCT--------------------//
-
+//* ************************//
+// (specific USER)
 // Route pour récupérer tous les produits
 router.get("/products", productController.browse);
 
 // Route pour récupérer un produit par son ID
 router.get("/products/:id", productController.read);
-
+//* ************************//
+// (specific ADMIN OR SUPERADMIN)
 // Route pour ajouter un nouveau produit
-router.post("/products", upload, productController.add);
-
+router.post("/products", verifyToken, upload, productController.add);
 // Route pour mettre à jour un produit existant
-router.put("/products/:id", upload, productController.edit);
-
+router.put("/products/:id", verifyToken, upload, productController.edit);
 // Route pour supprimer un produit
-router.delete("/products/:id", productController.remove);
+router.delete("/products/:id", verifyToken, productController.remove);
 
+// --------------------ROUTES FOR NOTE--------------------//
 // Route to get a list of items
 router.get(`/note`, noteController.getNote);
 router.get(`/score_card`, scoreCardController.getScoreCard);
