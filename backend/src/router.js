@@ -204,19 +204,36 @@ router.post(`/privilege`, verifyToken, privilegeController.addPrivilege);
 
 /* ************************************************************************* */
 
-router.get("/discount", discountController.getDiscount);
-router.post("/discount", discountController.addDiscount);
-router.put("/discount/:id", discountController.updateDiscount);
+// --------------------ROUTES FOR discount -------------------//
+
+// (specific ADMIN OR SUPERADMIN)
+router.get("/discount", verifyToken, discountController.getDiscount);
+router.post("/discount", verifyToken, discountController.addDiscount);
+router.put("/discount/:id", verifyToken, discountController.updateDiscount);
 // router.delete("/discount/:id", discountController.deleteDiscount);
 
-router.get("/userDiscount", userDiscountController.getUserDiscount);
-router.post("/userDiscount", userDiscountController.addUserDiscount);
+// --------------------ROUTES FOR user_discount -------------------//
 
-router.get("/payment", paymentController.getPayment);
-router.post("/payment", paymentController.addPayment);
-router.put("/payment/:bill_number", paymentController.updatePayment);
+// specific admin or superAdmin
+router.get("/userDiscount", verifyToken, userDiscountController.getUserDiscount);
+
+// users
+router.post("/userDiscount", verifyToken, userDiscountController.addUserDiscount);
+
+
+// --------------------ROUTES FOR payment -------------------//
+//user
+router.get("/payment", verifyToken, paymentController.getPayment);
+//admin & superAdmin
+router.post("/payment", verifyToken, paymentController.addPayment);
+
+// router.put("/payment/:bill_number", paymentController.updatePayment);
 // router.delete("/payment/:id", paymentController.deletePayment);
-router.get("/order", orderController.getOrder);
-router.post("/order", orderController.addOrders);
+
+// --------------------ROUTES FOR order -------------------//
+
+// admin & superAdmin
+router.get("/order", verifyToken, orderController.getOrder);
+router.post("/order", verifyToken, orderController.addOrders);
 
 module.exports = router;

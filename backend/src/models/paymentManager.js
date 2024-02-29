@@ -19,7 +19,7 @@ class PaymentManager extends AbstractManager {
     );
   }
 
-  async queryGetPaymentById({ user_id }) {
+  async queryGetPaymentById( user_id ) {
     return this.database.query(
       `select * from ${this.table} where user_id = ?`,
       [user_id]

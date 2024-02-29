@@ -21,7 +21,7 @@ const ProductManager = require("./models/ProductManager");
 const StockEventManager = require("./models/StockEventManager");
 
 const paymentManager = require("./models/paymentManager");
-const orderManager = require("./models/orderManger");
+const orderManager = require("./models/orderManager");
 
 const managers = [
   NoteManager,
