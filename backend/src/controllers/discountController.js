@@ -1,31 +1,42 @@
 /* eslint-disable camelcase */
+// eslint-disable-next-line consistent-return
+/* eslint-disable no-unused-vars */
 // const discountModel = require("../models/discountModel");
 const tables = require("../tables");
 
-const getDiscount = async (req, res, next) => {
+const getDiscount = async (req, res) => {
   try {
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
     const discount = await tables.discount.getDiscountAll();
 
-    res.json(discount);
-  } catch (err) {
-    next(err);
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      res.status(401).json({ error: "Vous n'avez pas les droits" });
+    } else {
+      res.send(discount);
+    }
+  } catch (error) {
+    res.sendStatus(500);
   }
 };
 
 const addDiscount = async (req, res, next) => {
   try {
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
     const promo = req.body;
     const discount = await tables.discount.addDiscount(promo);
-
     res.json(discount);
   } catch (err) {
     next(err);
   }
 };
-
 const updateDiscount = async (req, res) => {
-  // eslint-disable-next-line radix
-  const id = parseInt(req.params.id);
+  const id = parseInt(req.params.id, 10);
   const { percent_value, promo_code, quantity, duree_de_validite } = req.body;
 
   const updateFields = {};
@@ -44,6 +55,13 @@ const updateDiscount = async (req, res) => {
   }
 
   try {
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
+
     const [discount] = await tables.discount.updateDiscount(id, updateFields);
     res.status(200).json(discount);
   } catch (error) {

@@ -1,8 +1,14 @@
 /* eslint-disable camelcase */
+// eslint-disable-next-line consistent-return
 const tables = require("../tables");
 
 const getOrder = async (req, res, next) => {
   try {
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
     const orders = await tables.orders.getOrderAll();
     console.info("orders", orders);
     res.json(orders);
@@ -13,6 +19,11 @@ const getOrder = async (req, res, next) => {
 
 const addOrders = async (req, res, next) => {
   try {
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
     const get = req.body;
     console.info("payment_bill_number", get.payment_bill_number);
     console.info("product_id", get.product_id);
@@ -36,7 +47,7 @@ const addOrders = async (req, res, next) => {
             bill_number: get.payment_bill_number,
           });
 
-          res.json({ message: "Numéro de facture récupérer" });
+          res.json({ message: "Numéro de facture récupéré" });
         } else {
           res.json({ message: "err" });
         }

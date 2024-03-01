@@ -1,9 +1,15 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable camelcase */
+/* eslint-disable no-unused-vars */
 const tables = require("../tables");
 
 const getPayment = async (req, res, next) => {
   try {
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
     const payment = await tables.payment.readAll();
     res.json(payment);
   } catch (err) {
@@ -13,27 +19,24 @@ const getPayment = async (req, res, next) => {
 
 const addPayment = async (req, res, next) => {
   try {
-    const { amount, payment_method, discount_id, user_id } = req.body;
-    console.info("discount_id", discount_id);
-    const [exist] = await tables.payment.queryGetPaymentById({ user_id });
-    console.info("exist", exist);
+    const id = req.payload;
+    const { amount, payment_method, discount_id } = req.body;
+    const [exist] = await tables.payment.queryGetPaymentById(id);
     const [userDiscount] = await tables.user_discount.getIdController({
-      user_id: user_id,
+      user_id: id,
       discount_id: discount_id,
     });
     if (userDiscount.length) {
-      const [percent_value] = await tables.discount.queryAddDiscountById({
-        id: discount_id,
-      });
-      console.info("percentValue", percent_value);
+      const [percent_value] = await tables.discount.queryAddDiscountById(
+        discount_id
+      );
       const newAmount =
         amount - amount * (percent_value[0].percent_value / 100);
-      console.info("newAmout", newAmount);
       await tables.payment.queryAddPayment({
         amount: newAmount,
         payment_method,
         discount_id,
-        user_id,
+        user_id: id,
       });
       res.json({ message: "Payment en cours avec code promo" });
     } else {
@@ -41,7 +44,7 @@ const addPayment = async (req, res, next) => {
         amount,
         payment_method,
         discount_id,
-        user_id,
+        user_id: id,
       });
       res.json({ message: "Payment en cours sans code promo" });
     }
@@ -53,10 +56,7 @@ const addPayment = async (req, res, next) => {
 const updatePayment = async (req, res) => {
   try {
     const { bill_number } = req.params;
-    console.info("id", bill_number);
-    console.info("req.body", req.body);
     const [result] = await tables.payment.updatePayment(bill_number, req.body);
-    console.info("result", result.affectedRows);
     if (result.affectedRows) {
       res.status(200).json({ message: "Payment mis à jour" });
     } else {

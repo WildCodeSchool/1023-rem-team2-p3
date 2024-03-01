@@ -7,7 +7,7 @@ class orderManager extends AbstractManager {
   }
 
   async getOrderAll() {
-    const [get] = await this.database.query(`select * from ${this.table} `);
+    const [get] = await this.database.query(`select orders.id ,payment_bill_number ,orders.created_at , bill_number, percent_value , promo_code , firstname , lastname , email , name , img , color FROM ${this.table} JOIN payment ON orders.payment_bill_number = payment.bill_number LEFT JOIN product ON orders.product_id = product.id LEFT JOIN discount ON payment.discount_id = discount.id JOIN user ON payment.user_id = user.id ;`);
     return get;
   }
 

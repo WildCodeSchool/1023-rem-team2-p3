@@ -7,11 +7,11 @@ class discountManager extends AbstractManager {
   }
 
   async getUserDiscountAll() {
-    const [get] = await this.database.query(`select * from ${this.table} `);
+    const [get] = await this.database.query(`SELECT ud.id, lastname, firstname, email, promo_code, percent_value, ud.created_at FROM ${this.table} AS ud JOIN user ON ud.user_id = user.id JOIN discount ON ud.discount_id = discount.id`);
     return get;
   }
 
-  async addUserDiscount({ user_id, discount_id }) {
+  async addUserDiscount( user_id, discount_id ) {
     const [add] = await this.database.query(
       `INSERT INTO ${this.table}(user_id, discount_id) VALUES (?, ?)`,
       [user_id, discount_id]
