@@ -18,6 +18,8 @@ const orderController = require("./controllers/orderController");
 const userControllers = require("./controllers/UserController");
 const eventControllers = require("./controllers/EventController");
 const productController = require("./controllers/productController");
+const discountStatus = require("./services/discountStatus");
+const expireDiscount = require("./services/expireDiscount");
 
 // --------------------ROUTES FOR USER--------------------//
 //* *** SPECIFIC ROUTES FOR USER AUTH****
@@ -215,16 +217,25 @@ router.put("/discount/:id", verifyToken, discountController.updateDiscount);
 // --------------------ROUTES FOR user_discount -------------------//
 
 // specific admin or superAdmin
-router.get("/userDiscount", verifyToken, userDiscountController.getUserDiscount);
+router.get(
+  "/userDiscount",
+  verifyToken,
+  userDiscountController.getUserDiscount
+);
 
 // users
-router.post("/userDiscount", verifyToken, userDiscountController.addUserDiscount);
-
+router.post(
+  "/userDiscount",
+  verifyToken,
+  discountStatus,
+  expireDiscount,
+  userDiscountController.addUserDiscount
+);
 
 // --------------------ROUTES FOR payment -------------------//
-//user
+// user
 router.get("/payment", verifyToken, paymentController.getPayment);
-//admin & superAdmin
+// admin & superAdmin
 router.post("/payment", verifyToken, paymentController.addPayment);
 
 // router.put("/payment/:bill_number", paymentController.updatePayment);

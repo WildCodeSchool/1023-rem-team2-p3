@@ -20,44 +20,26 @@ const addUserDiscount = async (req, res, next) => {
   try {
     const id = req.payload;
     const add = req.body;
-    const discountAll = await tables.discount.getDiscountAll();
-    // const userDiscount = await tables.user_discount.getUserDiscountAll();
+    const discountAll = req.discount;
+
     const [test] = await tables.user_discount.getIdController({
       user_id: id,
       discount_id: add.discount_id,
     });
-    const dateActuelle = new Date();
-    const dateValidite = new Date(
-      discountAll[add.discount_id - 1].duree_de_validite
-    );
-    if (discountAll[add.discount_id - 1].status) {
-      if (dateActuelle.getTime() <= dateValidite.getTime()) {
-        if (test.length > 0) {
-          res.json({
-            message: "Code promo déjà utilisé par cet utilisateur",
-          });
-        } else if (discountAll[add.discount_id - 1].quantity > 0) {
-          const updateResult = await tables.discount.decrementdiscountQuantity({
-            discount_id: add.discount_id,
-          });
-          const result = await tables.user_discount.addUserDiscount(
-            id,
-            add.discount_id
-          );
-          res.json({ message: "Code promos utilisé" });
-        } else {
-          const up = await tables.discount.statusDiscount({
-            discount_id: add.discount_id,
-          });
-          res.json({ message: "Code promos invalide" });
-        }
-      } else {
-        const up = await tables.discount.statusDiscount({
-          discount_id: add.discount_id,
-        });
-        res.json({ message: "Code promo expiré" });
-      }
+    if (test.length > 0) {
+      res.json({
+        message: "Code promo déjà utilisé par cet utilisateur",
+      });
+    } else if (discountAll[add.discount_id - 1].quantity > 0) {
+      await tables.discount.decrementdiscountQuantity({
+        discount_id: add.discount_id,
+      });
+      await tables.user_discount.addUserDiscount(id, add.discount_id);
+      res.json({ message: "Code promos utilisé" });
     } else {
+      await tables.discount.statusDiscount({
+        discount_id: add.discount_id,
+      });
       res.json({ message: "Code promos invalide" });
     }
   } catch (err) {

@@ -11,9 +11,10 @@ const getDiscount = async (req, res) => {
     const discount = await tables.discount.getDiscountAll();
 
     if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
-      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+      res.status(401).json({ error: "Vous n'avez pas les droits" });
+    } else {
+      res.send(discount);
     }
-    res.send(discount);
   } catch (error) {
     res.sendStatus(500);
   }
@@ -21,11 +22,11 @@ const getDiscount = async (req, res) => {
 
 const addDiscount = async (req, res, next) => {
   try {
-  const id = req.payload;
-  const [admin] = await tables.user.getUserById(id);
-  
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+
     if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
-      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+      res.status(401).json({ error: "Vous n'avez pas les droits" });
     }
     const promo = req.body;
     const discount = await tables.discount.addDiscount(promo);
@@ -35,7 +36,6 @@ const addDiscount = async (req, res, next) => {
   }
 };
 const updateDiscount = async (req, res) => {
-
   const id = parseInt(req.params.id, 10);
   const { percent_value, promo_code, quantity, duree_de_validite } = req.body;
 
