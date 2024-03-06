@@ -5,10 +5,10 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="bg-gradient-to-r from-primary-color to-secondary-color">
+      <header className="font-primary-font">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React !</p>
+        <p className="font-primary-font">Hello Vite + React !</p>
 
         <Counter />
 
