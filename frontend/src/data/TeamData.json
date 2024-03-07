@@ -1,11 +1,11 @@
 [
-{
-"id": 1,
-"firstName": "Nadir",
-"lastName": "Khouani",
-"Role": "CEO et Fondateur de THELAB",
-"Description": "Lorem Ipsum",
-"Portfolio": "URL PORTFOLIO",
-"image": "URL IMAGE"
-}
+  {
+    "id": 1,
+    "firstName": "Nadir",
+    "lastName": "Khouani",
+    "Role": "CEO et Fondateur de THELAB",
+    "Description": "Lorem Ipsum",
+    "Portfolio": "URL PORTFOLIO",
+    "image": "URL IMAGE"
+  }
 ]
