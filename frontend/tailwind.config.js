@@ -7,6 +7,7 @@ export default {
         "primary-color": "#9574D9",
         "secondary-color": "#9EEDFE",
         "tertiary-color": "#E34BD1",
+        "learnMore-color": "#F72585",
         "background-color-first": "#030A13",
         "background-color-second": "#170B24",
       },
