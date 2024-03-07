@@ -4,7 +4,7 @@
 require("dotenv").config();
 
 // Import Faker library for generating fake data
-const { faker } = require("@faker-js/faker");
+// const { faker } = require("@faker-js/faker");
 
 // Import database client
 const database = require("./database/client");
@@ -23,7 +23,6 @@ const seed = async () => {
 
     // Insert fake data into the 'user' table
 
-
     // for (let i = 0; i < 10; i += 1) {
     //   queries.push(
     //     database.query(
@@ -39,7 +38,6 @@ const seed = async () => {
     //     )
     //   );
     // }
-
 
     //   ]
     //     )
@@ -169,9 +167,7 @@ const seed = async () => {
     //   );
     // }
 
-
     // await database.query("truncate product");
-
 
     //     await database.query("truncate product");
 

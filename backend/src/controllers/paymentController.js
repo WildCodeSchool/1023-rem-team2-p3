@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable object-shorthand */
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-vars */
