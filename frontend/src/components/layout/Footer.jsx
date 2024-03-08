@@ -13,20 +13,24 @@ import next from "../../assets/vector/next.svg";
 function Footer() {
   return (
     <div className="flex bg-background-color-first flex-col gap-5 justify-center border-gray-400">
-      <div className="flex gap-20 justify-between ">
-        <div className="flex  gap-5 justify-center items-center">
-          <img src={logo} alt="logo" className="w-52 h-52" />
-          <div className="flex flex-col flex-wrap text-white gap-5">
-            <h1 className="font-primary-font text-white text-2xl">THE LAB</h1>
-            <p className="font-primary-font text-sm">
+      <div className="flex gap-5 justify-between  md:gap-20">
+        <div className="flex gap-2 justify-center items-center flex-col md:gap-5 md:flex-row w-4/5 md:w-auto">
+          <Link to="/">
+            <img src={logo} alt="logo" className="md:w-60 md:h-60 h-30" />
+          </Link>
+          <div className="flex flex-col flex-wrap text-white gap-5 justify-center">
+            <h1 className="font-primary-font text-white text-2xl text-center ">
+              THE LAB
+            </h1>
+            <p className=" md:block  md:font-primary-font md:text-sm text-center hidden">
               STOP DREAMING, START EXCELLING
             </p>
-            <p className="font-[500] font-secondary-font">
+            <p className=" md:block md:font-secondary-font text-center hidden">
               Participer à la plus belle aventure football jamais connue
             </p>
           </div>
         </div>
-        <div className="flex flex-col gap-10 items-center">
+        <div className="md:flex md:flex-col md:gap-10 md:items-center hidden">
           <h2 className="text-white font-bold font-secondary-font ">
             Navigation
           </h2>
@@ -34,7 +38,7 @@ function Footer() {
             <Link to="/" className="text-white font-secondary-font">
               Accueil
             </Link>
-            <Link to="/about" className="text-white">
+            <Link to="/about" className="text-white font-secondary-font">
               A propos
             </Link>
             <Link to="/contact" className="text-white font-secondary-font">
@@ -42,6 +46,12 @@ function Footer() {
             </Link>
             <Link to="/workshops" className="text-white font-secondary-font">
               Ateliers
+            </Link>
+            <Link
+              to="/giveaway"
+              className="text-white font-secondary-font text-center"
+            >
+              Jeux Concours
             </Link>
           </div>
         </div>
@@ -61,13 +71,25 @@ function Footer() {
               <img src={next} alt="next" className="w-8 h-8" />
             </div>
           </Link>
-          <div className="flex gap-10 justify-center  ">
-            <img src={french} alt="french" />
-            <img src={wild} alt="french" />
+          <div className="flex gap-10 justify-center md:gap-10  items-center">
+            <Link to="https://www.lafrenchtech-stl.com/">
+              <img
+                src={french}
+                alt="french"
+                className="h-24 w-24 md:h-auto md:w-auto"
+              />
+            </Link>
+            <Link to="https://www.wildcodeschool.com/">
+              <img
+                src={wild}
+                alt="wild"
+                className="h-24 w-28 md:h-auto md:w-auto"
+              />
+            </Link>
           </div>
         </div>
       </div>
-      <div className="flex gap-40 items-center justify-center">
+      <div className="flex items-center justify-around md:gap-40 md:justify-center">
         <Link to="mailto:thelab@gmail.com">
           <div className="flex gap-5 items-center">
             <img src={mail} alt="email" className="w-8 h-8" />
@@ -77,12 +99,13 @@ function Footer() {
           </div>
         </Link>
         <div className="flex flex-row gap-5">
-          <Link to="https://www.youtube.com">
-            <img src={youtube} alt="youtube" className="w-8 h-8" />
-          </Link>
           <Link to="https://www.facebook.com/">
             <img src={facebook} alt="facebook" className="w-8 h-8" />
           </Link>
+          <Link to="https://www.youtube.com">
+            <img src={youtube} alt="youtube" className="w-8 h-8" />
+          </Link>
+
           <Link to="https://www.instagram.com/">
             <img src={instagram} alt="instagram" className="w-8 h-8" />
           </Link>

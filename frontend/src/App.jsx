@@ -1,15 +1,7 @@
 import "./App.css";
-import Canvas from "./components/Canvas/Canvas";
 
 function App() {
-  return (
-    <div>
-      <p>App</p>
-      <div>
-        <Canvas />
-      </div>
-    </div>
-  );
+  return <div>App</div>;
 }
 
 export default App;
