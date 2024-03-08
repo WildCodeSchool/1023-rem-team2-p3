@@ -1,6 +1,6 @@
 import React from "react";
-import NavDesktop from "../../pages/Navbar/NavDeskop";
-import NavMobile from "../../pages/Navbar/NavMobile";
+import NavDesktop from "../Navbar/NavDeskop";
+import NavMobile from "../Navbar/NavMobile";
 
 export default function Header() {
   return (

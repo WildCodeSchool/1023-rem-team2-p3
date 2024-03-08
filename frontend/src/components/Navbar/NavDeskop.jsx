@@ -51,7 +51,7 @@ function NavDesktop() {
           {/* Menu Desktop end */}
           {/* Button */}
 
-          <div className=" flex items-center gap-2 text-center ">
+          <div className=" flex items-center gap-2 text-center pr-5 ">
             <Button
               type="button"
               content="Inscription"
