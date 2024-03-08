@@ -16,7 +16,7 @@ function Footer() {
       <div className="flex gap-5 justify-between  md:gap-20">
         <div className="flex gap-2 justify-center items-center flex-col md:gap-5 md:flex-row w-4/5 md:w-auto">
           <Link to="/">
-            <img src={logo} alt="logo" className="md:w-60 md:h-60 h-30" />
+            <img src={logo} alt="logo" className="md:w-60 md:h-60 h-30 pl-4" />
           </Link>
           <div className="flex flex-col flex-wrap text-white gap-5 justify-center">
             <h1 className="font-primary-font text-white text-2xl text-center ">
@@ -61,7 +61,7 @@ function Footer() {
           </h1>
           <p className="text-white font-secondary-font">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            itaque explicabo fugit dolorum quod,
+            itaque explicabo fugit a dolorum quod,
           </p>
           <Link to="#En savoir plus">
             <div className="flex items-center justify-center">
@@ -112,7 +112,7 @@ function Footer() {
         </div>
       </div>
       <div className="flex justify-center">
-        <p className="text-white font-secondary-font">
+        <p className="text-white font-secondary-font pb-2">
           © 2024 THE LAB • All Rights Reserved
         </p>
       </div>
