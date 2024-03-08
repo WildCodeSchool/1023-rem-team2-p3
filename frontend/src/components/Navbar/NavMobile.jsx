@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logoNavbar from "../../assets/logo_navbar.svg";
-import Button from "../../components/Button/Button";
+import Button from "../Button/Button";
 
 function Header() {
   const navigate = useNavigate();
