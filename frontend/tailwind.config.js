@@ -6,10 +6,16 @@ export default {
       colors: {
         "primary-color": "#9574D9",
         "secondary-color": "#9EEDFE",
+
         "tertiary-color": "#E34BD1",
         "learnMore-color": "#F72585",
+
+        "gradient-color1": "#E34BD1",
+        "gradient-color2": "#43C2EF",
+        "gradient-color3": "#9386E0",
+
         "background-color-first": "#030A13",
-        "background-color-second": "#170B24",
+        "background-color-second": "#150E1B",
       },
       fontFamily: {
         "primary-font": ["Nextstep"],
