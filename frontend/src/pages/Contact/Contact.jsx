@@ -3,9 +3,12 @@ import StarsCanvas from "../../components/Stars/Stars";
 
 export default function Contact() {
   return (
-    <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden h-[20rem]">
-      <h1 className="text-4xl font-bold text-center">Contact</h1>
-      <StarsCanvas />
+
+    <div className="relative z-10 font-secondary_font flex flex-wrap justify-center ">
+      <div className="flex flex-col justify-center items-center">
+        <h1 className="text-4xl font-bold text-white">Contact</h1>
+        <p className="text-white">This is the contact page</p>
+      </div>
     </div>
   );
 }

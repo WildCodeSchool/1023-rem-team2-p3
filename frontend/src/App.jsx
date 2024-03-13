@@ -7,6 +7,7 @@ function App() {
       <ParticleBackground />
     </div>
   );
+
 }
 
 export default App;

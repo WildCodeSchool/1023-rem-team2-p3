@@ -5,7 +5,9 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
 
+
 // const colors = ["#9574D9", "#9EE6FE", "#E34BD1"];
+
 
 function Stars(props) {
   const ref = useRef();
@@ -30,7 +32,9 @@ function Stars(props) {
 }
 function StarsCanvas() {
   return (
-    <div className="w-full h-[1800px] absolute inset-0 z-[-1] bg-black">
+
+    <div className="w-full min-h-[calc(100vh-415px)] h-full absolute bg-gradient-to-b from-background-color-second to-background-color-first">
+
       <Canvas camera={{ position: [0, 0, 1] }}>
         <Suspense fallback={null}>
           <Stars />
