@@ -1,10 +1,15 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logoNavbar from "../../assets/logo_navbar.svg";
 import Button from "../Button/Button";
 
 function NavDesktop() {
   const navigate = useNavigate();
+
+  const activeLink =
+    "text-center bg-gradient-to-r from-gradient-color1 via-gradient-color2 to-gradient-color3 text-transparent bg-clip-text font-bold pr-3";
+  const inactiveLink =
+    "text-white text-center font-[400] hover:bg-gradient-to-r from-gradient-color1 via-gradient-color3 to-gradient-color2 hover:text-transparent hover:bg-clip-text ease-in duration-300 pr-3";
 
   const handleClickLogin = () => {
     navigate("/login");
@@ -15,38 +20,63 @@ function NavDesktop() {
   };
 
   return (
-    <nav className="leading-[80px]">
+    <nav className="">
       <div className="navbar-desktop">
         <div className="hidden font-secondary-font md:flex items-center justify-between text-white bg-background-color-second">
           {/* Logo */}
           <div className="logo">
             <div className="flex items-center justify-between gap-4 px-5">
-              <Link to="/">
-                <img src={logoNavbar} alt="logo" className="w-20 h-20 " />
-              </Link>
-              <h1 className=" font-primary-font text-[20px]">THE LAB</h1>
+              <NavLink to="/">
+                <img src={logoNavbar} alt="logo" className="w-20 h-20" />
+              </NavLink>
+              <h1 className=" font-primary-font lg:text-[20px] text-[14px]">
+                THE LAB
+              </h1>
             </div>
           </div>
           {/* Logo end */}
           {/* Menu Desktop */}
-          <div className="menu-desktop">
-            <ul className=" flex items-center gap-10">
-              <li className="bg-gradient-to-r from-gradient-color1 via-gradient-color2 to-gradient-color3 text-transparent bg-clip-text font-[700] ">
-                <Link to="/">Accueil</Link>
-              </li>
-              <li className="text-white font-[600] lg:font-[400] hover:bg-gradient-to-r from-gradient-color1 via-gradient-color3 to-gradient-color2 hover:text-transparent hover:bg-clip-text ease-in duration-300 ">
-                <Link to="/about">A propos</Link>
-              </li>
-              <li className="text-white font-[600] lg:font-[400] hover:bg-gradient-to-r from-gradient-color1 via-gradient-color3 to-gradient-color2 hover:text-transparent hover:bg-clip-text ease-in duration-300 ">
-                <Link to="/contact">Contact</Link>
-              </li>
-              <li className="text-white font-[600] hover:bg-gradient-to-r from-gradient-color1 via-gradient-color3 to-gradient-color2 hover:text-transparent hover:bg-clip-text ease-in duration-300">
-                <Link to="/workshops">Ateliers</Link>
-              </li>
-              <li className="text-white font-[600] hover:bg-gradient-to-r from-gradient-color1 via-gradient-color3 to-gradient-color2 hover:text-transparent hover:bg-clip-text ease-in duration-300">
-                <Link to="/giveaway">Jeu concours</Link>
-              </li>
-            </ul>
+          <div className="flex items-center lg:gap-10 gap-4">
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? activeLink : inactiveLink
+              }
+              to="/"
+            >
+              Accueil
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? activeLink : inactiveLink
+              }
+              to="/about"
+            >
+              A propos
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? activeLink : inactiveLink
+              }
+              to="/contact"
+            >
+              Contact
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? activeLink : inactiveLink
+              }
+              to="/workshops"
+            >
+              Ateliers
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? activeLink : inactiveLink
+              }
+              to="/giveaway"
+            >
+              Jeu concours
+            </NavLink>
           </div>
           {/* Menu Desktop end */}
           {/* Button */}
@@ -56,7 +86,7 @@ function NavDesktop() {
               type="button"
               content="Inscription"
               handleClick={handleClickLogin}
-              className="bg-gradient-to-r leading-none py-3  px-4 from-[#4CACFF] via-[#A070EF] to-[#8E78DA] text-white  flex items-center rounded-[20px] hover:bg-gradient-to-r hover:from-[#4CACFF] hover:via-[#4CACFF] hover:to-[#4CACFF]  ease-in-out"
+              className="bg-gradient-to-r leading-none py-3  px-4 from-[#4CACFF] via-[#A070EF] to-[#8E78DA] text-white  flex items-center rounded-[20px] hover:bg-gradient-to-r hover:from-[#4CACFF] hover:via-[#4CACFF] hover:to-[#4CACFF]  ease-in"
             />
             <Button
               type="button"
