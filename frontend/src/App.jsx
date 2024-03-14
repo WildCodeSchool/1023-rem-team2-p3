@@ -4,6 +4,7 @@ function App() {
       <h1 className="absolute text-white top-40 text-7xl"> The Lab </h1>
     </div>
   );
+
 }
 
 export default App;
