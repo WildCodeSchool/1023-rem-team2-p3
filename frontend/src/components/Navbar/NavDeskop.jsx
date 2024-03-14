@@ -20,9 +20,9 @@ function NavDesktop() {
   };
 
   return (
-    <nav className="">
+    <nav className="hidden font-secondary-font md:flex items-center justify-between text-white bg-background-color-second">
       <div className="navbar-desktop">
-        <div className="hidden font-secondary-font md:flex items-center justify-between text-white bg-background-color-second">
+        <div className=" font-secondary-font md:flex items-center justify-between text-white bg-background-color-second">
           {/* Logo */}
           <div className="logo">
             <div className="flex items-center justify-between gap-4 px-5">

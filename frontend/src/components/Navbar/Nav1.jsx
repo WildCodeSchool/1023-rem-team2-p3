@@ -6,7 +6,7 @@ import { useClickAway } from "react-use";
 import logoNavbar from "../../assets/logo_navbar.svg";
 import Button from "../Button/Button";
 
-function NavMobile() {
+function Nav1() {
   const [isOpen, setOpen] = useState(false);
   const navigate = useNavigate();
   const ref = useRef(null);
@@ -31,13 +31,20 @@ function NavMobile() {
 
   const buttonSignUp =
     "bg-gradient-to-r leading-none py-2  px-2 from-[#F5ABF1] via-[#B980F8] to-[#7651FF] text-white font-[400] text-[10px] w-[60px] h-[25px] flex items-center rounded-[20px] hover:bg-gradient-to-r hover:from-[#F5ABF1] hover:via-[#F5ABF1] hover:to-[#F5ABF1]  ease-in ";
+
   return (
     <div
       ref={ref}
       className="md:hidden justify-between p-2 gap-28 text-[7px] items-center font-secondary-font flex text-white bg-red-500"
     >
       {/* Menu BURGER */}
-      <Hamburger toggled={isOpen} size={30} toggle={setOpen} />
+      <Hamburger
+        toggled={isOpen}
+        size={30}
+        toggle={setOpen}
+        hideOutline={false}
+        direction="right"
+      />
       {isOpen && (
         <div className="flex flex-col items-center ">
           <NavLink
@@ -80,38 +87,32 @@ function NavMobile() {
 
       {/* Menu BURGER end */}
       {/* Logo */}
-      <div className="flex items-center w-16">
+      <div className="flex items-center">
         <NavLink to="/">
           <img src={logoNavbar} alt="logo" />
         </NavLink>
-        <h1 className=" hidden font-primary-font lg:text-[20px] text-[14px]">
-          THE LAB
-        </h1>
+        <h1 className=" hidden">THE LAB</h1>
       </div>
 
       {/* Logo end */}
       {/* Button */}
       <div className=" flex items-center gap-2 text-center">
-        <div>
-          <Button
-            type="button"
-            content="Inscription"
-            handleClick={handleClickLogin}
-            className={buttonLogin}
-          />
-        </div>
-        <div>
-          <Button
-            type="button"
-            content="Connexion"
-            handleClick={handleClickSignup}
-            className={buttonSignUp}
-          />
-        </div>
+        <Button
+          type="button"
+          content="Inscription"
+          handleClick={handleClickLogin}
+          className={buttonLogin}
+        />
+        <Button
+          type="button"
+          content="Connexion"
+          handleClick={handleClickSignup}
+          className={buttonSignUp}
+        />
       </div>
       {/* Button end */}
     </div>
   );
 }
 
-export default NavMobile;
+export default Nav1;
