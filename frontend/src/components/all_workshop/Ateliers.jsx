@@ -20,9 +20,9 @@ export default function Ateliers() {
     setHoveredAtelier(null);
   };
   console.info(selectedAtelier?.id);
-  console.info(buttonPopup);
+  console.info(hoveredAtelier);
   return (
-    <div className="flex flex-row flex-wrap justify-around gap-5 pb-12 pt-12">
+    <div className="flex flex-row flex-wrap justify-around gap-5 pb-12 pt-12 gap-y-24">
       {atelier.map((ateliers) => (
         <div
           key={ateliers.id}
@@ -31,14 +31,14 @@ export default function Ateliers() {
           onMouseLeave={handleMouseLeave}
         >
           <button onClick={() => handleClick(ateliers)}>
-            <div className="flex justify-center items-center md:pb-10 pb-20">
+            <div className="flex justify-center items-center group ">
               <img
                 src={ateliers.image}
                 alt="atelier"
-                className="md:w-96 md:h-96 w-60 h-60 md:rounded-2xl hover:opacity-30 rounded-full md:shadow-none shadow-[0px_0px_15px_30px_#00000024] shadow-white"
+                className="md:w-96 md:h-96 w-60 h-60 md:rounded-2xl group-hover:opacity-30 rounded-full md:shadow-none shadow-[0px_0px_15px_30px_#00000024] shadow-white"
               />
               {hoveredAtelier === ateliers.id && (
-                <p className=" text-white text-3xl  absolute font-secondary-font">
+                <p className="  text-3xl text-white  absolute font-secondary-font ">
                   {ateliers.nom}
                 </p>
               )}
