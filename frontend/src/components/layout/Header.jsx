@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-// import NavDesktop from "../Navbar/NavDeskop";
-// import NavMobile from "../Navbar/NavMobile";
 import { Link, useNavigate } from "react-router-dom";
 import logoNavbar from "../../assets/logo_navbar.svg";
 import BurgerIcon from "../BurgerIcon/BurgerIcon";
