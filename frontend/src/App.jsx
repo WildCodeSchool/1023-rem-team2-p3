@@ -1,10 +1,14 @@
+import React from "react";
+import ScoreCard from "./pages/Home/ScoreCard";
+import Title from "./pages/Home/Title";
+
 function App() {
   return (
-    <div className="font-secondary_font min-h-[calc(100vh-160px)] flex flex-wrap justify-center bg-gradient-to-b from-background-color-second to-background-color-first ">
-      <h1 className="absolute text-white top-40 text-7xl"> The Lab </h1>
+    <div className="block md:flex md:justify-evenly md:items-center justify-center items-center">
+      <Title />
+      <ScoreCard />
     </div>
   );
-
 }
 
 export default App;
