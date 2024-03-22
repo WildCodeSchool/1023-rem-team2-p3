@@ -17,7 +17,7 @@ export default function Title() {
   }, []);
 
   return (
-    <div className="md:grid md:grid-cols-2 md:justify-stretch md:relative md:m-20">
+    <div className="lg:grid lg:grid-cols-2 lg:justify-stretch lg:relative lg:m-20">
       <div
         data-aos="fade-up"
         data-aos-duration="1500"

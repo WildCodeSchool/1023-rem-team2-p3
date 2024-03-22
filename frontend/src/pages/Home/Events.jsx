@@ -4,6 +4,7 @@ import { LuMapPin } from "react-icons/lu";
 import { MdOutlineDateRange } from "react-icons/md";
 import { CiMapPin } from "react-icons/ci";
 import { IoTicketOutline } from "react-icons/io5";
+import Aos from "aos";
 import Button from "../../components/Button/Button";
 
 const buttonStyles = {
@@ -33,8 +34,9 @@ export default function Events() {
     setFilteredEvents(filtered);
   }, [selectTab, events]);
 
-  console.info("filteredEvents", filteredEvents);
-  console.info("selectTab", selectTab);
+  useEffect(() => {
+    Aos.init({ duration: 1000 });
+  }, []);
 
   return (
     <div className=" font-secondary-font ">
@@ -57,7 +59,10 @@ export default function Events() {
         />
       </div>
 
-      <div className="text-white  flex flex-col justify-center items-center font-secondary-font text-[16px] md:text-[20px] ">
+      <div
+        data-aos="zoom-in"
+        className="text-white  flex flex-col justify-center items-center font-secondary-font text-[16px] md:text-[20px] "
+      >
         {filteredEvents.map((event, index) => (
           <div
             // eslint-disable-next-line react/no-array-index-key

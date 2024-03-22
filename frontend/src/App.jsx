@@ -11,7 +11,7 @@ function App() {
     Aos.init({ duration: 1000 });
   }, []);
   return (
-    <div className=" lg:max-w-[1600px] md:flex md:flex-col justify-center items-center">
+    <div className=" max-w-[1600px] md:flex md:flex-col justify-center items-center">
       <Title />
       <Timeline />
       <Performances />
