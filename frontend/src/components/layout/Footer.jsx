@@ -16,7 +16,11 @@ function Footer() {
       <div className="flex gap-5 justify-between  md:gap-20">
         <div className="flex gap-2 justify-center items-center flex-col md:gap-5 md:flex-row w-4/5 md:w-auto">
           <Link to="/">
-            <img src={logo} alt="logo" className="md:w-60 md:h-60 h-30 pl-4" />
+            <img
+              src={logo}
+              alt="logo"
+              className="md:w-60 md:h-60 h-30 md:pl-4"
+            />
           </Link>
           <div className="flex flex-col flex-wrap text-white gap-5 justify-center">
             <h1 className="font-primary-font text-white text-2xl text-center ">

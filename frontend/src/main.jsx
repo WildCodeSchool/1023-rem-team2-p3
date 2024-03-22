@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       { path: "workshops", element: <Workshop /> },
       { path: "signup", element: <Signup /> },
       { path: "login", element: <Login /> },
-      { path: "/giveaway", element: <Giveaway /> },
+      { path: "giveaway", element: <Giveaway /> },
       { path: "legal", element: <Legal /> },
       { path: "privacy", element: <Privacy /> },
       { path: "forgot/password", element: <ForgotPassword /> },
