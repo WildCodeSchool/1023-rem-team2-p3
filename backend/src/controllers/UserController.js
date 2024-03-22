@@ -22,7 +22,9 @@ const getUserByEmail = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      res.status(401).json({ error: "Email and password are required" });
+      res
+        .status(401)
+        .json({ error: "Email and password are required", status: 401 });
     } else {
       const [user] = await tables.user.getUserByEmail(email);
       if (user.length) {
@@ -33,12 +35,16 @@ const getUserByEmail = async (req, res) => {
             process.env.SECRET_KEY_JWT,
             { expiresIn: "0.5h" }
           );
-          res.status(200).send(token);
+          res.status(200).json({ token, status: 200 });
         } else {
-          res.status(401).send("verifier vos informations");
+          res
+            .status(401)
+            .json({ message: "verifier vos informations", status: 401 });
         }
       } else {
-        res.status(401).send("l'adresse mail n'existe pas");
+        res
+          .status(401)
+          .json({ message: "l'adresse mail n'existe pas", status: 401 });
       }
     }
   } catch (error) {
@@ -74,9 +80,9 @@ const addUser = async (req, res) => {
       birthday
     );
     if (!results.affectedRows) {
-      res.send("User not added");
+      res.json("User not added");
     } else {
-      res.send("User added");
+      res.json("User added");
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -85,13 +85,13 @@ function NavDesktop() {
             <Button
               type="button"
               content="Inscription"
-              handleClick={handleClickLogin}
+              handleClick={handleClickSignup}
               className="bg-gradient-to-r leading-none py-3  px-4 from-[#4CACFF] via-[#A070EF] to-[#8E78DA] text-white  flex items-center rounded-[20px] hover:bg-gradient-to-r hover:from-[#4CACFF] hover:via-[#4CACFF] hover:to-[#4CACFF]  ease-in"
             />
             <Button
               type="button"
               content="Connexion"
-              handleClick={handleClickSignup}
+              handleClick={handleClickLogin}
               className="bg-gradient-to-r leading-none py-3  px-4 from-[#F5ABF1] via-[#B980F8] to-[#7651FF] text-white  flex items-center rounded-[20px] hover:bg-gradient-to-r hover:from-[#F5ABF1] hover:via-[#F5ABF1] hover:to-[#F5ABF1]  ease-in"
             />
           </div>

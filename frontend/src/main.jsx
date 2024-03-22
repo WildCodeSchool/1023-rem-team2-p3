@@ -9,6 +9,9 @@ import Workshop from "./pages/Workshop/Workshop";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Giveaway from "./pages/Giveaway/Giveaway";
+import Legal from "./pages/Legal/Legal";
+import Privacy from "./pages/Privacy/Privacy";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import "./index.css";
 
 function AppLayout() {
@@ -30,6 +33,9 @@ const router = createBrowserRouter([
       { path: "signup", element: <Signup /> },
       { path: "login", element: <Login /> },
       { path: "/giveaway", element: <Giveaway /> },
+      { path: "legal", element: <Legal /> },
+      { path: "privacy", element: <Privacy /> },
+      { path: "forgot/password", element: <ForgotPassword /> },
     ],
   },
 ]);
