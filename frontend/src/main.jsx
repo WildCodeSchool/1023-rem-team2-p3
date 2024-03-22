@@ -10,6 +10,9 @@ import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Giveaway from "./pages/Giveaway/Giveaway";
 import "./index.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 
 function AppLayout() {
   return (
@@ -41,3 +44,5 @@ root.render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
+
+AOS.init();

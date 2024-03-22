@@ -32,9 +32,7 @@ function Stars(props) {
 }
 function StarsCanvas() {
   return (
-
     <div className="w-full min-h-[calc(100vh-415px)] h-full absolute bg-gradient-to-b from-background-color-second to-background-color-first">
-
       <Canvas camera={{ position: [0, 0, 1] }}>
         <Suspense fallback={null}>
           <Stars />
