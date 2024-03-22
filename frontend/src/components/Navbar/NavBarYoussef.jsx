@@ -14,7 +14,7 @@ export default function NavBarYoussef({ isOpen, setOpen }) {
   return (
     <div
       ref={ref}
-      className={` flex flex-col gap-1 md:gap-4 md:relative md:flex md:flex-row md:items-center rounded-bl md:bg-transparent lg:gap-10 ${isOpen ? "absolute top-7 items-start left-0 p-3 text-[8px] bg-background-color-second" : "hidden"}`}
+      className={` flex flex-col gap-1 md:gap-4 md:relative md:flex md:flex-row md:items-center rounded-bl md:bg-transparent z-10 lg:gap-10 ${isOpen ? "absolute top-7 items-start left-0 p-3 text-[8px] bg-background-color-second" : "hidden"}`}
     >
       <NavLink
         onClick={() => setOpen((prev) => !prev)}

@@ -12,7 +12,7 @@ import next from "../../assets/vector/next.svg";
 
 function Footer() {
   return (
-    <div className="flex bg-background-color-first flex-col gap-5 justify-center border-gray-400">
+    <div className="flex bg-background-color-first flex-col gap-5 justify-center">
       <div className="flex gap-5 justify-between  md:gap-20">
         <div className="flex gap-2 justify-center items-center flex-col md:gap-5 md:flex-row w-4/5 md:w-auto">
           <Link to="/">

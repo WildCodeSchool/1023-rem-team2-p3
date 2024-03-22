@@ -41,19 +41,19 @@ export default function Header() {
         </h1>
       </div>
 
-      <NavBarYoussef isOpen={isOpen} />
+      <NavBarYoussef isOpen={isOpen} setOpen={setOpen} />
 
       <div className=" flex items-center gap-2 text-center ">
         <Button
           type="button"
           content="Inscription"
-          handleClick={handleClickLogin}
+          handleClick={handleClickSignup}
           className={buttonLogin}
         />
         <Button
           type="button"
           content="Connexion"
-          handleClick={handleClickSignup}
+          handleClick={handleClickLogin}
           className={buttonSignUp}
         />
       </div>

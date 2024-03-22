@@ -2,6 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @font-face {
   font-family: Nextstep;
   src: url("./fonts/NEXTSTEP.otf");
