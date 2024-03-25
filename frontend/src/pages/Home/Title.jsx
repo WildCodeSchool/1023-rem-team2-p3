@@ -1,29 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-// eslint-disable-next-line import/no-extraneous-dependencies
-import Aos from "aos";
 import Button from "../../components/Button/Button";
-import ScoreCard from "./ScoreCard";
+import Avatar from "../../assets/image/ScoreCardWithShadow.png";
 
-export default function Title() {
+export default function Title2() {
   const buttonPrimary =
     "uppercase md:relative py-2 px-4 lg:w-[230px] lg:h-12 md:w-[200px] md:h-10 text-[15px] md:text-[18px] lg:text-[24px] font-bold bg-gradient-to-r from-gradient-color2 via-gradient-color3 to-gradient-color1 text-white text-center items-center rounded-[20px] hover:bg-gradient-to-r hover:from-gradient-color3 hover:via-gradient-color3 hover:to-gradient-color3  ease-in";
   const navigate = useNavigate();
   const handleClickSignup = () => {
     navigate("/signup");
   };
-  useEffect(() => {
-    Aos.init({ duration: 1000 });
-  }, []);
-
   return (
-    <div className="lg:grid lg:grid-cols-2 lg:justify-stretch lg:relative lg:m-20">
-      <div
-        data-aos="fade-up"
-        data-aos-duration="1500"
-        className=" block text-center md:text-start md:flex md:flex-col p-16 items-center"
-      >
-        <h1 className="text-white font-secondary-font md:text-start text-[30px] md:text-[40px] lg:text-[45px] font-extrabold mb-7 ">
+    <div className="lg:grid lg:grid-cols-2 m-4">
+      <div className=" flex flex-col justify-center items-center text-center ml-10 ">
+        <h1 className="text-white font-secondary-font md:text-start text-[30px] md:text-[40px] lg:text-[45px] font-extrabold m-7 ">
           Participez à la plus belle aventure football jamais connue
         </h1>
         <Button
@@ -39,8 +29,13 @@ export default function Title() {
           STOP DREAMING, START EXCELLING
         </p>
       </div>
-
-      <ScoreCard />
+      <div className="flex flex-col justify-center items-center text-center">
+        <img
+          src={Avatar}
+          alt="Score Card"
+          className=" w-60 h-70 md:w-[500px] md:h-auto  top-0 left-48 "
+        />
+      </div>
     </div>
   );
 }

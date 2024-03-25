@@ -5,12 +5,12 @@ import Performances from "./pages/Home/Performances";
 import Performances2 from "./pages/Home/Performances2";
 import Events from "./pages/Home/Events";
 
-import Title2 from "./pages/Home/Title2";
+import Title from "./pages/Home/Title";
 
 function App() {
   return (
     <div className=" max-w-[1600px] md:flex md:flex-col justify-center items-center">
-      <Title2 />
+      <Title />
       <Timeline />
       <Performances />
       <Performances2 />
