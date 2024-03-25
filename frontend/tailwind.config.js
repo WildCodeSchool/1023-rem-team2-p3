@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import tailwindScrollbar from "tailwind-scrollbar";
+import tailwindcssanimated from "tailwindcss-animated";
 
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -26,5 +27,5 @@ export default {
     },
   },
 
-  plugins: [tailwindScrollbar],
+  plugins: [tailwindScrollbar, tailwindcssanimated],
 };
