@@ -39,7 +39,7 @@ function TimelineCards({ parcour }) {
 export default function Timeline() {
   return (
     <>
-      <motion.div className="md:flex text-start md:mt-80">
+      <motion.div className="md:flex text-start md:mt-10">
         <h1 className=" relative uppercase font-secondary-font text-white font-[600] text-center text-[25px] md:text-[50px]">
           Ton parcours
         </h1>

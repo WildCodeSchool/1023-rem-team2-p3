@@ -39,7 +39,7 @@ export default function Events() {
   }, []);
 
   return (
-    <div className=" font-secondary-font ">
+    <div className=" font-secondary-font mt-10">
       <h2 className="font-secondary-font text-white font-[600] text-center text-[25px] md:text-[50px] mt-10">
         EVENEMENTS
       </h2>
