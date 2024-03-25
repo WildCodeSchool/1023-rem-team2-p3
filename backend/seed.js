@@ -68,7 +68,7 @@ const seed = async () => {
     //   queries.push(
     //     database.query(
     //       "insert into event(city, date, address, quantity) values (?,?,?,?)",
-    //       [faker.lorem.word()]
+    //       [faker.address.city(), faker.date.soon(), faker.address.streetAddress(), faker.datatype.number()]
     //     )
     //   );
     // }
