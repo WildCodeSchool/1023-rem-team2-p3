@@ -4,7 +4,6 @@ import Timeline from "./pages/Home/Timeline";
 import Performances from "./pages/Home/Performances";
 import Performances2 from "./pages/Home/Performances2";
 import Events from "./pages/Home/Events";
-
 import Title from "./pages/Home/Title";
 
 function App() {
