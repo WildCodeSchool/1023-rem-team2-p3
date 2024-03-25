@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Outlet, createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
+import AOS from "aos";
 import Layout from "./components/layout/Layout";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
@@ -13,6 +13,8 @@ import Legal from "./pages/Legal/Legal";
 import Privacy from "./pages/Privacy/Privacy";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import "./index.css";
+import App from "./App";
+import "aos/dist/aos.css";
 
 function AppLayout() {
   return (
@@ -47,3 +49,5 @@ root.render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
+
+AOS.init();
