@@ -59,13 +59,21 @@ const getUserById = async (req, res) => {
     if (user.length) {
       delete user[0].hashedPassword;
       res.status(200).json({
-        message: `Welcome To THE LAB ${user[0].firstname} !`,
+        isLogged: true,
+        message: `Welcome to THE LAB ${user[0].firstname} !`,
+        data: user[0],
       });
     } else {
-      res.status(404).send({ error: "User Not Found" });
+      res.status(404).send({
+        isLogged: false,
+        error: "User Not Found",
+      });
     }
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({
+      isLogged: false,
+      error: error.message,
+    });
   }
 };
 

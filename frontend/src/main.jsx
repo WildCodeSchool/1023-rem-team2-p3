@@ -12,6 +12,7 @@ import Giveaway from "./pages/Giveaway/Giveaway";
 import Legal from "./pages/Legal/Legal";
 import Privacy from "./pages/Privacy/Privacy";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import { UserProvider } from "./context/UserContext";
 import "./index.css";
 import App from "./App";
 import "aos/dist/aos.css";
@@ -42,11 +43,11 @@ const router = createBrowserRouter([
   },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
   </React.StrictMode>
 );
 

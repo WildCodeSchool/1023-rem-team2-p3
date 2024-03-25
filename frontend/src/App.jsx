@@ -1,4 +1,3 @@
-import React from "react";
 import ScoreCard from "./pages/Home/ScoreCard";
 import Title from "./pages/Home/Title";
 
