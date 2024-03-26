@@ -5,13 +5,11 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
 
-
 // const colors = ["#9574D9", "#9EE6FE", "#E34BD1"];
-
 
 function Stars(props) {
   const ref = useRef();
-  const sphere = random.inSphere(new Float32Array(5000), { radius: 1.2 });
+  const sphere = random.inSphere(new Float32Array(7000), { radius: 1.2 });
   useFrame((state, delta) => {
     ref.current.rotation.x -= delta / 10;
     ref.current.rotation.y -= delta / 15;
@@ -21,8 +19,8 @@ function Stars(props) {
       <Points ref={ref} positions={sphere} stride={3} frustumCulled {...props}>
         <PointMaterial
           transparent
-          size={0.002}
-          color="#E34BD1"
+          size={0.005}
+          color="#ffffff"
           sizeAttenuation
           depthWrite={false}
         />
@@ -32,9 +30,7 @@ function Stars(props) {
 }
 function StarsCanvas() {
   return (
-
-    <div className="w-full min-h-[calc(100vh-415px)] h-full absolute bg-gradient-to-b from-background-color-second to-background-color-first">
-
+    <div className="w-screen h-[400px]">
       <Canvas camera={{ position: [0, 0, 1] }}>
         <Suspense fallback={null}>
           <Stars />

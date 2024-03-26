@@ -22,7 +22,9 @@ const getUserByEmail = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      res.status(401).json({ error: "Email and password are required" });
+      res
+        .status(401)
+        .json({ error: "Email and password are required", status: 401 });
     } else {
       const [user] = await tables.user.getUserByEmail(email);
       if (user.length) {
@@ -33,12 +35,16 @@ const getUserByEmail = async (req, res) => {
             process.env.SECRET_KEY_JWT,
             { expiresIn: "0.5h" }
           );
-          res.status(200).send(token);
+          res.status(200).json({ token, status: 200 });
         } else {
-          res.status(401).send("verifier vos informations");
+          res
+            .status(401)
+            .json({ message: "verifier vos informations", status: 401 });
         }
       } else {
-        res.status(401).send("l'adresse mail n'existe pas");
+        res
+          .status(401)
+          .json({ message: "l'adresse mail n'existe pas", status: 401 });
       }
     }
   } catch (error) {
@@ -53,13 +59,21 @@ const getUserById = async (req, res) => {
     if (user.length) {
       delete user[0].hashedPassword;
       res.status(200).json({
-        message: `Welcome To THE LAB ${user[0].firstname} !`,
+        isLogged: true,
+        message: `Welcome to THE LAB ${user[0].firstname} !`,
+        data: user[0],
       });
     } else {
-      res.status(404).send({ error: "User Not Found" });
+      res.status(404).send({
+        isLogged: false,
+        error: "User Not Found",
+      });
     }
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({
+      isLogged: false,
+      error: error.message,
+    });
   }
 };
 
@@ -74,9 +88,9 @@ const addUser = async (req, res) => {
       birthday
     );
     if (!results.affectedRows) {
-      res.send("User not added");
+      res.json("User not added");
     } else {
-      res.send("User added");
+      res.json("User added");
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

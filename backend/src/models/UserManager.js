@@ -48,9 +48,10 @@ class UserManager extends AbstractManager {
   }
 
   async getUserById(id) {
-    return this.database.query(`SELECT * FROM ${this.table} WHERE id = ?`, [
-      id,
-    ]);
+    return this.database.query(
+      `SELECT * FROM ${this.table} LEFT JOIN user_info ON user.id = user_info.user_id where user.id= ?`,
+      [id]
+    );
   }
 
   async deleteUser(id) {

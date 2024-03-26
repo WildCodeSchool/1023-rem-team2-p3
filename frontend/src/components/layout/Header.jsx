@@ -1,12 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logoNavbar from "../../assets/logo_navbar.svg";
 import BurgerIcon from "../BurgerIcon/BurgerIcon";
 import Button from "../Button/Button";
 import NavBarYoussef from "../Navbar/NavBarYoussef";
+import ModalLogout from "../ModalLogout/ModalLogout";
+import { UserContext } from "../../context/UserContext";
 
 export default function Header() {
+  const { user, setUser } = useContext(UserContext);
+  // console.info("User", user);
+  // console.info("user.data.avatar", user.data.avatar);
   const [isOpen, setOpen] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleClick = () => {
+    setUser({});
+    localStorage.removeItem("token");
+  };
 
   const navigate = useNavigate();
 
@@ -40,23 +50,57 @@ export default function Header() {
           THE LAB
         </h1>
       </div>
-
-      <NavBarYoussef isOpen={isOpen} setOpen={setOpen} />
-
-      <div className=" flex items-center gap-2 text-center ">
-        <Button
-          type="button"
-          content="Inscription"
-          handleClick={handleClickSignup}
-          className={buttonLogin}
-        />
-        <Button
-          type="button"
-          content="Connexion"
-          handleClick={handleClickLogin}
-          className={buttonSignUp}
-        />
-      </div>
+      <NavBarYoussef isOpen={isOpen} />
+      {user.isLogged ? (
+        <>
+          <ModalLogout
+            show={show}
+            handleClick={handleClick}
+            setShow={setShow}
+          />
+          <div className="flex gap-6 text-white mr-10 items-center">
+            <button
+              className="bg-transparent border-none"
+              type="button"
+              // onClick={}
+            >
+              {user.data.avatar !== null ? (
+                <img
+                  className="w-8 rounded-full"
+                  src={`${import.meta.env.VITE_BACKEND_URL}/${
+                    user.data.avatar
+                  }`}
+                  alt="avatarUser"
+                />
+              ) : (
+                <img className="w-8" src="/user.svg" alt="userAvatar" />
+              )}
+            </button>
+            <button
+              className="bg-transparent border-none"
+              type="button"
+              onClick={() => setShow(true)}
+            >
+              <img className="w-8" src="/logout.svg" alt="logout" />
+            </button>
+          </div>
+        </>
+      ) : (
+        <div className=" flex items-center gap-2 text-center ">
+          <Button
+            type="button"
+            content="Inscription"
+            handleClick={handleClickLogin}
+            className={buttonLogin}
+          />
+          <Button
+            type="button"
+            content="Connexion"
+            handleClick={handleClickSignup}
+            className={buttonSignUp}
+          />
+        </div>
+      )}
     </header>
   );
 }

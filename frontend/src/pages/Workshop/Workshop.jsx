@@ -1,6 +1,4 @@
-import React from "react";
 import Ateliers from "../../components/all_workshop/Ateliers";
-// import ParticleBackground from "../../components/Canvas/Canvas";
 
 export default function Workshop() {
   return (
@@ -16,7 +14,6 @@ export default function Workshop() {
           aliquam!
         </p>
       </div>
-      {/* <ParticleBackground /> */}
       <Ateliers />
     </div>
   );

@@ -1,4 +1,7 @@
+/* eslint-disable import/no-unresolved */
 /** @type {import('tailwindcss').Config} */
+import tailwindScrollbar from "tailwind-scrollbar";
+import tailwindcssanimated from "tailwindcss-animated";
 // eslint-disable-next-line import/no-extraneous-dependencies
 const withMT = require("@material-tailwind/react/utils/withMT");
 
@@ -31,5 +34,5 @@ export default withMT({
       },
     },
   },
-  plugins: [],
+  plugins: [tailwindScrollbar, tailwindcssanimated],
 });
