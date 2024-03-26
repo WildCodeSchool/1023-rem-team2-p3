@@ -1,4 +1,9 @@
-const questions = [
+import aleksandra from "../../assets/image/aleksandra.jpg";
+import nadir from "../../assets/image/nadir.jpg";
+import aurelien from "../../assets/image/aurelien.jpg";
+import nicolas from "../../assets/image/nico.jpg";
+
+export const questions = [
   {
     id: 1,
     question:
@@ -36,4 +41,23 @@ const questions = [
   },
 ];
 
-export default questions;
+export const services = [
+  {
+    title: "Nadir, CEO / développeur Fullstack",
+    picture: nadir,
+  },
+  {
+    title: "Aleksandra, développeuse Fullstack",
+    picture: aleksandra,
+  },
+  {
+    title: "Aurélien, développeur Fullstack",
+    picture: aurelien,
+  },
+  {
+    title: "Nicolas, développeur Fullstack",
+    picture: nicolas,
+  },
+];
+
+

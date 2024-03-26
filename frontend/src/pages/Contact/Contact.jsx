@@ -1,6 +1,6 @@
 import React from "react";
 import TopMain from "../../components/TopMain/TopMain";
-import questions from "../../data/constants/index";
+import { questions } from "../../data/constants/index";
 import Form from "../../components/formulaire/form";
 
 export default function Contact() {

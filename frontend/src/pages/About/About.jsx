@@ -1,8 +1,37 @@
 import React from "react";
+import { Tilt } from "react-tilt";
+import { motion } from "framer-motion";
 import footballPlayerPic from "../../assets/image/Frame 5.png";
 import calendar from "../../assets/image/calendar.png";
 import children from "../../assets/image/children.png";
 import coach from "../../assets/image/coach.png";
+import { services } from "../../data/constants";
+import { fadeIn } from "../../utils/motion";
+
+const ServiceCard = ({ index, title, picture }) => {
+  return (
+    <Tilt className="xs:w-[250px] w-full">
+      <motion.div
+        variants={fadeIn("right", "spring", 0.5 * index, 0.75)}
+        className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card"
+      >
+        <div
+          options={{
+            max: 45,
+            scale: 1,
+            speed: 450,
+          }}
+          className="bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col"
+        >
+          <img src={picture} alt="web-development" className="w-[90px] h-[90px] rounded-[50px]" />
+          <h3 className="text-white text-[20px] font-bold text-center drop-shadow-lg">
+            {title}
+          </h3>
+        </div>
+      </motion.div>
+    </Tilt>
+  );
+};
 
 export default function About() {
   const textGradient = {
@@ -16,7 +45,7 @@ export default function About() {
     <div className="z-10">
       <div className="font-secondary_font min-h-[calc(100vh-160px)] flex flex-col flex-wrap justify-center bg-gradient-to-b from-background-color-second to-background-color-first ">
         <h1
-          className="z-10 text-center justify-center top-40 font-bold text-[5rem] mb-[110px] md:mt-[100px]"
+          className="z-10 text-center justify-center top-40 font-bold text-[5rem] mb-[50px] md:mt-[100px]"
           style={textGradient}
         >
           A Propos
@@ -120,6 +149,20 @@ export default function About() {
             </div>
           </div>
         </div>
+        <h1
+          className="z-10 text-center justify-center top-20 font-bold text-[4rem] mb-[20px] md:mt-[100px]"
+          style={textGradient}    data-aos="fade-up"
+          data-aos-duration="3000"
+        >
+         THE LAB SQUAD
+        </h1>
+      </div>
+      <div className="mt-20 flex gap-10 mb-[200px]"    data-aos="fade-up"
+            data-aos-duration="3000">
+        {services.map((service, index) => (
+          <ServiceCard key={service.title} index={index} {...service} /> 
+        ))}
+        ;
       </div>
     </div>
   );
