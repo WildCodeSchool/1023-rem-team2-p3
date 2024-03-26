@@ -1,8 +1,37 @@
 import React from "react";
+import { Tilt } from "react-tilt";
+import { motion } from "framer-motion";
 import footballPlayerPic from "../../assets/image/Frame 5.png";
 import calendar from "../../assets/image/calendar.png";
 import children from "../../assets/image/children.png";
 import coach from "../../assets/image/coach.png";
+import { services } from "../../data/constants";
+import { fadeIn } from "../../utils/motion";
+
+const ServiceCard = ({ index, title, picture }) => {
+  return (
+    <Tilt className="xs:w-[250px] w-full">
+      <motion.div
+        variants={fadeIn("right", "spring", 0.5 * index, 0.75)}
+        className="w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card"
+      >
+        <div
+          options={{
+            max: 45,
+            scale: 1,
+            speed: 450,
+          }}
+          className="bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col"
+        >
+          <img src={picture} alt="web-development" className="w-[90px] h-[90px] rounded-[50px]" />
+          <h3 className="text-white text-[20px] font-bold text-center drop-shadow-lg">
+            {title}
+          </h3>
+        </div>
+      </motion.div>
+    </Tilt>
+  );
+};
 
 export default function About() {
   const textGradient = {
@@ -16,12 +45,12 @@ export default function About() {
     <div className="z-10">
       <div className="font-secondary_font min-h-[calc(100vh-160px)] flex flex-col flex-wrap justify-center bg-gradient-to-b from-background-color-second to-background-color-first ">
         <h1
-          className="z-10 text-center justify-center top-40 font-bold text-[5rem] mb-[110px] md:mt-[100px]"
+          className="z-10 text-center justify-center top-40 font-bold text-[5rem] mb-[50px] md:mt-[100px]"
           style={textGradient}
         >
           A Propos
         </h1>
-        <div className="z-10 flex flex-col m-auto justify-center mt-'4rem' w-[477px] h-[350px] md:h-[500px] md:w-[600px]">
+        <div className="z-10 flex flex-col m-auto justify-center mt-'4rem' h-[350px] md:h-[500px] md:w-[600px]">
           <img
             className="firstPic"
             src={footballPlayerPic}
@@ -57,7 +86,7 @@ export default function About() {
             <h2 className="text-2xl font-bold mb-4 text-white lg:text-[33px]">
               L'expérience THE LAB
             </h2>
-            <p className="text-white mb-4 mr-[54px] ml-[54px] lg:m-0 lg:mr-[385px] lg:mb-[125px]">
+            <p className="text-white mb-4 lg:m-0 lg:mr-[385px] lg:mb-[125px]">
               Le concept est simple : Tu t’inscris à un de nos événements proche
               de chez toi, Tu viens préparé et dans ta meilleure forme afin de
               passer nos épreuves... Suite à ta participation, tu recevras une
@@ -120,6 +149,20 @@ export default function About() {
             </div>
           </div>
         </div>
+        <h1
+          className="z-10 text-center justify-center top-20 font-bold text-[4rem] mb-[20px] md:mt-[100px]"
+          style={textGradient}    data-aos="fade-up"
+          data-aos-duration="3000"
+        >
+         THE LAB SQUAD
+        </h1>
+      </div>
+      <div className="mt-20 flex gap-10 mb-[200px] flex-wrap lg:flex-nowrap w-[50%] mx-auto flex-col lg:flex-row lg:w-[100%]"    data-aos="fade-up"
+            data-aos-duration="3000">
+        {services.map((service, index) => (
+          <ServiceCard key={service.title} index={index} {...service} /> 
+        ))}
+        ;
       </div>
     </div>
   );
