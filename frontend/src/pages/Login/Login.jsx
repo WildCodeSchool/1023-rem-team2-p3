@@ -35,7 +35,7 @@ export default function Login() {
             setLoading(false);
           }, 2000);
         } else {
-          localStorage.setItem("token", JSON.stringify(res));
+          localStorage.setItem("token", JSON.stringify(res.token));
           setTimeout(() => {
             navigate("/");
             setLoading(false);

@@ -13,8 +13,6 @@ const app = express();
 // CORS (Cross-Origin Resource Sharing) is a security mechanism in web browsers that blocks requests from a different domain than the server.
 // You may find the following magic line in forums:
 
-// app.use(cors());
-
 // You should NOT do that: such code uses the `cors` module to allow all origins, which can pose security issues.
 // For this pedagogical template, the CORS code is commented out to show the need for defining specific allowed origins.
 
@@ -26,7 +24,10 @@ const app = express();
 // For example: ["http://mysite.com", "http://another-domain.com"]
 
 const cors = require("cors");
-console.log(process.env.FRONTEND_URL)
+
+app.use(cors());
+
+console.info(process.env.FRONTEND_URL);
 app.use(
   cors({
     origin: [
@@ -106,15 +107,15 @@ app.use("/api", router);
 // 1. Uncomment the lines related to serving static files and redirecting unhandled requests.
 // 2. Ensure that the `reactBuildPath` points to the correct directory where your frontend's build artifacts are located.
 
-/*
-const reactBuildPath = `${__dirname}/../../frontend/dist`;
+// const reactBuildPath = `${__dirname}/../../frontend/dist`;
 
 // Serve react resources
 
-app.use(express.static(reactBuildPath));
+// app.use(express.static(reactBuildPath));
+app.use("/uploads", express.static("uploads"));
 
 // Redirect unhandled requests to the react index file
-
+/*
 app.get("*", (req, res) => {
   res.sendFile(`${reactBuildPath}/index.html`);
 });
