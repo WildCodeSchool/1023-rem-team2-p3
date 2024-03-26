@@ -50,7 +50,7 @@ export default function About() {
         >
           A Propos
         </h1>
-        <div className="z-10 flex flex-col m-auto justify-center mt-'4rem' w-[477px] h-[350px] md:h-[500px] md:w-[600px]">
+        <div className="z-10 flex flex-col m-auto justify-center mt-'4rem' h-[350px] md:h-[500px] md:w-[600px]">
           <img
             className="firstPic"
             src={footballPlayerPic}
@@ -86,7 +86,7 @@ export default function About() {
             <h2 className="text-2xl font-bold mb-4 text-white lg:text-[33px]">
               L'expérience THE LAB
             </h2>
-            <p className="text-white mb-4 mr-[54px] ml-[54px] lg:m-0 lg:mr-[385px] lg:mb-[125px]">
+            <p className="text-white mb-4 lg:m-0 lg:mr-[385px] lg:mb-[125px]">
               Le concept est simple : Tu t’inscris à un de nos événements proche
               de chez toi, Tu viens préparé et dans ta meilleure forme afin de
               passer nos épreuves... Suite à ta participation, tu recevras une
@@ -157,7 +157,7 @@ export default function About() {
          THE LAB SQUAD
         </h1>
       </div>
-      <div className="mt-20 flex gap-10 mb-[200px]"    data-aos="fade-up"
+      <div className="mt-20 flex gap-10 mb-[200px] flex-wrap lg:flex-nowrap w-[50%] mx-auto flex-col lg:flex-row lg:w-[100%]"    data-aos="fade-up"
             data-aos-duration="3000">
         {services.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service} /> 
