@@ -55,7 +55,8 @@ export default function Events() {
       </div>
 
       <div
-        data-aos="zoom-in"
+        data-aos="fade-up"
+        data-aos-duration="3000"
         className="text-white  flex flex-col justify-center items-center font-secondary-font text-[16px] md:text-[20px] "
       >
         {filteredEvents.map((event, index) => (
