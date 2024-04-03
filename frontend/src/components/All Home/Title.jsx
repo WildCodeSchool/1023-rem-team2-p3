@@ -12,7 +12,7 @@ export default function Title2() {
   };
   return (
     <div className="lg:grid lg:grid-cols-2 m-4">
-      <div className=" flex flex-col justify-center items-center text-center ml-10 ">
+      <div className=" flex flex-col justify-center items-center text-center  ">
         <h1
           data-aos="fade-up"
           data-aos-duration="3000"

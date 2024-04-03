@@ -4,7 +4,6 @@ import atelier from "../../data/Workshops.json";
 import PopupAtelier from "./PopupAtelier";
 
 export default function Ateliers() {
-  //   console.info("atelier", atelier[0].image);
   const [buttonPopup, setButtonPopup] = useState(false);
   const [selectedAtelier, setSelectedAtelier] = useState(null);
   const [hoveredAtelier, setHoveredAtelier] = useState(null);
@@ -19,8 +18,6 @@ export default function Ateliers() {
   const handleMouseLeave = () => {
     setHoveredAtelier(null);
   };
-  console.info(selectedAtelier?.id);
-  console.info(hoveredAtelier);
   return (
     <div className="flex flex-row flex-wrap justify-around gap-5 pb-12 pt-12 gap-y-24">
       {atelier.map((ateliers) => (

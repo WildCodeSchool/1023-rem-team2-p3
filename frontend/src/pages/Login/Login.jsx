@@ -51,7 +51,7 @@ export default function Login() {
         title="Se Connecter"
         description="Bon retour parmis nous&nbsp;!"
       />
-      <div className="xl:w-[700px] mt-8 mb-4 ml-8 mr-8">
+      <div className="xl:w-[700px] mt-8 mb-4 ml-8 mr-8 font-secondary-font">
         {errorMessage && <p className="text-red-500 mb-2">{errorMessage}</p>}
         <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit}>
           <div className="relative text-white">
@@ -108,7 +108,7 @@ export default function Login() {
           </div>
         </form>
       </div>
-      <div className="flex flex-col justify-center mb-[200px]">
+      <div className="flex flex-col justify-center mb-[200px] font-secondary-font">
         <p className="text-white text-center">
           <a
             className="text-primary-color"

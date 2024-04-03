@@ -37,8 +37,7 @@ export default function Signup() {
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.info("data :>> ", data);
+      .then(() => {
         setTimeout(() => {
           navigate("/login");
           setLoading(false);
@@ -48,11 +47,10 @@ export default function Signup() {
         console.error("Error:", error);
       });
   };
-  console.info("formData", formData);
   return (
     <>
       <TopMain title="Inscription" description="Rejoignez-nous" />
-      <div className="xl:w-[700px] mt-8 mb-4 ml-8 mr-8">
+      <div className="xl:w-[700px] mt-8 mb-4 ml-8 mr-8 font-secondary-font">
         <form
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
           onSubmit={handleSubmit}
@@ -220,7 +218,7 @@ export default function Signup() {
           </div>
         </form>
       </div>
-      <div className="flex justify-center items-center mt-2 mb-28">
+      <div className="flex justify-center items-center mt-2 mb-28 font-secondary-font">
         <p className="text-white">
           Vous avez déjà un compte ?&nbsp;
           <a
