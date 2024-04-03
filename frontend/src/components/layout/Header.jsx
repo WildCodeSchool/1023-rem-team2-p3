@@ -90,13 +90,13 @@ export default function Header() {
           <Button
             type="button"
             content="Inscription"
-            handleClick={handleClickLogin}
+            handleClick={handleClickSignup}
             className={buttonLogin}
           />
           <Button
             type="button"
             content="Connexion"
-            handleClick={handleClickSignup}
+            handleClick={handleClickLogin}
             className={buttonSignUp}
           />
         </div>
