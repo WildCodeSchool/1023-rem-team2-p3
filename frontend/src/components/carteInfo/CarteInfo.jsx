@@ -49,7 +49,15 @@ export default function CarteInfo() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center pt-10 relative">
+    <div
+      data-aos="fade-down"
+      data-aos-easing="linear"
+      data-aos-duration="1500"
+      className="flex flex-col justify-center items-center pt-10 relative my-10"
+    >
+      <h2 className="font-secondary-font text-white font-[600] text-center text-[25px] md:text-[50px] mb-10">
+        NOTRE SCORECARD
+      </h2>
       <div className="flex flex-row justify-center items-center gap-0 relative w-[70%] mr-10 md:mr-20  md:w-[80%] md:h-[400px] h-[100px]">
         {images.map((img, index) => (
           <button
@@ -73,7 +81,7 @@ export default function CarteInfo() {
           </button>
         ))}
       </div>
-      <p className="text-white md:mt-20 mt-10 pb-20  md:text-2xl text-center">
+      <p className="text-white md:mt-20 mt-20 pb-20 text-xl md:text-2xl text-center">
         {images[currentIndex].description}
       </p>
     </div>

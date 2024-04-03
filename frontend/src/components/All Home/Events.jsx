@@ -16,21 +16,18 @@ const buttonStyles = {
 export default function Events() {
   const [events, setEvents] = useState([]);
   const [selectTab, setSelectTab] = useState("active");
-  const [filteredEvents, setFilteredEvents] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:${import.meta.env.VITE_API_PORT}/api/events`)
       .then((response) => response.json())
-      .then((data) => setEvents(data))
+      .then((data) => {
+        const filtered = data
+          .filter((event) => event.status === selectTab)
+          .sort((a, b) => new Date(b.date) - new Date(a.date))
+          .slice(0, 3);
+        setEvents(filtered);
+      })
       .catch((error) => console.error("Error:", error));
-  }, []);
-
-  useEffect(() => {
-    const filtered = events
-      .filter((event) => event.status === selectTab)
-      .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .slice(0, 3);
-    setFilteredEvents(filtered);
   }, [selectTab, events]);
 
   return (
@@ -55,10 +52,11 @@ export default function Events() {
       </div>
 
       <div
-        data-aos="zoom-in"
+        data-aos="fade-up"
+        data-aos-duration="3000"
         className="text-white  flex flex-col justify-center items-center font-secondary-font text-[16px] md:text-[20px] "
       >
-        {filteredEvents.map((event, index) => (
+        {events.map((event, index) => (
           <div
             // eslint-disable-next-line react/no-array-index-key
             key={index}

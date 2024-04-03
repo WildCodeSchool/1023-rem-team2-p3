@@ -5,18 +5,34 @@ import logo from "../../assets/logo.svg";
 
 export default function Event1() {
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 lg:mx-36">
       <div className="lg:grid lg:grid-cols-[2fr] flex flex-col gap-5 lg:gap-0">
-        <h2 className="lg:w-[440px]  lg:col-start-1 lg:col-end-2 w-auto bg-gradient-to-r from-gradient-color2  via-gradient-color3 to-gradient-color1 text-transparent bg-clip-text text-4xl text-center lg:text-left font-secondary-font font-bold">
+        <h2
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          className="lg:w-[440px]  lg:col-start-1 lg:col-end-2 w-auto bg-gradient-to-r from-gradient-color2  via-gradient-color3 to-gradient-color1 text-transparent bg-clip-text text-xl lg:text-4xl text-center lg:text-left font-secondary-font font-bold"
+        >
           Réalisez votre rêve de compétition internationale
         </h2>
-        <p className="lg:w-[2/4] lg:col-start-2 lg:col-end-2 lg:row-start-2 lg:row-end-2 lg:text-left text-white  text-center font-secondary-font text-2xl">
+        <p
+          data-aos="fade-left"
+          data-aos-anchor="#example-anchor"
+          data-aos-offset="500"
+          data-aos-duration="500"
+          className="lg:w-[2/4] lg:col-start-2 lg:col-end-2 lg:row-start-2 lg:row-end-2 lg:text-left text-white  text-center font-secondary-font text-lg lg:text-2xl"
+        >
           Les 30 meilleurs scores auront l'opportunité de défier une équipe
           professionnelle aux États-Unis. Soyez parmi les meilleurs et vivez une
           expérience sportive exceptionnelle
         </p>
       </div>
-      <div className="flex flex-row sm:justify-around items-center justify-around ">
+      <div
+        data-aos="flip-left"
+        data-aos-easing="ease-out-cubic"
+        data-aos-duration="3000"
+        className="flex flex-row sm:justify-around items-center justify-around "
+      >
         <img
           src={event1}
           alt="event"

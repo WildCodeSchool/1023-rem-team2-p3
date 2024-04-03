@@ -13,7 +13,11 @@ export default function Title2() {
   return (
     <div className="lg:grid lg:grid-cols-2 m-4">
       <div className=" flex flex-col justify-center items-center text-center ml-10 ">
-        <h1 className="text-white font-secondary-font md:text-start text-[30px] md:text-[40px] lg:text-[45px] font-extrabold m-7 ">
+        <h1
+          data-aos="fade-up"
+          data-aos-duration="3000"
+          className="text-white font-secondary-font md:text-start text-[30px] md:text-[40px] lg:text-[45px] font-extrabold m-7 "
+        >
           Participez à la plus belle aventure football jamais connue
         </h1>
         <Button
@@ -22,14 +26,28 @@ export default function Title2() {
           handleClick={handleClickSignup}
           className={buttonPrimary}
         />
-        <h3 className=" font-primary-font text-[30px] md:text-[50px] lg:text-[60px] text-center font-bold bg-clip-text text-transparent  bg-gradient-to-b from-gradient-color1 via-gradient-color3 to-gradient-color2 mt-10">
+        <h3
+          data-aos="fade-left"
+          data-aos-easing="linear"
+          data-aos-duration="1500"
+          className=" font-primary-font text-[30px] md:text-[50px] lg:text-[60px] text-center font-bold bg-clip-text text-transparent  bg-gradient-to-b from-gradient-color1 via-gradient-color3 to-gradient-color2 mt-10"
+        >
           THE LAB
         </h3>
-        <p className="font-primary-font text-[10px] md:text-[15px] lg:text-[20px] text-center bg-clip-text text-transparent bg-gradient-to-r from-gradient-color1 via-gradient-color3 to-gradient-color2">
+        <p
+          data-aos="fade-right"
+          data-aos-duration="1500"
+          className="font-primary-font text-[10px] md:text-[15px] lg:text-[20px] text-center bg-clip-text text-transparent bg-gradient-to-r from-gradient-color1 via-gradient-color3 to-gradient-color2"
+        >
           STOP DREAMING, START EXCELLING
         </p>
       </div>
-      <div className="flex flex-col justify-center items-center text-center">
+      <div
+        data-aos="fade-down"
+        data-aos-anchor="#example-anchor"
+        data-aos-duration="1000"
+        className="flex flex-col justify-center items-center text-center"
+      >
         <img
           src={Avatar}
           alt="Score Card"
