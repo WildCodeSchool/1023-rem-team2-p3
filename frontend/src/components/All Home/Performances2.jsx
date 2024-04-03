@@ -106,7 +106,7 @@ export default function Performances2() {
           ))}
         </Slider>
       </div>
-      <div className="flex justify-center items-center text-center mt-10 lg:mt-36 ">
+      <div className="flex justify-center items-center text-center mt-36 ">
         <Button
           type="button"
           content="Decouvrir"

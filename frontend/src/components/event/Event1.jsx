@@ -17,10 +17,9 @@ export default function Event1() {
         </h2>
         <p
           data-aos="fade-left"
-          data-aos-anchor="#example-anchor"
-          data-aos-offset="500"
-          data-aos-duration="500"
-          className="lg:w-[2/4] lg:col-start-2 lg:col-end-2 lg:row-start-2 lg:row-end-2 lg:text-left text-white  text-center font-secondary-font text-lg lg:text-2xl"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+          className="lg:w-[2/4] lg:col-start-2 lg:col-end-2 lg:row-start-2 lg:row-end-2 text-white  lg:text-right text-center font-secondary-font text-lg font-[300]  items-end "
         >
           Les 30 meilleurs scores auront l'opportunité de défier une équipe
           professionnelle aux États-Unis. Soyez parmi les meilleurs et vivez une

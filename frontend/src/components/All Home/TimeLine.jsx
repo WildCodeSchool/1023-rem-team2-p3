@@ -44,7 +44,7 @@ export default function Timeline() {
           Ton parcours
         </h1>
       </motion.div>
-      <div className="mt-20 ml-10 flex flex-col">
+      <div className="mt-20 flex flex-col">
         <VerticalTimeline>
           {parcours.map((parcour) => (
             <TimelineCards key={parcour.id} parcour={parcour} />

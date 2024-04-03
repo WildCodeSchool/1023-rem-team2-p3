@@ -7,7 +7,7 @@ export default function BurgerIcon({ isOpen, setOpen }) {
 
   return (
     <button
-      className={`${isOpen ? "absolute top-4 left-2 z-10 " : "relative"} flex flex-col  gap-1 md:hidden`}
+      className={`${isOpen ? "absolute top-4 left-2 z-10 " : "relative"} flex flex-col  gap-1 lg:hidden`}
       onClick={handleClick}
     >
       {!isOpen ? (

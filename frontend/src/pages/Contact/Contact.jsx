@@ -21,7 +21,7 @@ export default function Contact() {
                 <h3 className="text-white font-bold text-3xl font-secondary-font m-4 p-2">
                   {question.question}
                 </h3>
-                <p className="border-b-4 text-xl font-normal text-gray-400 text-end">
+                <p className="border-b-4 text-xl font-normal text-gray-400 text-end font-secondary-font">
                   {question.answer}
                 </p>
               </li>
