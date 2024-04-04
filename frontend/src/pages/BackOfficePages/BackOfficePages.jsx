@@ -1,10 +1,12 @@
 import React from "react";
-import DashBoard from "../../components/DashBoard/DashBoard";
+import Header from "../../components/DashBoard/Header";
+import Sidebar from "../../components/DashBoard/Sidebar";
 
 export default function BackOfficePages() {
   return (
-    <div>
-      <DashBoard />
+    <div className=" text-white font-secondary-font bg-[#281f31] lg:h-auto rounded-[20px]">
+      <Header />
+      <Sidebar />
     </div>
   );
 }

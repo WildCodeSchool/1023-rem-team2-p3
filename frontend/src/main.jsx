@@ -18,6 +18,13 @@ import App from "./App";
 import "aos/dist/aos.css";
 import CopilotPages from "./pages/CopilotPages/CopilotPages";
 import BackOfficePages from "./pages/BackOfficePages/BackOfficePages";
+import User from "./pages/BackOfficePages/User";
+import EventBackoffice from "./pages/BackOfficePages/EventBackoffice";
+import Notes from "./pages/BackOfficePages/Notes";
+import ScoreCard from "./pages/BackOfficePages/ScoreCard";
+import Payment from "./pages/BackOfficePages/Payment";
+import Product from "./pages/BackOfficePages/Product";
+import CodePromo from "./pages/BackOfficePages/CodePromo";
 
 function AppLayout() {
   return (
@@ -43,6 +50,13 @@ const router = createBrowserRouter([
       { path: "forgot/password", element: <ForgotPassword /> },
       { path: "copilot", element: <CopilotPages /> },
       { path: "backoffice", element: <BackOfficePages /> },
+      { path: "users", element: <User /> },
+      { path: "events", element: <EventBackoffice /> },
+      { path: "notes", element: <Notes /> },
+      { path: "scorecard", element: <ScoreCard /> },
+      { path: "payment", element: <Payment /> },
+      { path: "product", element: <Product /> },
+      { path: "codepromo", element: <CodePromo /> },
     ],
   },
 ]);
