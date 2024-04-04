@@ -16,6 +16,8 @@ import { UserProvider } from "./context/UserContext";
 import "./index.css";
 import App from "./App";
 import "aos/dist/aos.css";
+import CopilotPages from "./pages/CopilotPages/CopilotPages";
+import BackOfficePages from "./pages/BackOfficePages/BackOfficePages";
 
 function AppLayout() {
   return (
@@ -39,6 +41,8 @@ const router = createBrowserRouter([
       { path: "legal", element: <Legal /> },
       { path: "privacy", element: <Privacy /> },
       { path: "forgot/password", element: <ForgotPassword /> },
+      { path: "copilot", element: <CopilotPages /> },
+      { path: "backoffice", element: <BackOfficePages /> },
     ],
   },
 ]);
