@@ -18,7 +18,7 @@ class UserManager extends AbstractManager {
 
   async getAllUsers() {
     return this.database.query(
-      `SELECT id ,lastname, firstname, email, is_admin, birthday, status FROM ${this.table}`
+      `SELECT * FROM ${this.table} LEFT JOIN user_info ON user.id = user_info.user_id`
     );
   }
 

@@ -16,26 +16,26 @@ export default function Sidebar() {
         </h1>
       </div>
       <div className="flex flex-col space-y-4 py-4 ml-4 text-[18px]">
-        <NavLink to="/users">
-          <FaUser /> USERS
+        <NavLink to="/users" className="flex items-center">
+          <FaUser className="mr-4" /> USERS
         </NavLink>
-        <NavLink to="/events">
-          <BiSolidCalendar /> EVENTS
+        <NavLink to="/events" className="flex items-center">
+          <BiSolidCalendar className="mr-4" /> EVENTS
         </NavLink>
-        <NavLink to="/notes">
-          <PiNotePencilBold /> NOTES
+        <NavLink to="/notes" className="flex items-center">
+          <PiNotePencilBold className="mr-4" /> NOTES
         </NavLink>
-        <NavLink to="/scorecard">
-          <GrScorecard /> SCORE CARD
+        <NavLink to="/scorecard" className="flex items-center">
+          <GrScorecard className="mr-4" /> SCORE CARD
         </NavLink>
-        <NavLink to="/payment">
-          <MdPayments /> PAYMENT
+        <NavLink to="/payment" className="flex items-center">
+          <MdPayments className="mr-4" /> PAYMENT
         </NavLink>
-        <NavLink to="/product">
-          <FaShoppingCart /> PRODUCT
+        <NavLink to="/product" className="flex items-center">
+          <FaShoppingCart className="mr-4" /> PRODUCT
         </NavLink>
-        <NavLink to="/codepromo">
-          <HiMiniGift /> CODE PROMO
+        <NavLink to="/codepromo" className="flex items-center">
+          <HiMiniGift className="mr-4" /> CODE PROMO
         </NavLink>
       </div>
       <div className="text-center py-40">COMPT ADMIN</div>

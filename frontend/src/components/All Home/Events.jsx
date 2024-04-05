@@ -18,7 +18,7 @@ export default function Events() {
   const [selectTab, setSelectTab] = useState("active");
 
   useEffect(() => {
-    fetch(`http://localhost:${import.meta.env.VITE_API_PORT}/api/events`)
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`)
       .then((response) => response.json())
       .then((data) => {
         const filtered = data

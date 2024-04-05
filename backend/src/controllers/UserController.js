@@ -12,6 +12,7 @@ const getAllUsers = async (req, res) => {
       return res.status(401).json({ error: "Vous n'avez pas les droits" });
     }
     const [users] = await tables.user.getAllUsers();
+    delete users[0].hashedPassword;
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
