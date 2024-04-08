@@ -33,7 +33,7 @@ function UserInformationModal({ isOpen, onRequestClose, user }) {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="User Details"
-      className="absolute top-1/2 left-[40px] transform w-[80rem] h-[(rem] text-[8px] text-center bg-[#281f31] text-white p-4 m-8 rounded-lg"
+      className="absolute top-1/2 left-[40px] transform w-[80rem] text-[8px] text-center bg-[#281f31] text-white p-4 m-8 rounded-lg"
     >
       <button onClick={onRequestClose} className="absolute right-4">
         <ImCross />

@@ -77,7 +77,7 @@ export default function MainContentUser() {
         className="w-80 text-black rounded p-2 m-10"
       />
 
-      <div className=" py-10 px-36 overflow-x-auto">
+      <div className="mx-60 overflow-x-auto">
         <div className="flex flex-col ">
           {currentUsers.map((user, index) => (
             <div

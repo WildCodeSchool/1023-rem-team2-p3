@@ -26,7 +26,7 @@ const createEvent = async (req, res) => {
       quantity
     );
     if (event.affectedRows) {
-      res.status(200).send("Evenement ajouté");
+      res.status(200).json("Evenement ajouté");
     } else {
       res
         .status(401)
@@ -37,23 +37,36 @@ const createEvent = async (req, res) => {
   }
 };
 const updateEvents = async (req, res) => {
-  try {
-    const id = req.payload;
-    const [admin] = await tables.user.getUserById(id);
+  const id = req.payload;
+  const [admin] = await tables.user.getUserById(id);
 
-    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
-      return res.status(401).json({ error: "Vous n'avez pas les droits" });
-    }
-    const eventId = parseInt(req.params.id);
-    const { city, date, address, quantity } = req.body;
-    const [event] = await tables.event.updateEvent(eventId, req.body);
-    if (event.affectedRows) {
-      res.status(200).json({ message: "Evenement modifié" });
+  if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+    return res.status(401).json({ error: "Vous n'avez pas les droits" });
+  }
+  const eventId = parseInt(req.params.id, 10);
+  const { city, date, address, quantity } = req.body;
+  const updateFields = {};
+  if (city !== undefined) {
+    updateFields.city = city;
+  }
+  if (date !== undefined) {
+    updateFields.date = date;
+  }
+  if (address !== undefined) {
+    updateFields.address = address;
+  }
+  if (quantity !== undefined) {
+    updateFields.quantity = quantity;
+  }
+  try {
+    const [result] = await tables.event.updateEvent(eventId, updateFields);
+    if (result.affectedRows) {
+      res.json({ message: "Evenement modifié" });
     } else {
-      res.status(401).json({ error: "Problème lors de la modification" });
+      res.json({ error: "Problème lors de la modification" });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.toString() });
   }
 };
 

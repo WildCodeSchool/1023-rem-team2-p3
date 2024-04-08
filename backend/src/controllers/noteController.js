@@ -103,7 +103,6 @@ const noteController = {
       note_gen,
       user_id,
     } = req.body;
-    console.info("req.body", req.body);
     // Créer un objet pour stocker uniquement les champs à mettre à jour
     const updateFields = {};
 
@@ -149,8 +148,6 @@ const noteController = {
     try {
       const [result] = await tables.note.update(id, updateFields);
 
-      console.info("updateFields", updateFields);
-      console.info("result", result);
       if (result.affectedRows) {
         res.json({ message: "Note updated" });
       } else {
