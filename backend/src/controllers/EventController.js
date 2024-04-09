@@ -16,7 +16,7 @@ const createEvent = async (req, res) => {
     const [admin] = await tables.user.getUserById(id);
 
     if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
-      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+      res.status(401).json({ error: "Vous n'avez pas les droits" });
     }
     const { city, date, address, quantity } = req.body;
     const [event] = await tables.event.createEvents(
@@ -41,7 +41,7 @@ const updateEvents = async (req, res) => {
   const [admin] = await tables.user.getUserById(id);
 
   if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
-    return res.status(401).json({ error: "Vous n'avez pas les droits" });
+    res.status(401).json({ error: "Vous n'avez pas les droits" });
   }
   const eventId = parseInt(req.params.id, 10);
   const { city, date, address, quantity } = req.body;
@@ -71,7 +71,7 @@ const updateEvents = async (req, res) => {
 };
 
 const deleteEvent = async (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params.id;
   try {
     const [event] = await tables.event.deleteEvent(id);
     if (event.affectedRows) {
@@ -108,7 +108,6 @@ const desactivatedEvents = async (req, res) => {
       res.status(401).send("Problème lors de la modification de l'évenement");
     }
   } catch (error) {
-    console.log(error);
     res.status(500).send({ error: error.message });
   }
 };
