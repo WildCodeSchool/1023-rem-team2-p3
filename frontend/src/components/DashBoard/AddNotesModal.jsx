@@ -96,7 +96,10 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         </p>
         <span className="text-white text-[20px] font-secondary-font">
           Participant:
-          <select className="w-80 m-8" onChange={handleUserChange}>
+          <select
+            className="w-80 m-8 text-background-color-second"
+            onChange={handleUserChange}
+          >
             {users.map((user) => (
               <option key={user.id} value={user.id}>
                 {user.lastname} {user.firstname} / {user.birthday} /{" "}
