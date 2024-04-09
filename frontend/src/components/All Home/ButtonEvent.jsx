@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Button from "../Button/Button";
+// import Button from "../Button/Button";
 
 const buttonStyles = {
   futures:
@@ -13,19 +13,12 @@ export default function ButtonEvent() {
   return (
     <div>
       <div className=" flex mt-10 items-center justify-center gap-6 mb-36 text-center ">
-        <Link to="/login">
-          <Button
-            type="button"
-            content="PARTICIPER"
-            className={buttonStyles.futures}
-          />
+        <Link to="/login" className={buttonStyles.futures}>
+          PARTICIPER
         </Link>
-        <Link to="/giveaway">
-          <Button
-            type="button"
-            content="REGLEMENT"
-            className={buttonStyles.passes}
-          />
+
+        <Link to="/giveaway" className={buttonStyles.passes}>
+          REGLEMENT
         </Link>
       </div>
     </div>

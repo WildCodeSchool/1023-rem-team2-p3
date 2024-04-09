@@ -30,16 +30,12 @@ export default function Login() {
       .then((res) => {
         console.info("res :>> ", res);
         if (res.status === 401 || res.status === 500) {
-          setTimeout(() => {
-            setErrorMessage(res.message);
-            setLoading(false);
-          }, 2000);
+          setErrorMessage(res.message);
+          setLoading(false);
         } else {
           localStorage.setItem("token", JSON.stringify(res.token));
-          setTimeout(() => {
-            navigate("/");
-            setLoading(false);
-          }, 2000);
+          navigate("/");
+          setLoading(false);
         }
       })
       .catch((err) => console.info("err :>> ", err));
