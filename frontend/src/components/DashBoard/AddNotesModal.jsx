@@ -41,32 +41,33 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
           (a, b) => new Date(b.date) - new Date(a.date)
         );
         setEvents(filtered);
+        console.info("filtered", filtered);
       })
       .catch((error) => console.error("Error:", error));
   }, []);
 
   // Récupérez les utilisateurs inscrits à l'événement sélectionné
   useEffect(() => {
-    if (selectedEvent) {
-      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/stockEvent`, {
-        headers: {
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-        },
+    // if (selectedEvent) {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/stockEvent`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.info(data);
+        const filteredUsers = data.filter(
+          (user) => user.event_id === parseInt(selectedEvent, 10)
+        );
+        setEventUsers(filteredUsers);
       })
-        .then((response) => response.json())
-        .then((data) => {
-          console.info(data);
-          const filteredUsers = data.filter(
-            (user) => user.event_id === selectedEvent
-          );
-          console.info(filteredUsers);
-          setEventUsers(filteredUsers);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    // }
   }, [selectedEvent]);
+  console.info("eventUsers", eventUsers);
 
   const handleChange = (event) => {
     setNote(event.target.value);
@@ -106,8 +107,10 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
     // Videz eventUsers lorsque l'événement est changé
     setEventUsers([]);
   };
+  console.info("selectedEvent", selectedEvent);
 
   const handleUserChange = (e) => {
+    console.info("e.target.value", e.target.value);
     setSelectedUser(e.target.value);
   };
 
@@ -136,7 +139,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
           <select
             className="w-80 m-8 text-background-color-second"
             onChange={handleEventChange}
-            value={selectedEvent}
           >
             <option value="">Sélectionnez un événement</option>
             {events.map((event) => (
