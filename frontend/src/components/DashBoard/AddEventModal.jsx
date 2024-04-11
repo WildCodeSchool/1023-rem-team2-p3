@@ -61,7 +61,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Ajouter un événement"
-      className="absolute top-1/3 left-[20rem] transform w-[50rem] text-[8px] text-center bg-[#281f31] text-white p-4 m-8 rounded-lg font-secondary-font"
+      className="absolute top-1/3 left-[30rem] transform w-[50rem] text-[8px] text-center bg-[#281f31] text-white p-4 m-8 rounded-lg font-secondary-font"
     >
       <button className="flex " onClick={onRequestClose}>
         <ImCross />
