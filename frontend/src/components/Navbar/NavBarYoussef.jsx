@@ -5,7 +5,7 @@ import { useClickAway } from "react-use";
 
 export default function NavBarYoussef({ isOpen, setOpen }) {
   const ref = useRef(null);
-  useClickAway(ref, () => setOpen(false));
+  useClickAway(() => setOpen(false), ref);
 
   const activeLink =
     "text-center text-[17px] bg-gradient-to-r from-gradient-color1 via-gradient-color2 to-gradient-color3 text-transparent bg-clip-text font-bold pr-3";

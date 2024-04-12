@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../../components/DashBoard/Header";
 import Sidebar from "../../components/DashBoard/Sidebar";
+import ProductDashBoard from "../../components/DashBoard/Product/ProductDashBoard";
 
 export default function Notes() {
   return (
@@ -8,6 +9,7 @@ export default function Notes() {
       <Header />
       <div className="flex">
         <Sidebar />
+        <ProductDashBoard />
       </div>
     </div>
   );
