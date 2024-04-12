@@ -4,10 +4,6 @@ import AddEventModal from "./AddProductModal";
 import EditProductModal from "./EditProductModal";
 
 export default function ProductDashBoard() {
-  //   const [searchTerm, setSearchTerm] = useState("");
-  //   const [currentPage, setCurrentPage] = useState(1);
-  //   const [selectedPayment, setSelectedPayment] = useState(null);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduit, setSelectedProduit] = useState(null);
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -15,7 +11,7 @@ export default function ProductDashBoard() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [product, setProduct] = useState();
-  //   const paymentPerPage = 10;
+
   const openAddModal = () => {
     setIsAddModalOpen(true);
   };
