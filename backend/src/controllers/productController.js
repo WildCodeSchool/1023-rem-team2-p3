@@ -48,12 +48,11 @@ const edit = async (req, res) => {
       (a, [k, v]) => (v === undefined ? a : { ...a, [k]: v }),
       {}
     );
-    console.info(definedFields);
+
     const [result] = await tables.product.updateSpecificProductById(
       id,
       definedFields
     );
-    console.info(id);
     if (result.affectedRows) {
       if (req.file) {
         fs.unlinkSync(oldImgPath);
