@@ -41,7 +41,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
           (a, b) => new Date(b.date) - new Date(a.date)
         );
         setEvents(filtered);
-        console.info("filtered", filtered);
       })
       .catch((error) => console.error("Error:", error));
   }, []);
@@ -56,7 +55,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.info(data);
         const filteredUsers = data.filter(
           (user) => user.event_id === parseInt(selectedEvent, 10)
         );
@@ -67,7 +65,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       });
     // }
   }, [selectedEvent]);
-  console.info("eventUsers", eventUsers);
 
   const handleChange = (event) => {
     setNote(event.target.value);
@@ -75,6 +72,10 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   // Envoyer les données du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!selectedUser || !selectedCharacteristic || !note) {
+      alert("Veuillez remplir tous les champs");
+      return;
+    }
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/note`, {
       method: "POST",
       headers: {
@@ -107,10 +108,8 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
     // Videz eventUsers lorsque l'événement est changé
     setEventUsers([]);
   };
-  console.info("selectedEvent", selectedEvent);
 
   const handleUserChange = (e) => {
-    console.info("e.target.value", e.target.value);
     setSelectedUser(e.target.value);
   };
 

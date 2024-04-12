@@ -68,9 +68,9 @@ const noteController = {
       console.info("id", id);
 
       const [note] = await tables.note.read(id);
-      console.info(note.length);
+      console.info("note", note);
       if (note.length > 0) {
-        res.status(200).send(note);
+        res.status(200).json(note);
       } else {
         res.status(400).send("Vous n'avez pas encore vos notes");
       }
