@@ -10,7 +10,6 @@ export default function AddScoreCard() {
   const [userNotes, setUserNotes] = useState([]);
   const [eventUsers, setEventUsers] = useState([]);
 
-  console.info("eventUsers", eventUsers);
   // Récupérez les utilisateurs lors du chargement initial
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {

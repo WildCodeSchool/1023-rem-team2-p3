@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import { ImCross } from "react-icons/im";
 import PropTypes from "prop-types";
 
-Modal.setAppElement("#root"); // Cette ligne est nécessaire pour des raisons d'accessibilité
+Modal.setAppElement("#root");
 
 export default function AddEventModal({ isOpen, onRequestClose }) {
   const [users, setUsers] = useState([]);
@@ -16,7 +16,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   const [note, setNote] = useState("");
   const [eventUsers, setEventUsers] = useState([]);
 
-  // Récupérez les utilisateurs lors du chargement initial
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
       headers: {
@@ -32,7 +31,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       });
   }, []);
 
-  // Récupérez les événements lors du chargement initial
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`)
       .then((response) => response.json())
@@ -45,9 +43,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       .catch((error) => console.error("Error:", error));
   }, []);
 
-  // Récupérez les utilisateurs inscrits à l'événement sélectionné
   useEffect(() => {
-    // if (selectedEvent) {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/stockEvent`, {
       headers: {
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
@@ -63,13 +59,12 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       .catch((error) => {
         console.error("Error:", error);
       });
-    // }
   }, [selectedEvent]);
 
   const handleChange = (event) => {
     setNote(event.target.value);
   };
-  // Envoyer les données du formulaire
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!selectedUser || !selectedCharacteristic || !note) {
@@ -91,7 +86,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       .then((response) => response.json())
       .then((data) => {
         console.info("Success:", data);
-        // Réinitialisez les états après l'envoi des données
         setSelectedUser("");
         setSelectedCharacteristic("");
         setNote("");
@@ -105,7 +99,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   const handleEventChange = (e) => {
     setSelectedEvent(e.target.value);
     setSelectedUser("");
-    // Videz eventUsers lorsque l'événement est changé
     setEventUsers([]);
   };
 
@@ -194,7 +187,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
             <option value="note_plongeon">Note plongeon </option>
             <option value="note_arrets">Note arrets</option>
             <option value="note_dega">Note dega</option>
-            <option value="note_faible<">Note pied faible</option>
+            <option value="note_faible">Note pied faible</option>
           </select>
         </span>
       </label>
