@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 const tables = require("../tables");
@@ -7,43 +8,37 @@ const noteController = {
   addNote: async (req, res) => {
     try {
       const id = req.payload;
-      const {
-        note_physique,
-        note_vitesse,
-        note_passe,
-        note_tir,
-        note_dribble,
-        note_vista,
-        note_cf,
-        note_plongeon,
-        note_arrets,
-        note_dega,
-        note_pied_faible,
-        note_gen,
-        user_id,
-      } = req.body;
+      // Récupère la valeur de la note depuis req.body
+      const note = req.body;
+      const { user_id } = req.body;
+      console.info("Note ajoutée :", note); // Affiche la valeur de la note dans la console
+      console.info("req.body:", req.body);
+      console.info("req.payload:", req.payload);
+      console.info("id:", id);
       const [admin] = await tables.user.getUserById(id);
-
       if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
         return res.status(401).json({ error: "Vous n'avez pas les droits" });
       }
-      console.info("req.body", req.body);
-      console.info(user_id);
-      const [exist] = await tables.note.read(user_id);
-      console.info(exist);
-      if (exist.length === 0) {
-        const [result] = await tables.note.create(req.body);
 
-        if (result.affectedRows) {
-          res.json({ message: "Note added" });
-        } else {
-          res.json({ message: "Error" });
-        }
-      } else {
-        res.json({ message: "Vous avez déjà ajouter des notes à ce user" });
+      // Vérifie si des notes existent déjà pour cet utilisateur
+      const [exist] = await tables.note.read(user_id);
+      if (exist.length > 0) {
+        return res.json({
+          message: "Vous avez déjà ajouté des notes à cet utilisateur",
+        });
       }
+
+      // Insère la nouvelle note dans la base de données
+      const [result] = await tables.note.create({ ...note, user_id });
+      console.info("Insère la nouvelle note result:", result);
+      console.info("Insère la nouvelle note note:", note);
+      console.info("Insère la nouvelle note user_id:", user_id);
+      if (result.affectedRows) {
+        return res.json({ message: "Note ajoutée avec succès" });
+      }
+      return res.json({ message: "Erreur lors de l'ajout de la note" });
     } catch (error) {
-      res.status(500).json({ message: error.toString() });
+      return res.status(500).json({ message: error.toString() });
     }
   },
   // eslint-disable-next-line consistent-return
@@ -68,9 +63,9 @@ const noteController = {
       console.info("id", id);
 
       const [note] = await tables.note.read(id);
-      console.info(note.length);
+      console.info("note", note);
       if (note.length > 0) {
-        res.status(200).send(note);
+        res.status(200).json(note);
       } else {
         res.status(400).send("Vous n'avez pas encore vos notes");
       }
