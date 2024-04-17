@@ -19,7 +19,14 @@ export default function EventCard() {
         const filtered = data.sort(
           (a, b) => new Date(b.date) - new Date(a.date)
         );
-        setEvents(filtered);
+        const updatedEvents = filtered.map((filt) => {
+          const updatedEvent = { ...filt }; // Create a copy of the object
+          if (new Date(updatedEvent.date) <= Date.now()) {
+            updatedEvent.status = "inactive"; // Update the status property
+          }
+          return updatedEvent;
+        });
+        setEvents(updatedEvents);
       })
       .catch((error) => console.error("Error:", error));
   }, []);
