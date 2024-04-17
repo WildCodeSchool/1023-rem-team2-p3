@@ -16,7 +16,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   const [note, setNote] = useState({});
   const [userNotes, setUserNotes] = useState([]);
   const [eventUsers, setEventUsers] = useState([]);
-  // console.info("userNotes:", selectedUser);
+  console.info("userNotes:", userNotes);
   // console.info("selectedUser:", selectedUser);
   // console.info("eventUsers:", eventUsers);
   // console.info("selectedCharacteristic:", selectedCharacteristic);
@@ -51,6 +51,22 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       });
   }, [selectedEvent]);
 
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/note`, {
+      headers: {
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUserNotes(data);
+        console.info("data fetch get:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+
   // logique pour les notes
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -63,7 +79,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
     console.info("note body:", note);
     console.info("selectedUser body:", selectedUser);
     // Vérifier si l'utilisateur a déjà des notes
-    if (userNotes.length !== 0) {
+    if (userNotes.length === 0) {
       console.info("note.length fetch post:", userNotes.length);
       // Si l'utilisateur n'a pas de notes, envoyer une requête POST
       fetch(`${import.meta.env.VITE_BACKEND_URL}/api/note/`, {
@@ -125,9 +141,11 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   const handleUserChange = (e) => {
     setSelectedUser(e.target.value);
     // Récupérer user_id et le stocker dans un état
-    const selectedUserId =
-      e.target.options[e.target.selectedIndex].getAttribute("data-user-id");
-    setUserNotes(selectedUserId); // stocker user_id dans un state
+    // const selectedUserId =
+    //   e.target.options[e.target.selectedIndex].getAttribute("data-user-id");
+    setUserNotes(selectedUser); // stocker user_id dans un state
+    console.info("selectedUser:", selectedUser);
+    console.info("e.target.value:", e.target.value);
   };
 
   const handleCharacteristicChange = (e) => {
