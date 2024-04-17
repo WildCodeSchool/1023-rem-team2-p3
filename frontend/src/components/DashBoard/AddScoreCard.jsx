@@ -74,6 +74,9 @@ export default function AddScoreCard() {
             (note) => note.user_id === parseInt(selectedUser, 10)
           );
           setUserNotes(filteredNotes);
+          console.info("selectedUser:", selectedUser);
+          console.info("filteredNotes:", filteredNotes);
+          console.info("data:", data);
         })
         .catch((error) => {
           console.error("Error:", error);

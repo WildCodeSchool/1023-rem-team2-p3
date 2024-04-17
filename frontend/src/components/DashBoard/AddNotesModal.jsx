@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useEffect, useState } from "react";
@@ -8,29 +9,18 @@ import PropTypes from "prop-types";
 Modal.setAppElement("#root");
 
 export default function AddEventModal({ isOpen, onRequestClose }) {
-  const [users, setUsers] = useState([]);
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
   const [selectedCharacteristic, setSelectedCharacteristic] = useState("");
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState({});
+  const [userNotes, setUserNotes] = useState([]);
   const [eventUsers, setEventUsers] = useState([]);
-
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
-      headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setUsers(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
-
+  // console.info("userNotes:", selectedUser);
+  // console.info("selectedUser:", selectedUser);
+  // console.info("eventUsers:", eventUsers);
+  // console.info("selectedCharacteristic:", selectedCharacteristic);
+  // console.info("note:", note);
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`)
       .then((response) => response.json())
@@ -61,53 +51,92 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       });
   }, [selectedEvent]);
 
-  const handleChange = (event) => {
-    setNote(event.target.value);
-  };
-
+  // logique pour les notes
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!selectedUser || !selectedCharacteristic || !note) {
-      alert("Veuillez remplir tous les champs");
-      return;
-    }
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/note`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-      },
-      body: JSON.stringify({
-        user_id: selectedUser,
-        characteristic: selectedCharacteristic,
-        note,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.info("Success:", data);
-        setSelectedUser("");
-        setSelectedCharacteristic("");
-        setNote("");
-        onRequestClose();
+
+    // Construire le corps de la requête
+    const body = {
+      note: note[selectedCharacteristic],
+      user_id: selectedUser,
+    };
+    console.info("note body:", note);
+    console.info("selectedUser body:", selectedUser);
+    // Vérifier si l'utilisateur a déjà des notes
+    if (userNotes.length !== 0) {
+      console.info("note.length fetch post:", userNotes.length);
+      // Si l'utilisateur n'a pas de notes, envoyer une requête POST
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/note/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+        body: JSON.stringify(body),
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          console.info("Data post:", data);
+          console.info("body fetch post:", body);
+          console.info("userNotes fetch post:", userNotes);
+          // Réinitialiser les champs et fermer le modal
+          setSelectedUser("");
+          setSelectedCharacteristic("");
+          setNote("");
+          onRequestClose();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    } else {
+      // Si l'utilisateur a déjà des notes, envoyer une requête PUT
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/note/${selectedUser}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+        body: JSON.stringify(body),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.info("Data put:", data);
+          console.info("body fetch put:", body);
+          console.info("body fetch put:", body);
+          console.info("userNotes fetch put:", userNotes);
+          console.info("note.length fetch put:", note.length);
+          console.info("selectedUser fetch put:", selectedUser);
+          // Réinitialiser les champs et fermer le modal
+          setSelectedUser("");
+          setSelectedCharacteristic("");
+          setNote("");
+          onRequestClose();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   };
 
   const handleEventChange = (e) => {
     setSelectedEvent(e.target.value);
-    setSelectedUser("");
-    setEventUsers([]);
   };
 
   const handleUserChange = (e) => {
     setSelectedUser(e.target.value);
+    // Récupérer user_id et le stocker dans un état
+    const selectedUserId =
+      e.target.options[e.target.selectedIndex].getAttribute("data-user-id");
+    setUserNotes(selectedUserId); // stocker user_id dans un state
   };
 
   const handleCharacteristicChange = (e) => {
     setSelectedCharacteristic(e.target.value);
+  };
+
+  const handleNoteChange = (event) => {
+    const { name, value } = event.target;
+    setNote({ ...note, [name]: value });
   };
 
   return (
@@ -156,7 +185,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
           >
             <option value="">Sélectionnez un participant</option>
             {eventUsers.map((user) => (
-              <option key={user.id} value={user.id}>
+              <option key={user.id} value={user.user_id}>
                 {user.lastname} {user.firstname} {user.email}
               </option>
             ))}
@@ -200,10 +229,10 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         </span>
         <input
           type="text"
-          name="note"
+          name={selectedCharacteristic}
           placeholder="Note"
-          value={note}
-          onChange={handleChange}
+          value={note[selectedCharacteristic]}
+          onChange={handleNoteChange}
           className="w-[70px] p-2 rounded-lg text-sm"
         />
         <button
