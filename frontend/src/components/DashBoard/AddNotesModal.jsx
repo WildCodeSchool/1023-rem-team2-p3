@@ -67,20 +67,38 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       });
   }, []);
 
+  const handleNoteChange = (event) => {
+    // Construire le corps de la requête
+    // const body = {
+    //   name: note[selectedCharacteristic],
+    //   user_id: selectedUser,
+    // };
+    const { name, value } = event.target;
+    setNote({ ...note, [name]: value, user_id: selectedUser });
+  };
+  console.info("note", note);
   // logique pour les notes
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Construire le corps de la requête
-    const body = {
-      note: note[selectedCharacteristic],
-      user_id: selectedUser,
-    };
-    console.info("note body:", note);
+    // console.info("note body:", body);
     console.info("selectedUser body:", selectedUser);
+    console.info("userNotes", userNotes);
+
+    //
+    // for(let i = 0 ; i<userNotes.length ; i++) {
+    // if(userNotes[i].user_id === selectedUser) {
+
+    // }
+    // }
+    const filterNoteUser = userNotes.filter(
+      (notess) => parseInt(notess.user_id, 10) === parseInt(selectedUser, 10)
+    );
+    console.info("filterNoteUser", filterNoteUser);
+    //
     // Vérifier si l'utilisateur a déjà des notes
-    if (userNotes.length === 0) {
-      console.info("note.length fetch post:", userNotes.length);
+    if (!filterNoteUser.length) {
+      console.info("note.length fetch post:", userNotes);
       // Si l'utilisateur n'a pas de notes, envoyer une requête POST
       fetch(`${import.meta.env.VITE_BACKEND_URL}/api/note/`, {
         method: "POST",
@@ -88,12 +106,12 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify(note),
       })
         .then((response) => response.json())
         .then((data) => {
           console.info("Data post:", data);
-          console.info("body fetch post:", body);
+          console.info("body fetch post:", { note, user_id: selectedUser });
           console.info("userNotes fetch post:", userNotes);
           // Réinitialiser les champs et fermer le modal
           setSelectedUser("");
@@ -112,13 +130,14 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify(note),
       })
         .then((response) => response.json())
         .then((data) => {
           console.info("Data put:", data);
-          console.info("body fetch put:", body);
-          console.info("body fetch put:", body);
+          console.info("selectedUser", selectedUser);
+          console.info("body fetch put:", note, { user_id: selectedUser });
+          console.info("body fetch put:", note, { user_id: selectedUser });
           console.info("userNotes fetch put:", userNotes);
           console.info("note.length fetch put:", note.length);
           console.info("selectedUser fetch put:", selectedUser);
@@ -143,18 +162,13 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
     // Récupérer user_id et le stocker dans un état
     // const selectedUserId =
     //   e.target.options[e.target.selectedIndex].getAttribute("data-user-id");
-    setUserNotes(selectedUser); // stocker user_id dans un state
+    // setUserNotes(selectedUser); // stocker user_id dans un state
     console.info("selectedUser:", selectedUser);
     console.info("e.target.value:", e.target.value);
   };
 
   const handleCharacteristicChange = (e) => {
     setSelectedCharacteristic(e.target.value);
-  };
-
-  const handleNoteChange = (event) => {
-    const { name, value } = event.target;
-    setNote({ ...note, [name]: value });
   };
 
   return (
@@ -234,7 +248,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
             <option value="note_plongeon">Note plongeon </option>
             <option value="note_arrets">Note arrets</option>
             <option value="note_dega">Note dega</option>
-            <option value="note_faible">Note pied faible</option>
+            <option value="note_pied_faible">Note pied faible</option>
           </select>
         </span>
       </label>
