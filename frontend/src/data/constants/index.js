@@ -60,4 +60,27 @@ export const services = [
   },
 ];
 
-
+export const formulas = [
+  {
+    id: 1,
+    title: "Basic",
+    description: [
+      "Accès à l'événement",
+      "ScoreCard numérique personnalisée",
+      "Accès à l'application TheLab pour suivre votre progression",
+    ],
+    price: 89,
+  },
+  {
+    id: 2,
+    title: "Premium",
+    description: [
+      "Accès à l'événement",
+      "ScoreCard numérique personnalisée",
+      "Accès à l'application TheLab pour suivre votre progression",
+      "Paire de crampons personnalisée",
+      "Participation au jeux concours",
+    ],
+    price: 149,
+  },
+];
