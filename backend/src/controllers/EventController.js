@@ -112,28 +112,6 @@ const desactivatedEvents = async (req, res) => {
   }
 };
 
-// get total des events
-
-const getTotalEvents = async (req, res) => {
-  try {
-    console.info("req, res:", req, res);
-    const id = req.payload;
-    console.info("req.payload:", req.payload);
-    const [admin] = await tables.user.getUserById(id);
-
-    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
-      res.status(401).json({ error: "Vous n'avez pas les droits" });
-    }
-
-    const [totalEvents] = await tables.event.getTotalEventsCount();
-    console.info("totalEvents:", totalEvents);
-
-    res.status(200).json({ totalEvents });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-
 module.exports = {
   getAllEvents,
   createEvent,
@@ -141,5 +119,4 @@ module.exports = {
   deleteEvent,
   getEventById,
   desactivatedEvents,
-  getTotalEvents,
 };

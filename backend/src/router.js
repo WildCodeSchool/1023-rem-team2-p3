@@ -89,8 +89,7 @@ router.put("/events/:id", verifyToken, eventControllers.updateEvents);
 router.put("/events/desactivate", eventControllers.desactivatedEvents); // "error": "Unknown column 'NaN' in 'where clause'"
 // Route to delete an Event
 // router.delete("/events/:id", eventControllers.deleteEvent);
-// Route to get total events
-router.get("/events/total", verifyToken, eventControllers.getTotalEvents);
+
 //* ************************//
 
 // --------------------ROUTES FOR STOCK_EVENT--------------------//

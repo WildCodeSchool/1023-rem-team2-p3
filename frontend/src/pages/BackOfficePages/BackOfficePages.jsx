@@ -4,6 +4,7 @@ import Sidebar from "../../components/DashBoard/Sidebar";
 import MainBackoffice from "../../components/DashBoard/Main/MainBackoffice";
 import Calendar from "../../components/DashBoard/Main/Calendar";
 import TotalPayments from "../../components/DashBoard/Main/TotalPayments";
+import FuturesEvents from "../../components/DashBoard/Main/FuturesEvents";
 
 export default function BackOfficePages() {
   return (
@@ -17,6 +18,7 @@ export default function BackOfficePages() {
             <Calendar />
             <TotalPayments />
           </div>
+          <FuturesEvents />
         </div>
       </div>
     </div>

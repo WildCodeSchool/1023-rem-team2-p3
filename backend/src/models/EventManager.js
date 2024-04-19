@@ -51,13 +51,5 @@ class EventManager extends AbstractManager {
       // [id]
     );
   }
-
-  // get total des events
-
-  async getTotalEventsCount() {
-    return this.database.query(
-      `SELECT COUNT(*) AS totalEvents FROM ${this.table}`
-    );
-  }
 }
 module.exports = EventManager;
