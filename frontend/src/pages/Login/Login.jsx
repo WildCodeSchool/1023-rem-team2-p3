@@ -1,9 +1,12 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { Eye, EyeOff } from "react-feather";
+import { useNavigate } from "react-router-dom";
 import TopMain from "../../components/TopMain/TopMain";
+import { UserContext } from "../../context/UserContext";
 
 export default function Login() {
+  const { updateToken } = useContext(UserContext);
+  // console.info("context from Login", context);
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -17,7 +20,7 @@ export default function Login() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
+    // setLoading(true);
     console.info(dataForm);
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/login`, {
       method: "POST",
@@ -33,9 +36,9 @@ export default function Login() {
           setErrorMessage(res.message);
           setLoading(false);
         } else {
-          localStorage.setItem("token", JSON.stringify(res.token));
+          updateToken(res.token);
+          // setLoading(false);
           navigate("/");
-          setLoading(false);
         }
       })
       .catch((err) => console.info("err :>> ", err));

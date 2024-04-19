@@ -1,50 +1,53 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logoNavbar from "../../assets/logo_navbar.svg";
 import BurgerIcon from "../BurgerIcon/BurgerIcon";
+
 // import Button from "../Button/Button";
-import NavBarYoussef from "../Navbar/NavBarYoussef";
-import ModalLogout from "../ModalLogout/ModalLogout";
 import { UserContext } from "../../context/UserContext";
+import ModalLogOut from "../ModalLogout/ModalLogout";
+import NavBarYoussef from "../Navbar/NavBarYoussef";
 
 export default function Header() {
-  const { user, setUser } = useContext(UserContext);
-
-  const [navig, setNavig] = useState("");
+  const navigate = useNavigate();
   const [isOpen, setOpen] = useState(false);
   const [show, setShow] = useState(false);
-  const [test, setTest] = useState(false);
+  const { user, setUser, setIsAuthenticated, isAuthenticated, updateToken } =
+    useContext(UserContext);
+
+  const [navig, setNavig] = useState("");
 
   const handleClick = () => {
     setUser({});
-
-    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    updateToken();
+    setShow(false);
+    setNavig("");
+    navigate("/");
   };
-
-  useEffect(() => {
-    if (user.data) {
-      setTest(true);
-      if (user.data.is_admin === "user") {
-        setNavig("copilot");
-        console.info("navig", navig);
-      } else {
-        setNavig("backoffice");
-        console.info("navig", navig);
-      }
-    }
-  }, [user, navig, setUser, test]);
-  console.info("user", user);
-
   const buttonLogin =
     "bg-gradient-to-r leading-none py-1 px-2 text-[8px] md:text-[12px] md:py-2  md:px-4 from-[#4CACFF] via-[#A070EF] to-[#8E78DA] text-white  flex items-center rounded-[20px] hover:bg-gradient-to-r hover:from-[#4CACFF] hover:via-[#4CACFF] hover:to-[#4CACFF]  ease-in";
 
   const buttonSignUp =
     "bg-gradient-to-r leading-none py-1 px-2 text-[8px] md:text-[12px] md:py-2  md:px-4 from-[#F5ABF1] via-[#B980F8] to-[#7651FF] text-white  flex items-center rounded-[20px] hover:bg-gradient-to-r hover:from-[#F5ABF1] hover:via-[#F5ABF1] hover:to-[#F5ABF1]  ease-in";
 
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      if (user.data.is_admin === "user") {
+        setNavig("copilot/dashboard");
+        console.info("navig", navig);
+      } else {
+        setNavig("backoffice");
+        console.info("navig", navig);
+      }
+    }
+  }, [isAuthenticated, user]);
+  console.info("isAuthenticated from header", isAuthenticated);
+  console.info("navig from header", navig);
   return (
     <header className="flex flex-row justify-between items-center bg-background-color-second p-2 font-secondary-font">
       <BurgerIcon isOpen={isOpen} setOpen={setOpen} />
-
       <div className="flex items-center text-white ">
         <Link to="/">
           <img
@@ -58,19 +61,15 @@ export default function Header() {
         </h1>
       </div>
       <NavBarYoussef isOpen={isOpen} />
-      {user.isLogged ? (
+      {isAuthenticated && user ? (
         <>
-          <ModalLogout
+          <ModalLogOut
             show={show}
             handleClick={handleClick}
             setShow={setShow}
           />
           <div className="flex gap-6 text-white mr-10 items-center">
-            <button
-              className="bg-transparent border-none"
-              type="button"
-              // onClick={}
-            >
+            <button className="bg-transparent border-none" type="button">
               {user.data.avatar !== null ? (
                 <Link to={navig}>
                   <div className="flex flex-row items-center gap-2">
@@ -105,10 +104,10 @@ export default function Header() {
       ) : (
         <div className=" flex items-center gap-2 text-center pr-2">
           <Link to="/signup" className={buttonLogin}>
-            Inscription{" "}
+            Inscription
           </Link>
           <Link to="/login" className={buttonSignUp}>
-            Connexion{" "}
+            Connexion
           </Link>
         </div>
       )}

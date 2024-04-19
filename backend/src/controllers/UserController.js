@@ -53,9 +53,12 @@ const getUserByEmail = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
+  console.log("req :>> ", req);
   try {
     const userId = req.payload;
+    console.log("userId :>> ", userId);
     const [user] = await tables.user.getUserById(userId);
+    console.log("user :>> ", user);
     if (user.length) {
       delete user[0].hashedPassword;
       res.status(200).json({
@@ -70,7 +73,7 @@ const getUserById = async (req, res) => {
       });
     }
   } catch (error) {
-    return res.status(500).json({
+    res.status(500).json({
       isLogged: false,
       error: error.message,
     });

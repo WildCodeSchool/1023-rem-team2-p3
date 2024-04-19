@@ -18,7 +18,8 @@ const verifyToken = (req, res, next) => {
     req.payload = payload;
     next();
   } catch (error) {
-    res.status(500).send(error);
+    console.log("error :>> ", error);
+    res.status(500).json(error);
   }
 };
 

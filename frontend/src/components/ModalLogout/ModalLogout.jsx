@@ -2,6 +2,7 @@
 import Button from "../Button/Button";
 
 export default function ModalLogOut({ show, handleClick, setShow }) {
+  console.info("show from ModalLogout", show);
   return (
     <div
       className={`${
@@ -24,7 +25,7 @@ export default function ModalLogOut({ show, handleClick, setShow }) {
           handleClick={handleClick}
           className="border-2 rounded-xl bg-slate-700 p-2 hover:bg-white transition-all"
         />
-        <button onClick={() => setShow(false)}>
+        <button type="button" onClick={() => setShow(false)}>
           <img
             className="w-4 absolute right-2 top-2"
             src="/croix.svg"
