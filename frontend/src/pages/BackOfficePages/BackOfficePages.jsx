@@ -1,12 +1,24 @@
 import React from "react";
 import Header from "../../components/DashBoard/Header";
 import Sidebar from "../../components/DashBoard/Sidebar";
+import MainBackoffice from "../../components/DashBoard/Main/MainBackoffice";
+import Calendar from "../../components/DashBoard/Main/Calendar";
+import TotalPayments from "../../components/DashBoard/Main/TotalPayments";
 
 export default function BackOfficePages() {
   return (
-    <div className=" text-white font-secondary-font bg-[#281f31] w-[97rem] lg:h-auto rounded-[20px]">
+    <div className="flex flex-col text-white font-secondary-font bg-[#281f31] lg:h-auto rounded-[20px] my-10 ">
       <Header />
-      <Sidebar />
+      <div className="flex flex-row">
+        <Sidebar />
+        <div className="flex flex-col">
+          <MainBackoffice />
+          <div className="flex flex-row">
+            <Calendar />
+            <TotalPayments />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

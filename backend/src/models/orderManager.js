@@ -20,5 +20,12 @@ class orderManager extends AbstractManager {
     );
     return add;
   }
+
+  async getTotalOrdersCount() {
+    const [total] = await this.database.query(
+      `SELECT COUNT(*) AS totalOrders FROM ${this.table}`
+    );
+    return total;
+  }
 }
 module.exports = orderManager;

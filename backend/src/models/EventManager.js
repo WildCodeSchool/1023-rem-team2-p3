@@ -44,11 +44,19 @@ class EventManager extends AbstractManager {
     ]);
   }
 
-  async desactivateEvent(id) {
+  // async desactivateEvent(id) {
+  //  return this.database.query(
+  // `UPDATE ${this.table} SET status = "inactive" WHERE id = ?`,
+  // `select * from ${this.table}`
+  // [id]
+  // );
+  // }
+
+  // get total des events
+
+  async getTotalEventsCount() {
     return this.database.query(
-      // `UPDATE ${this.table} SET status = "inactive" WHERE id = ?`,
-      `select * from ${this.table}`
-      // [id]
+      `SELECT COUNT(*) AS totalEvents FROM ${this.table}`
     );
   }
 }

@@ -1,6 +1,6 @@
 import Sidebar from "../../components/DashBoard/Sidebar";
 import Header from "../../components/DashBoard/Header";
-import MainContentUser from "../../components/DashBoard/MainContentUser";
+import MainContentUser from "../../components/DashBoard/User/MainContentUser";
 
 export default function User() {
   return (

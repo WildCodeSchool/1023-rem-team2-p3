@@ -146,6 +146,13 @@ class UserManager extends AbstractManager {
     );
   }
 
+  // get total users
+  async getTotalUsersCount() {
+    return this.database.query(
+      `SELECT COUNT(*) AS totalUsers FROM ${this.table}`
+    );
+  }
+
   // ********************************************* //
 }
 

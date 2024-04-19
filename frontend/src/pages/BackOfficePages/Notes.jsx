@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/DashBoard/Header";
 import Sidebar from "../../components/DashBoard/Sidebar";
-import AddNotes from "../../components/DashBoard/AddNotes";
+import AddNotes from "../../components/DashBoard/Note/AddNotes";
 
 export default function Notes() {
   return (

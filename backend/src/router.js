@@ -36,6 +36,10 @@ router.put(
   hashedPassword,
   userControllers.updatePassword
 );
+
+// Route to get total users
+router.get("/users/total", verifyToken, userControllers.getTotalUsers);
+
 // ROUTES FOR USER TO REINITIALIZE PASSWORD
 router.post(
   "/reset-password",
@@ -85,6 +89,8 @@ router.put("/events/:id", verifyToken, eventControllers.updateEvents);
 router.put("/events/desactivate", eventControllers.desactivatedEvents); // "error": "Unknown column 'NaN' in 'where clause'"
 // Route to delete an Event
 // router.delete("/events/:id", eventControllers.deleteEvent);
+// Route to get total events
+router.get("/events/total", verifyToken, eventControllers.getTotalEvents);
 //* ************************//
 
 // --------------------ROUTES FOR STOCK_EVENT--------------------//
@@ -246,5 +252,7 @@ router.post("/payment", verifyToken, paymentController.addPayment);
 // admin & superAdmin
 router.get("/order", verifyToken, orderController.getOrder);
 router.post("/order", verifyToken, orderController.addOrders);
+// route to get total orders
+router.get("/order/total", verifyToken, orderController.getTotalOrders);
 
 module.exports = router;

@@ -77,18 +77,25 @@ export default function MainContentUser() {
         className="w-80 text-black rounded p-2 m-10"
       />
 
-      <div className="mx-60 overflow-x-auto">
+      <div className="mx-64 overflow-x-auto">
         <div className="flex flex-col ">
+          <div className="flex justify-between gap-3 px-4 py-2 bg-background-color-second">
+            <p className=" text-center">Id</p>
+            <p className="w-28 text-center">Nom</p>
+            <p className="w-28 text-center">Prénom</p>
+            <p className="w-52 text-center">Email</p>
+            <p className="w- text-center">Date de naissance</p>
+          </div>
           {currentUsers.map((user, index) => (
             <div
               key={user.id}
               onClick={() => openModal(user)}
               className={`px-4 py-2 flex justify-between gap-3 pointer ${index % 2 === 0 ? "bg-background-color-second" : "bg-[#5b4f67]"}`}
             >
-              <p>{index + 1}</p>
-              <p>{user.lastname}</p>
-              <p>{user.firstname}</p>
-              <p>{user.email}</p>
+              <p className=" text-center">{index + 1}</p>
+              <p className="w-28 text-center">{user.lastname}</p>
+              <p className="w-28 text-center">{user.firstname}</p>
+              <p className="w-52 text-center">{user.email}</p>
               <p>
                 {format(new Date(user.birthday), "dd/MM/yyyy", {
                   locale: fr,

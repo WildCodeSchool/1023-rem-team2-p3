@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/DashBoard/Header";
 import Sidebar from "../../components/DashBoard/Sidebar";
-import AddScoreCard from "../../components/DashBoard/AddScoreCard";
+import AddScoreCard from "../../components/DashBoard/ScoreCard/AddScoreCard";
 
 export default function Notes() {
   return (
