@@ -6,7 +6,6 @@ import { isSameDay } from "date-fns";
 export default function MainBackoffice() {
   const [events, setEvents] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  console.info("events", events);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`)

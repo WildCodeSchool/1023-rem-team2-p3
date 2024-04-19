@@ -102,11 +102,7 @@ const updateUserWithoutPassword = async (req, res) => {
   try {
     const id = req.payload;
     const { lastname, firstname, birthday } = req.body;
-    const [user] = await tables.user.updateUser(id, {
-      lastname,
-      firstname,
-      birthday,
-    });
+    const [user] = await tables.user.updateUser(id, req.body);
     if (user.affectedRows) {
       res.status(200).json({ message: "Utilisateur modifié avec succès" });
     } else {
@@ -266,7 +262,7 @@ const getTotalUsers = async (req, res) => {
     const [admin] = await tables.user.getUserById(id);
 
     if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
-      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+      res.status(401).json({ error: "Vous n'avez pas les droits" });
     }
 
     const [totalUsers] = await tables.user.getTotalUsersCount();

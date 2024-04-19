@@ -252,7 +252,5 @@ router.post("/payment", verifyToken, paymentController.addPayment);
 // admin & superAdmin
 router.get("/order", verifyToken, orderController.getOrder);
 router.post("/order", verifyToken, orderController.addOrders);
-// route to get total orders
-router.get("/order/total", verifyToken, orderController.getTotalOrders);
 
 module.exports = router;
