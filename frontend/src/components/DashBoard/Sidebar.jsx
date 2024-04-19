@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { FaUser, FaShoppingCart } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { BiSolidCalendar } from "react-icons/bi";
@@ -8,14 +8,14 @@ import { MdPayments } from "react-icons/md";
 import { HiMiniGift } from "react-icons/hi2";
 
 export default function Sidebar() {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
+  // const toggleSidebar = () => {
+  //   setIsOpen(!isOpen);
+  // };
 
   return (
-    <div className="border-background-color-second rounded-b-[20px] border-r-2 lg:w-[250px] ">
+    <div className="border-background-color-second rounded-b-[20px] border-r-2 pr-5 ">
       <div className="border-background-color-second rounded-tl-[20px] ">
         <h1 className="font-primary-font text-center p-4 text-[20px] ">
           THE LAB

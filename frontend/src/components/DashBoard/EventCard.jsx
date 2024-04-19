@@ -80,7 +80,7 @@ export default function EventCard() {
       });
   };
   return (
-    <div className=" flex flex-col text-center items-center font-secondary-font mt-10">
+    <div className=" flex flex-col text-center items-center justify-center font-secondary-font w-full ">
       <h1 className="text-center text-[30px] font-primary-font">
         Tous les evenements
       </h1>
@@ -89,12 +89,12 @@ export default function EventCard() {
         placeholder="Rechercher..."
         value={searchTerm}
         onChange={handleSearchChange}
-        className="w-80 text-black rounded-lg p-2 m-10"
+        className="w-80 text-black rounded-lg p-2 m-5"
       />
-      <div className="flex space-x-4 mt-4">
+      <div className="flex space-x-4">
         <button
           onClick={() => handleFilterChange("active")}
-          className={`py-2 px-4 rounded-lg ${
+          className={`py-2 px-4 rounded-lg w-auto ${
             statusFilter === "active"
               ? "bg-gray-300 text-[#544b5d]"
               : "bg-[#544b5d] text-white"
@@ -104,7 +104,7 @@ export default function EventCard() {
         </button>
         <button
           onClick={() => handleFilterChange("inactive")}
-          className={`py-2 px-4 rounded-lg ${
+          className={`py-2 px-4 rounded-lg w-auto ${
             statusFilter === "inactive"
               ? " bg-gray-300 text-[#544b5d]"
               : "bg-[#544b5d] text-white"
@@ -114,7 +114,7 @@ export default function EventCard() {
         </button>
         <button
           onClick={openAddModal}
-          className="bg-[#544b5d] rounded-lg hover:bg-gray-300 p-2"
+          className="bg-[#544b5d] rounded-lg hover:bg-gray-300 p-2 w-auto"
         >
           Ajouter un événement
         </button>
@@ -125,7 +125,7 @@ export default function EventCard() {
           />
         )}
       </div>
-      <div className="text-white grid grid-cols-4 justify-center items-center font-secondary-font m-20">
+      <div className="text-white grid sm:grid-cols-2 lg:grid-cols-3 justify-center items-center font-secondary-font m-5">
         {events
           .filter((event) =>
             event.city.toLowerCase().includes(searchTerm.toLowerCase())

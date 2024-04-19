@@ -176,7 +176,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Ajouter des notes"
-      className="absolute top-1/4 left-[30rem] transform w-[50rem] text-[8px] text-center bg-[#281f31] text-white p-4 m-8 rounded-lg font-secondary-font"
+      className="absolute h-[100VH] top-1/2 left-1/2 right-auto bottom-auto mr-[-50%] transform -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[25rem] lg:w-[40rem] text-[8px] text-center bg-[#281f31] text-white p-4 rounded-lg font-secondary-font"
     >
       <button className="flex " onClick={onRequestClose}>
         <ImCross />
@@ -190,7 +190,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         <span className="text-white text-[20px] font-secondary-font">
           Evénement:
           <select
-            className="w-80 m-8 text-background-color-second"
+            className="w-72 md:w-80 m-8  text-background-color-second"
             onChange={handleEventChange}
           >
             <option value="">Sélectionnez un événement</option>
@@ -211,7 +211,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         <span className="text-white text-[20px] font-secondary-font">
           Participant:
           <select
-            className="w-80 m-8 text-background-color-second"
+            className="w-72 md:w-80 m-8 text-background-color-second"
             onChange={handleUserChange}
             value={selectedUser}
           >
@@ -233,7 +233,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         <span className="text-white text-[20px] font-secondary-font">
           Caractéristique:
           <select
-            className="w-80 m-8 text-background-color-second"
+            className="w-72 md:w-80 m-8 text-background-color-second"
             onChange={handleCharacteristicChange}
             value={selectedCharacteristic}
           >

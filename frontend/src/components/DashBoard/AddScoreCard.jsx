@@ -96,7 +96,7 @@ export default function AddScoreCard() {
   };
 
   return (
-    <div className="flex flex-col text-center items-center ml-44 mt-5">
+    <div className="flex flex-col text-center items-center mt-5">
       <h2 className="text-2xl font-primary-font mb-4">Affichage des notes</h2>
       <label>
         <p className="text-lg mb-4">Selectionnez un événement:</p>

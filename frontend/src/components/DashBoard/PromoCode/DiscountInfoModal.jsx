@@ -7,8 +7,8 @@ import Modal from "react-modal";
 import PropTypes from "prop-types";
 import { ImCross } from "react-icons/im";
 
-function UserInformationModal({ isOpen, onRequestClose, user }) {
-  if (!user) {
+function DiscountInfoModal({ isOpen, onRequestClose, payment }) {
+  if (!payment) {
     return (
       <Modal
         isOpen={isOpen}
@@ -42,7 +42,7 @@ function UserInformationModal({ isOpen, onRequestClose, user }) {
         Informations détaillées de l'utilisateur
       </h2>
       <div className="flex flex-col  justify-between mx-auto gap-2">
-        {Object.entries(user).map(([key, value]) => {
+        {Object.entries(payment).map(([key, value]) => {
           if (key !== "hashedPassword" && value) {
             return (
               <div key={key} className="flex flex-col">
@@ -58,10 +58,10 @@ function UserInformationModal({ isOpen, onRequestClose, user }) {
   );
 }
 
-UserInformationModal.propTypes = {
+DiscountInfoModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
-  user: PropTypes.object,
+  payment: PropTypes.object,
 };
 
-export default UserInformationModal;
+export default DiscountInfoModal;

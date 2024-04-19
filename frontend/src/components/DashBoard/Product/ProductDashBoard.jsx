@@ -58,9 +58,9 @@ export default function ProductDashBoard() {
         placeholder="Rechercher..."
         value={searchTerm}
         onChange={handleSearchChange}
-        className="w-80 text-black rounded-lg p-2 m-10"
+        className="w-80 text-black rounded-lg p-2 m-5"
       />
-      <div className="flex space-x-4 mt-4">
+      <div className="flex space-x-4">
         <button
           onClick={openAddModal}
           className="bg-[#544b5d] rounded-lg hover:bg-gray-300 p-2"
@@ -74,8 +74,8 @@ export default function ProductDashBoard() {
           />
         )}
       </div>
-      <div className="flex flex-col text-center  items-center w-auto">
-        <div className="text-white grid grid-cols-4 justify-center items-center font-secondary-font m-20">
+      <div className="flex flex-col flex-wrap text-center  items-center w-auto">
+        <div className="text-white grid-cols-2 lg:grid-cols-3 justify-center items-center font-secondary-font m-5">
           {product
             ?.filter((products) =>
               products.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -83,7 +83,7 @@ export default function ProductDashBoard() {
             .map((prod) => (
               <div
                 key={prod.id}
-                className="relative flex flex-col justify-start gap-5 items-center  border border-white bg-[#4D3E5C] cursor-pointer p-5 rounded-[20px] m-2 w-[200px] h-[200px]"
+                className="relative flex flex-col flex-wrap justify-start gap-5 items-center  border border-white bg-[#4D3E5C] cursor-pointer p-5 rounded-[20px] m-5 w-[200px] h-[200px]"
               >
                 <HiOutlinePencilAlt
                   className="absolute top-1 right-1 w-8 h-8"

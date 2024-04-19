@@ -8,7 +8,7 @@ export default function AddNotes() {
   };
 
   return (
-    <div className="flex  flex-col text-center items-center ml-44 mt-5">
+    <div className="flex  flex-col text-center items-center justify-center my-5 w-full">
       <h1 className="text-center text-[30px] font-primary-font">
         Ajouter les notes aux participants
       </h1>
