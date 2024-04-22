@@ -24,7 +24,7 @@ export default function EventCard() {
         setEvents(filtered);
       })
       .catch((error) => console.error("Error:", error));
-  }, []);
+  }, [isAddModalOpen]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);

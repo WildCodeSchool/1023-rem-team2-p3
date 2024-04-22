@@ -148,21 +148,6 @@ const deleteUser = async (req, res) => {
   }
 };
 
-// const logout = async (req, res) => {
-//   try {
-//     const id = req.payload;
-//     const token = jwt.sign({ payload: id }, process.env.SECRET_KEY_JWT, {
-//       expiresIn: "0h",
-//     });
-
-//     res.status(200).send(token);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// };
-
-// methode pour réinisialiser le mot de passe
-
 const createPasswordResetToken = async (req, res) => {
   try {
     const { email } = req.body;

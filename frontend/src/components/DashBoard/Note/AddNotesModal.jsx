@@ -1,14 +1,16 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
-import { ImCross } from "react-icons/im";
 import PropTypes from "prop-types";
+import React, { useContext, useEffect, useState } from "react";
+import { ImCross } from "react-icons/im";
+import Modal from "react-modal";
+import { UserContext } from "../../../context/UserContext";
 
 Modal.setAppElement("#root");
 
 export default function AddEventModal({ isOpen, onRequestClose }) {
+  const { token } = useContext(UserContext);
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
@@ -16,11 +18,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   const [note, setNote] = useState({});
   const [userNotes, setUserNotes] = useState([]);
   const [eventUsers, setEventUsers] = useState([]);
-  console.info("userNotes:", userNotes);
-  // console.info("selectedUser:", selectedUser);
-  // console.info("eventUsers:", eventUsers);
-  // console.info("selectedCharacteristic:", selectedCharacteristic);
-  // console.info("note:", note);
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`)
       .then((response) => response.json())
@@ -36,7 +34,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/stockEvent`, {
       headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -54,7 +52,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/note`, {
       headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -104,7 +102,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(note),
       })
@@ -128,7 +126,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(note),
       })
@@ -159,10 +157,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
 
   const handleUserChange = (e) => {
     setSelectedUser(e.target.value);
-    // Récupérer user_id et le stocker dans un état
-    // const selectedUserId =
-    //   e.target.options[e.target.selectedIndex].getAttribute("data-user-id");
-    // setUserNotes(selectedUser); // stocker user_id dans un state
     console.info("selectedUser:", selectedUser);
     console.info("e.target.value:", e.target.value);
   };
