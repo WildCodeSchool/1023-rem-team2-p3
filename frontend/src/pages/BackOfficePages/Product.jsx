@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../../components/DashBoard/Header";
+import Header from "../../components/DashBoard/HeaderBackOffice";
 import Sidebar from "../../components/DashBoard/Sidebar";
 import ProductDashBoard from "../../components/DashBoard/Product/ProductDashBoard";
 

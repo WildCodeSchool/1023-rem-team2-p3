@@ -23,7 +23,7 @@ export default function Events() {
       .then((data) => {
         const filtered = data
           .filter((event) => event.status === selectTab)
-          .sort((a, b) => new Date(b.date) - new Date(a.date))
+          .sort((a, b) => new Date(a.date) - new Date(b.date))
           .slice(0, 3);
         setEvents(filtered);
       })

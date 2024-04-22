@@ -155,22 +155,26 @@ export default function EventCard() {
         )}
       </div>
       <div className="text-white grid sm:grid-cols-2 lg:grid-cols-3 justify-center items-center font-secondary-font m-5">
-        {currentEvents.map((event, index) => (
-          <div
-            key={index}
-            className="relative text-start items-stretch border border-white bg-[#4D3E5C] cursor-pointer p-5 rounded-[20px] m-2 w-[200px] h-[200px]"
-          >
-            <HiOutlinePencilAlt
-              className="absolute top-1 right-1 w-8 h-8"
-              onClick={() => openEditModal(event)}
-            />
-            <h3>Ville: {event.city}</h3>
-            <p>Date: {new Date(event.date).toLocaleDateString("fr-FR")}</p>
-            <p>Adresse: {event.address}</p>
-            <p>Quantité: {event.quantity}</p>
-            <p>Status: {event.status}</p>
-          </div>
-        ))}
+        {currentEvents
+          .filter((event) =>
+            event.city.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+          .map((event, index) => (
+            <div
+              key={index}
+              className="relative text-start items-stretch border border-white bg-[#4D3E5C] cursor-pointer p-5 rounded-[20px] m-2 w-[200px] h-[200px]"
+            >
+              <HiOutlinePencilAlt
+                className="absolute top-1 right-1 w-8 h-8"
+                onClick={() => openEditModal(event)}
+              />
+              <h3>Ville: {event.city}</h3>
+              <p>Date: {new Date(event.date).toLocaleDateString("fr-FR")}</p>
+              <p>Adresse: {event.address}</p>
+              <p>Quantité: {event.quantity}</p>
+              <p>Status: {event.status}</p>
+            </div>
+          ))}
       </div>
       <div className="flex justify-between m-4 gap-5">
         <button

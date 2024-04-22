@@ -78,6 +78,7 @@ class UserManager extends AbstractManager {
     return token;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   async sendPasswordResetEmail(user, token, req) {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -110,6 +111,7 @@ class UserManager extends AbstractManager {
   async resetPassword(user, newPassword) {
     const hashedPassword = await hashPassword(newPassword);
     await this.updateUser(user.id, {
+      // eslint-disable-next-line object-shorthand
       hashedPassword: hashedPassword,
       resetPasswordToken: null,
       resetPasswordExpires: null,
@@ -143,6 +145,13 @@ class UserManager extends AbstractManager {
     return this.database.query(
       `UPDATE ${this.table} SET is_admin = 'user' WHERE id = ?`,
       [id]
+    );
+  }
+
+  // get total users
+  async getTotalUsersCount() {
+    return this.database.query(
+      `SELECT COUNT(*) AS totalUsers FROM ${this.table}`
     );
   }
 
