@@ -49,7 +49,7 @@ export default function ProductDashBoard() {
 
   console.info("product", product);
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center w-full lg:pt-10">
       <h1 className="text-center text-[30px] font-primary-font">
         Tous les produits
       </h1>
@@ -74,41 +74,41 @@ export default function ProductDashBoard() {
           />
         )}
       </div>
-      <div className="flex flex-col flex-wrap text-center  items-center w-auto">
-        <div className="text-white grid-cols-2 lg:grid-cols-3 justify-center items-center font-secondary-font m-5">
-          {product
-            ?.filter((products) =>
-              products.name.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-            .map((prod) => (
-              <div
-                key={prod.id}
-                className="relative flex flex-col flex-wrap justify-start gap-5 items-center  border border-white bg-[#4D3E5C] cursor-pointer p-5 rounded-[20px] m-5 w-[200px] h-[200px]"
-              >
-                <HiOutlinePencilAlt
-                  className="absolute top-1 right-1 w-8 h-8"
-                  onClick={() => openEditModal(prod)}
-                />
+      {/* <div className="flex flex-col flex-wrap text-center  items-center w-auto"> */}
+      <div className="text-white grid md:grid-cols-2 lg:grid-cols-3 justify-center items-center font-secondary-font m-5">
+        {product
+          ?.filter((products) =>
+            products.name.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+          .map((prod) => (
+            <div
+              key={prod.id}
+              className="relative flex flex-col flex-wrap justify-start gap-5 items-center  border border-white bg-[#4D3E5C] cursor-pointer p-5 rounded-[20px] m-5 w-[200px] h-[200px]"
+            >
+              <HiOutlinePencilAlt
+                className="absolute top-1 right-1 w-8 h-8"
+                onClick={() => openEditModal(prod)}
+              />
 
-                <img
-                  src={`${import.meta.env.VITE_BACKEND_URL}/${prod.img}`}
-                  alt="photos"
-                  className="w-20 h-20 text-center"
-                />
-                <p>
-                  {prod.name} de couleur {prod.color}
-                </p>
-              </div>
-            ))}
-          {isEditModalOpen && (
-            <EditProductModal
-              isOpen={isEditModalOpen}
-              onRequestClose={closeEditModal}
-              eventData={selectedProduit}
-            />
-          )}
-        </div>
+              <img
+                src={`${import.meta.env.VITE_BACKEND_URL}/${prod.img}`}
+                alt="photos"
+                className="w-20 h-20 text-center"
+              />
+              <p>
+                {prod.name} de couleur {prod.color}
+              </p>
+            </div>
+          ))}
+        {isEditModalOpen && (
+          <EditProductModal
+            isOpen={isEditModalOpen}
+            onRequestClose={closeEditModal}
+            eventData={selectedProduit}
+          />
+        )}
       </div>
+      {/* </div> */}
     </div>
   );
 }

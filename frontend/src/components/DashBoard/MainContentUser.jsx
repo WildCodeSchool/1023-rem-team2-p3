@@ -65,7 +65,7 @@ export default function MainContentUser() {
   }
 
   return (
-    <div className="flex flex-col text-center justify-center items-center w-full">
+    <div className="flex flex-col text-center items-center w-full lg:pt-10">
       <h1 className="text-center text-[30px] font-primary-font">
         Tous les utilisateurs
       </h1>
@@ -82,8 +82,8 @@ export default function MainContentUser() {
           <div
             className={`px-4 py-2 flex justify-between gap-3 pointer  bg-[#5b4f67] `}
           >
-            <p className="w-10">Ordre</p>
-            <p className="hidden md:block">Nom</p>
+            <p className="hidden w-10">Ordre</p>
+            <p className="md:block">Nom</p>
             <p className="hidden md:block">Prénom</p>
             <p className="w-40">Email</p>
             <p className="hidden md:block">Date de naissance</p>
@@ -94,8 +94,8 @@ export default function MainContentUser() {
               onClick={() => openModal(user)}
               className={`px-4 py-2 flex justify-between gap-3 pointer ${index % 2 === 0 ? "bg-background-color-second" : "bg-[#5b4f67]"}`}
             >
-              <p className="w-10">{index + 1}</p>
-              <p className="hidden md:block">{user.lastname}</p>
+              <p className="hidden w-10">{index + 1}</p>
+              <p className="md:block">{user.lastname}</p>
               <p className="hidden md:block">{user.firstname}</p>
               <p className="w-40">{user.email}</p>
               <p className="hidden md:block">

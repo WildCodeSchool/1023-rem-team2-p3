@@ -176,17 +176,17 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Ajouter des notes"
-      className="absolute h-[100VH] top-1/2 left-1/2 right-auto bottom-auto mr-[-50%] transform -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[25rem] lg:w-[40rem] text-[8px] text-center bg-[#281f31] text-white p-4 rounded-lg font-secondary-font"
+      className="absolute top-1/2 left-1/2 right-auto bottom-auto mr-[-50%] transform -translate-x-1/2 -translate-y-1/2 w-[90%] md:w-[25rem] lg:w-[40rem] text-[8px] text-center bg-[#281f31] text-white p-4 rounded-lg font-secondary-font"
     >
       <button className="flex " onClick={onRequestClose}>
         <ImCross />
       </button>
       <h2 className="text-2xl font-bold mb-4">Ajouter des notes</h2>
       <label>
-        <p className="text-lg mb-4">
+        {/* <p className="text-lg mb-4">
           Sélectionnez un événement pour lequel vous souhaitez attribuer les
           notes aux participants:
-        </p>
+        </p> */}
         <span className="text-white text-[20px] font-secondary-font">
           Evénement:
           <select
@@ -195,7 +195,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
           >
             <option value="">Sélectionnez un événement</option>
             {events.map((event) => (
-              <option key={event.id} value={event.id}>
+              <option className="text-xs" key={event.id} value={event.id}>
                 {event.city} {new Date(event.date).toLocaleDateString("fr-FR")}{" "}
                 {event.address}
               </option>
@@ -205,9 +205,9 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       </label>
       <hr className="mb-4" />
       <label>
-        <p className="text-lg mb-4">
+        {/* <p className="text-lg mb-4">
           Sélectionnez un participant à qui vous souhaitez attribuer les notes :
-        </p>
+        </p> */}
         <span className="text-white text-[20px] font-secondary-font">
           Participant:
           <select
@@ -217,7 +217,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
           >
             <option value="">Sélectionnez un participant</option>
             {eventUsers.map((user) => (
-              <option key={user.id} value={user.user_id}>
+              <option className="text-xs" key={user.id} value={user.user_id}>
                 {user.lastname} {user.firstname} {user.email}
               </option>
             ))}
@@ -226,10 +226,10 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       </label>
       <hr className="mb-4" />
       <label>
-        <p className="text-lg mb-4">
+        {/* <p className="text-lg mb-4">
           Sélectionnez la caractéristique à laquelle vous souhaitez attribuer la
           note :
-        </p>
+        </p> */}
         <span className="text-white text-[20px] font-secondary-font">
           Caractéristique:
           <select
@@ -237,18 +237,42 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
             onChange={handleCharacteristicChange}
             value={selectedCharacteristic}
           >
-            <option value="">Sélectionnez une caractéristique</option>
-            <option value="note_physique">Note physique</option>
-            <option value="note_vitesse">Note vitesse</option>
-            <option value="note_passe">Note passe</option>
-            <option value="note_tir">Note tir</option>
-            <option value="note_dribble">Note dribble</option>
-            <option value="note_vista">Note vista</option>
-            <option value="note_cf">Note cf</option>
-            <option value="note_plongeon">Note plongeon </option>
-            <option value="note_arrets">Note arrets</option>
-            <option value="note_dega">Note dega</option>
-            <option value="note_pied_faible">Note pied faible</option>
+            <option className="text-xs" value="">
+              Sélectionnez une caractéristique
+            </option>
+            <option className="text-xs" value="note_physique">
+              Note physique
+            </option>
+            <option className="text-xs" value="note_vitesse">
+              Note vitesse
+            </option>
+            <option className="text-xs" value="note_passe">
+              Note passe
+            </option>
+            <option className="text-xs" value="note_tir">
+              Note tir
+            </option>
+            <option className="text-xs" value="note_dribble">
+              Note dribble
+            </option>
+            <option className="text-xs" value="note_vista">
+              Note vista
+            </option>
+            <option className="text-xs" value="note_cf">
+              Note cf
+            </option>
+            <option className="text-xs" value="note_plongeon">
+              Note plongeon
+            </option>
+            <option className="text-xs" value="note_arrets">
+              Note arrets
+            </option>
+            <option className="text-xs" value="note_dega">
+              Note dega
+            </option>
+            <option className="text-xs" value="note_pied_faible">
+              Note pied faible
+            </option>
           </select>
         </span>
       </label>

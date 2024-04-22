@@ -11,6 +11,8 @@ export default function EventCard() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const eventPerPage = 6;
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`)
@@ -26,6 +28,7 @@ export default function EventCard() {
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
+    setCurrentPage(1);
   };
 
   const filterEvents = (event) => {
@@ -37,7 +40,23 @@ export default function EventCard() {
 
   const handleFilterChange = (status) => {
     setStatusFilter(status);
+    setCurrentPage(1);
   };
+
+  const nextPage = () => {
+    const totalFilteredEvents = events.filter(filterEvents);
+    const totalPages = Math.ceil(totalFilteredEvents.length / eventPerPage);
+    if (currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPages) => prevPages - 1);
+    }
+  };
+
   const openAddModal = () => {
     setIsAddModalOpen(true);
   };
@@ -79,10 +98,18 @@ export default function EventCard() {
         console.error("Error:", error);
       });
   };
+
+  const totalFilteredEvents = events.filter(filterEvents);
+  const totalPages = Math.ceil(totalFilteredEvents.length / eventPerPage);
+  const currentEvents = totalFilteredEvents.slice(
+    (currentPage - 1) * eventPerPage,
+    currentPage * eventPerPage
+  );
+
   return (
-    <div className=" flex flex-col text-center items-center justify-center font-secondary-font w-full ">
+    <div className="flex flex-col text-center items-center font-secondary-font w-full lg:pt-10">
       <h1 className="text-center text-[30px] font-primary-font">
-        Tous les evenements
+        Tous les événements
       </h1>
       <input
         type="text"
@@ -94,7 +121,8 @@ export default function EventCard() {
       <div className="flex space-x-4">
         <button
           onClick={() => handleFilterChange("active")}
-          className={`py-2 px-4 rounded-lg w-auto ${
+          disabled={statusFilter === "active"}
+          className={`py-2 px-2 rounded-lg w-auto ${
             statusFilter === "active"
               ? "bg-gray-300 text-[#544b5d]"
               : "bg-[#544b5d] text-white"
@@ -104,7 +132,8 @@ export default function EventCard() {
         </button>
         <button
           onClick={() => handleFilterChange("inactive")}
-          className={`py-2 px-4 rounded-lg w-auto ${
+          disabled={statusFilter === "inactive"}
+          className={`py-2 px-2 rounded-lg w-auto ${
             statusFilter === "inactive"
               ? " bg-gray-300 text-[#544b5d]"
               : "bg-[#544b5d] text-white"
@@ -126,27 +155,38 @@ export default function EventCard() {
         )}
       </div>
       <div className="text-white grid sm:grid-cols-2 lg:grid-cols-3 justify-center items-center font-secondary-font m-5">
-        {events
-          .filter((event) =>
-            event.city.toLowerCase().includes(searchTerm.toLowerCase())
-          )
-          .filter(filterEvents)
-          .map((event, index) => (
-            <div
-              key={index}
-              className="relative text-start items-stretch border border-white bg-[#4D3E5C] cursor-pointer p-5 rounded-[20px] m-2 w-[200px] h-[200px]"
-            >
-              <HiOutlinePencilAlt
-                className="absolute top-1 right-1 w-8 h-8"
-                onClick={() => openEditModal(event)}
-              />
-              <h3>Ville: {event.city}</h3>
-              <p>Date: {new Date(event.date).toLocaleDateString("fr-FR")}</p>
-              <p>Adresse: {event.address}</p>
-              <p>Quantité: {event.quantity}</p>
-              <p>Status: {event.status}</p>
-            </div>
-          ))}
+        {currentEvents.map((event, index) => (
+          <div
+            key={index}
+            className="relative text-start items-stretch border border-white bg-[#4D3E5C] cursor-pointer p-5 rounded-[20px] m-2 w-[200px] h-[200px]"
+          >
+            <HiOutlinePencilAlt
+              className="absolute top-1 right-1 w-8 h-8"
+              onClick={() => openEditModal(event)}
+            />
+            <h3>Ville: {event.city}</h3>
+            <p>Date: {new Date(event.date).toLocaleDateString("fr-FR")}</p>
+            <p>Adresse: {event.address}</p>
+            <p>Quantité: {event.quantity}</p>
+            <p>Status: {event.status}</p>
+          </div>
+        ))}
+      </div>
+      <div className="flex justify-between m-4 gap-5">
+        <button
+          onClick={prevPage}
+          disabled={currentPage === 1}
+          className="py-2 px-4 bg-background-color-second text-white rounded pointer"
+        >
+          Précédent
+        </button>
+        <button
+          onClick={nextPage}
+          disabled={currentPage === totalPages}
+          className="py-2 px-8 bg-background-color-second text-white rounded pointer"
+        >
+          Suivant
+        </button>
       </div>
       {isEditModalOpen && (
         <ModifyEventModal

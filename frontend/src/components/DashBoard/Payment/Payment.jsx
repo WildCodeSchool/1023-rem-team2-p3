@@ -59,7 +59,7 @@ export default function Payment() {
 
   console.info("payment", payment);
   return (
-    <div className="flex flex-col text-center  items-center w-auto">
+    <div className="flex flex-col text-center  items-center w-full lg:pt-10">
       <h1 className="text-center text-[30px] font-primary-font">
         Tous les paiements
       </h1>
@@ -79,12 +79,6 @@ export default function Payment() {
             <p className="md:w-32 text-center hidden md:block">prenom</p>
             <p className="w-32 text-center">email</p>
             <p className="md:w-32 text-center hidden md:block">montant</p>
-            <p className="md:w-36 text-center hidden md:block">
-              moyen de payment
-            </p>
-            <p className="md:w-32 text-center hidden md:block">
-              nom du produit
-            </p>
           </div>
           {payment &&
             currentPayment.map((pay, index) => (
@@ -103,12 +97,6 @@ export default function Payment() {
                 <p className="w-32 text-center">{pay.email}</p>
                 <p className="md:w-32 text-center hidden md:block">
                   {pay.amount} €
-                </p>
-                <p className="md:w-36 text-center hidden md:block">
-                  {pay.payment_method}
-                </p>
-                <p className="md:w-32 text-center hidden md:block">
-                  {pay.name}
                 </p>
               </button>
             ))}

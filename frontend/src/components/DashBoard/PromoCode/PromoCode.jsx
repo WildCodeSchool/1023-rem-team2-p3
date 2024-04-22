@@ -7,6 +7,7 @@ import DiscountInfoModal from "./DiscountInfoModal";
 
 export default function PromoCode() {
   const [promoCode, setPromoCode] = useState([]);
+  const [selectedDiscount, setSelectedDiscount] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,10 +47,10 @@ export default function PromoCode() {
     setIsAddModalOpen(false);
   };
 
-  // function openModal(promoCode) {
-  //   setSelectedPayment(promoCode);
-  //   setIsModalOpen(true);
-  // }
+  function openModal(promoCodes) {
+    setSelectedDiscount(promoCodes);
+    setIsModalOpen(true);
+  }
 
   function closeModal() {
     setIsModalOpen(false);
@@ -71,7 +72,7 @@ export default function PromoCode() {
   );
   console.info("discount", promoCode);
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col items-center w-full lg:pt-10">
       <h1 className="text-center text-[30px] font-primary-font">
         Tous les Codes Promos
       </h1>
@@ -114,9 +115,9 @@ export default function PromoCode() {
                 .includes(searchTerm?.toLowerCase())
             )
             .map((discounts, index) => (
-              <div
+              <button
                 key={discounts.id}
-                // onClick={() => openModal(discounts)}
+                onClick={() => openModal(discounts)}
                 className={`px-4 py-2 flex justify-between gap-3 pointer ${index % 2 === 0 ? "bg-background-color-second" : "bg-[#5b4f67]"}`}
               >
                 <p className="w-32 text-center">{discounts.promo_code}</p>
@@ -136,14 +137,14 @@ export default function PromoCode() {
                 ) : (
                   <p className="w-32 text-center">inactif</p>
                 )}
-              </div>
+              </button>
             ))}
         </div>
         <DiscountInfoModal
           isOpen={isModalOpen}
           // eslint-disable-next-line react/jsx-no-bind
           onRequestClose={closeModal}
-          promoCode={promoCode}
+          promoCode={selectedDiscount}
         />
       </div>
       <div className="flex justify-between m-4 gap-5 ">
