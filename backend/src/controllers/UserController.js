@@ -101,7 +101,7 @@ const addUser = async (req, res) => {
 const updateUserWithoutPassword = async (req, res) => {
   try {
     const id = req.payload;
-    const { lastname, firstname, birthday } = req.body;
+    // const { lastname, firstname, birthday } = req.body;
     const [user] = await tables.user.updateUser(id, req.body);
     if (user.affectedRows) {
       res.status(200).json({ message: "Utilisateur modifié avec succès" });
@@ -197,7 +197,6 @@ const setUserAdmin = async (req, res) => {
       return res.status(401).json({ error: "Vous n'avez pas les droits" });
     }
     const userId = req.body;
-    console.log("userId", userId.id);
     const [result] = await tables.user.setUserAdmin(userId.id);
     if (result.affectedRows) {
       res.status(200).json({ message: "Utilisateur est maintenant Admin" });
@@ -254,6 +253,25 @@ const activateUser = async (req, res) => {
   }
 };
 
+// get total users
+
+const getTotalUsers = async (req, res) => {
+  try {
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
+
+    const [totalUsers] = await tables.user.getTotalUsersCount();
+
+    res.status(200).json({ totalUsers });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getAllUsers,
   addUser,
@@ -269,4 +287,5 @@ module.exports = {
   setUserNotAdmin,
   desactivateUser,
   activateUser,
+  getTotalUsers,
 };

@@ -1,8 +1,12 @@
 import React from "react";
-import Header from "../../components/DashBoard/Header";
+import Header from "../../components/DashBoard/HeaderBackOffice";
 import Sidebar from "../../components/DashBoard/Sidebar";
 import SidebarMobile from "../../components/DashBoard/Sidebar/SidebarMobile";
 import HeaderM from "../../components/DashBoard/Sidebar/HeaderM";
+import FuturesEvents from "../../components/DashBoard/Main/FuturesEvents";
+import TotalPayments from "../../components/DashBoard/Main/TotalPayments";
+import CalendarComponent from "../../components/DashBoard/Main/Calendar";
+import MainBackoffice from "../../components/DashBoard/Main/MainBackoffice";
 
 export default function BackOfficePages() {
   return (
@@ -13,7 +17,17 @@ export default function BackOfficePages() {
       </div>
       <div className="hidden lg:block lg:text-white lg:font-secondary-font lg:bg-[#281f31] lg:w-full lg:h-auto lg:rounded-[20px]">
         <Header />
-        <Sidebar />
+        <div className="flex flex-row">
+          <Sidebar />
+          <div className="flex flex-col w-full">
+            <MainBackoffice />
+            <div className="flex flex-row justify-center">
+              <CalendarComponent />
+              <TotalPayments />
+            </div>
+            <FuturesEvents />
+          </div>
+        </div>
       </div>
     </div>
   );

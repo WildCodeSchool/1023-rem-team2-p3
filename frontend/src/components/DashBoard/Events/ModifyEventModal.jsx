@@ -1,9 +1,12 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { ImCross } from "react-icons/im";
 import PropTypes from "prop-types";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
 
 Modal.setAppElement("#root"); // This line is needed for accessibility reasons
 
@@ -13,8 +16,21 @@ export default function EditEventModal({
   eventData,
   onUpdateEvent,
 }) {
-  const [formData, setFormData] = useState(eventData || {});
-
+  const [formData, setFormData] = useState(
+    {
+      id: eventData.id,
+      city: eventData.city,
+      date: format(new Date(eventData.date), "yyyy-MM-dd", {
+        locale: fr,
+      }),
+      address: eventData.address,
+      quantity: eventData.quantity,
+      created_at: eventData.created_at,
+      updated_at: eventData.updated_at,
+      status: "active",
+    } || {}
+  );
+  console.info("eventData", eventData);
   const handleChange = (event) => {
     setFormData({
       ...formData,
@@ -25,9 +41,10 @@ export default function EditEventModal({
   const handleSubmit = (event) => {
     event.preventDefault();
     onUpdateEvent(formData);
+    console.info("formData", formData);
     onRequestClose();
   };
-
+  console.info("formData.date", formData.date);
   return (
     <Modal
       isOpen={isOpen}
@@ -56,10 +73,14 @@ export default function EditEventModal({
         <input
           type="date"
           name="date"
-          value={formData.date}
+          value={format(new Date(formData.date), "yyyy-MM-dd", {
+            locale: fr,
+          })}
           onChange={handleChange}
           className="w-[200px] p-2 rounded-lg text-sm"
         />
+        {}
+
         <input
           type="text"
           name="address"
