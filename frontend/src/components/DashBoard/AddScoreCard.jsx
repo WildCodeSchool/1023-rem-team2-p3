@@ -96,7 +96,7 @@ export default function AddScoreCard() {
   };
 
   return (
-    <div className="flex flex-col text-center items-center ml-44 mt-5">
+    <div className="flex flex-col text-center items-center lg:pt-10 w-full">
       <h2 className="text-2xl font-primary-font mb-4">Affichage des notes</h2>
       <label>
         <p className="text-lg mb-4">Selectionnez un événement:</p>
@@ -108,7 +108,7 @@ export default function AddScoreCard() {
           >
             <option value="">Sélectionnez un événement</option>
             {events.map((event) => (
-              <option key={event.id} value={event.id}>
+              <option className="text-xs" key={event.id} value={event.id}>
                 {event.city} {new Date(event.date).toLocaleDateString("fr-FR")}{" "}
                 {event.address}
               </option>
@@ -127,7 +127,7 @@ export default function AddScoreCard() {
           >
             <option value="">Sélectionnez un participant</option>
             {eventUsers.map((user) => (
-              <option key={user.id} value={user.user_id}>
+              <option className="text-xs" key={user.id} value={user.user_id}>
                 {user.lastname} {user.firstname} {user.email}
               </option>
             ))}
@@ -137,7 +137,7 @@ export default function AddScoreCard() {
       <div className="flex text-white justify-between mx-auto gap-1">
         <div className="text-white mx-auto">
           <p className="text-lg mb-4">Notes attribuées:</p>
-          <table className="border-collapse border border-white mx-auto">
+          <table className=" hidden lg:block border-collapse border border-white mx-auto">
             <thead>
               <tr>
                 {userNotes.length > 0 &&
@@ -175,6 +175,23 @@ export default function AddScoreCard() {
               ))}
             </tbody>
           </table>
+          <div className=" lg:hidden flex flex-col mx-auto py-4">
+            {userNotes.map((note) =>
+              Object.entries(note).map(
+                ([name, value]) =>
+                  name !== "id" &&
+                  name !== "created_at" &&
+                  name !== "updated_at" &&
+                  name !== "user_id" &&
+                  value && (
+                    <div className="flex flex-col">
+                      <p className="border border-white  p-2">{name}</p>
+                      <p className="border border-white  p-2">{value}</p>
+                    </div>
+                  )
+              )
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -59,7 +59,7 @@ export default function Payment() {
 
   console.info("payment", payment);
   return (
-    <div className="flex flex-col text-center  items-center w-auto">
+    <div className="flex flex-col text-center  items-center w-full lg:pt-10">
       <h1 className="text-center text-[30px] font-primary-font">
         Tous les paiements
       </h1>
@@ -68,19 +68,17 @@ export default function Payment() {
         placeholder="Rechercher..."
         value={searchTerm}
         onChange={handleSearchChange}
-        className="w-80 text-black rounded p-2 m-10"
+        className="w-80 text-black rounded p-2 m-5"
       />
 
       <div className="mx-10 overflow-x-auto">
         <div className="flex flex-col  ">
           <div className="px-4 py-2 flex justify-between gap-3 pointer  bg-[#5b4f67]">
-            <p className="w-36 text-center">Numéro de facture</p>
-            <p className="w-32 text-center">nom</p>
-            <p className="w-32 text-center">prenom</p>
+            <p className="w-36 text-center ">Numéro de facture</p>
+            <p className="md:w-32 text-center hidden md:block">nom</p>
+            <p className="md:w-32 text-center hidden md:block">prenom</p>
             <p className="w-32 text-center">email</p>
-            <p className="w-32 text-center">montant</p>
-            <p className="w-36 text-center">moyen de payment</p>
-            <p className="w-32 text-center">nom du produit</p>
+            <p className="md:w-32 text-center hidden md:block">montant</p>
           </div>
           {payment &&
             currentPayment.map((pay, index) => (
@@ -90,12 +88,16 @@ export default function Payment() {
                 className={`px-4 py-2 flex justify-between gap-3 pointer ${index % 2 === 0 ? "bg-background-color-second" : "bg-[#5b4f67]"}`}
               >
                 <p className="w-36 text-center">{pay.bill_number}</p>
-                <p className="w-32 text-center">{pay.lastname}</p>
-                <p className="w-32 text-center">{pay.firstname}</p>
+                <p className="md:w-32 text-center hidden md:block">
+                  {pay.lastname}
+                </p>
+                <p className="md:w-32 text-center hidden md:block">
+                  {pay.firstname}
+                </p>
                 <p className="w-32 text-center">{pay.email}</p>
-                <p className="w-32 text-center">{pay.amount} €</p>
-                <p className="w-36 text-center">{pay.payment_method}</p>
-                <p className="w-32 text-center">{pay.name}</p>
+                <p className="md:w-32 text-center hidden md:block">
+                  {pay.amount} €
+                </p>
               </button>
             ))}
         </div>

@@ -28,7 +28,7 @@ export default function Events() {
         setEvents(filtered);
       })
       .catch((error) => console.error("Error:", error));
-  }, [selectTab, events]);
+  }, [selectTab]);
 
   return (
     <div className=" font-secondary-font mt-10">

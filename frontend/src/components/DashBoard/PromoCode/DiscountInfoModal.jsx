@@ -7,8 +7,8 @@ import Modal from "react-modal";
 import PropTypes from "prop-types";
 import { ImCross } from "react-icons/im";
 
-function UserInformationModal({ isOpen, onRequestClose, user }) {
-  if (!user) {
+function DiscountInfoModal({ isOpen, onRequestClose, promoCode }) {
+  if (!promoCode) {
     return (
       <Modal
         isOpen={isOpen}
@@ -20,10 +20,10 @@ function UserInformationModal({ isOpen, onRequestClose, user }) {
           <ImCross />
         </button>
         <h2 className="text-2xl font-bold mb-4">
-          Informations détaillées de l'utilisateur
+          Informations détaillées du code promos
         </h2>
         <p className="text-2xl font-bold mb-4">
-          Les informations de l'utilisateur ne sont pas disponibles.
+          Les informations du code promo ne sont pas disponibles.
         </p>
       </Modal>
     );
@@ -32,17 +32,17 @@ function UserInformationModal({ isOpen, onRequestClose, user }) {
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      contentLabel="User Details"
+      contentLabel="Promo code Details"
       className="absolute top-1/2 left-1/2 right-auto bottom-auto mr-[-50%] transform -translate-x-1/2 -translate-y-1/2 md:w-[25rem] lg:w-[40rem] w-auto text-[8px] text-center bg-[#281f31] text-white p-2 rounded-lg"
     >
       <button onClick={onRequestClose} className="absolute right-4">
         <ImCross />
       </button>
       <h2 className="text-sm font-bold m-2">
-        Informations détaillées de l'utilisateur
+        Informations détaillées du code promo
       </h2>
       <div className="flex flex-col  justify-between mx-auto gap-2">
-        {Object.entries(user).map(([key, value]) => {
+        {Object.entries(promoCode).map(([key, value]) => {
           if (key !== "hashedPassword" && value) {
             return (
               <div key={key} className="flex flex-col">
@@ -58,10 +58,10 @@ function UserInformationModal({ isOpen, onRequestClose, user }) {
   );
 }
 
-UserInformationModal.propTypes = {
+DiscountInfoModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
-  user: PropTypes.object,
+  promoCode: PropTypes.object,
 };
 
-export default UserInformationModal;
+export default DiscountInfoModal;
