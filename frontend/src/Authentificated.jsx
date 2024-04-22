@@ -20,12 +20,15 @@ import Payment from "./pages/BackOfficePages/Payment";
 import Product from "./pages/BackOfficePages/Product";
 import CodePromo from "./pages/BackOfficePages/CodePromo";
 import NotFound from "./pages/NotFound/NotFound";
+import CopilotProfilePage from "./pages/CopilotPages/CopilotProfilePage";
+import CopilotTrainingPage from "./pages/CopilotPages/CopilotTrainingPage";
+import CopilotMissionPage from "./pages/CopilotPages/CopilotMissionPage";
+import CopilotContactPage from "./pages/CopilotPages/CopilotContactPage";
+import CopilotGiftPage from "./pages/CopilotPages/CopilotGiftPage";
 
 export default function Authentificated() {
   return (
     <Routes>
-      <Route path="copilot" element={<CopilotPages />} />
-      <Route path="backoffice" element={<BackOfficePages />} />
       <Route path="/" element={<App />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
@@ -36,6 +39,7 @@ export default function Authentificated() {
       <Route path="legal" element={<Legal />} />
       <Route path="privacy" element={<Privacy />} />
       <Route path="forgot/password" element={<ForgotPassword />} />
+      <Route path="backoffice" element={<BackOfficePages />} />
       <Route path="users" element={<User />} />
       <Route path="events" element={<EventBackoffice />} />
       <Route path="notes" element={<Notes />} />
@@ -43,6 +47,13 @@ export default function Authentificated() {
       <Route path="payment" element={<Payment />} />
       <Route path="product" element={<Product />} />
       <Route path="codepromo" element={<CodePromo />} />
+      <Route path="copilot" element={<CopilotPages />} />
+      <Route path="copilotprofile" element={<CopilotProfilePage />} />
+      <Route path="copilotentrainements" element={<CopilotTrainingPage />} />
+      <Route path="copilotmissions" element={<CopilotMissionPage />} />
+      <Route path="copilotcontact" element={<CopilotContactPage />} />
+      <Route path="copilotcadeaux" element={<CopilotGiftPage />} />
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

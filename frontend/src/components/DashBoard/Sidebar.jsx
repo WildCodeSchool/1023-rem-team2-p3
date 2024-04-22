@@ -8,12 +8,6 @@ import { MdPayments } from "react-icons/md";
 import { HiMiniGift } from "react-icons/hi2";
 
 export default function Sidebar() {
-  // const [isOpen, setIsOpen] = useState(false);
-
-  // const toggleSidebar = () => {
-  //   setIsOpen(!isOpen);
-  // };
-
   return (
     <div className="border-background-color-second rounded-b-[20px] border-r-2 pr-5 ">
       <div className="border-background-color-second rounded-tl-[20px] ">
