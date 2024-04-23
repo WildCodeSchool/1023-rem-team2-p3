@@ -1,6 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
+import { UserContext } from "../../context/UserContext";
 
 const buttonStyles = {
   futures:
@@ -10,16 +11,28 @@ const buttonStyles = {
 };
 
 export default function ButtonEvent() {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const handleClickSignup = () => {
+    if (user.isLogged) {
+      if (user.data.is_admin === "user") {
+        navigate("/copilot/participate");
+      } else {
+        navigate("/");
+      }
+    } else {
+      navigate("/login");
+    }
+  };
   return (
     <div>
       <div className=" flex mt-10 items-center justify-center gap-6 mb-36 text-center ">
-        <Link to="/login">
-          <Button
-            type="button"
-            content="PARTICIPER"
-            className={buttonStyles.futures}
-          />
-        </Link>
+        <Button
+          type="button"
+          handleClick={handleClickSignup}
+          content="PARTICIPER"
+          className={buttonStyles.futures}
+        />
         <Link to="/giveaway">
           <Button
             type="button"
