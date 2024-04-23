@@ -3,6 +3,7 @@ import HeaderCopilotMobile from "../../components/Copilot/LayoutCopilotMobile/He
 import SidebarCopilotMobile from "../../components/Copilot/LayoutCopilotMobile/SidebarCopiloteMobile";
 import HeaderCopilotDesktop from "../../components/Copilot/LayoutCopilotDesktop/HeaderCopilotDesktop";
 import SidebarCopiloteDesktop from "../../components/Copilot/LayoutCopilotDesktop/SidebarCopilotDesktop";
+import CopilotNotes from "../../components/Copilot/CopilotMain/CopilotNotes";
 
 export default function CopilotPages() {
   return (
@@ -15,6 +16,7 @@ export default function CopilotPages() {
         <HeaderCopilotDesktop />
         <div className="flex flex-row">
           <SidebarCopiloteDesktop />
+          <CopilotNotes />
         </div>
       </div>
     </div>

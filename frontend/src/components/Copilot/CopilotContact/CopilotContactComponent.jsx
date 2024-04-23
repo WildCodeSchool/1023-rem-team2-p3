@@ -54,11 +54,16 @@ export default function CopilotContactComponent() {
   };
   return (
     <div className="flex  flex-col text-center items-center lg:pt-10 w-full">
-      <h1 className="text-center text-[30px] font-primary-font my-14">
+      <h1 className="text-center text-[30px] font-primary-font my-8">
         Contactez-nous
       </h1>
+      <p className="font-secondary-font text-[20px]  p-4">
+        N'hesiez pas à nous contacter pour toute question ou demande de
+        renseignements,
+        <br /> nous sommes là pour vous aider.
+      </p>
       <form
-        className="grid grid-cols-1 md:grid-cols-2 gap-5"
+        className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full max-w-[600px] mx-auto p-4 bg-[#544b5d] rounded-lg shadow-lg border-white border-2 mb-8"
         onSubmit={handleSubmit}
       >
         <div className="relative text-white">
@@ -74,7 +79,7 @@ export default function CopilotContactComponent() {
           />
           <label
             htmlFor="name"
-            className="absolute top-4 left-4 pointer-events-none transition-all duration-150 ease-[cubic-bezier(0.4,0,0.2,1)] text-gray-400"
+            className="absolute top-4 left-4 pointer-events-none transition-all duration-150 ease-[cubic-bezier(0.4,0,0.2,1)] text-white"
           >
             Nom
           </label>
@@ -92,7 +97,7 @@ export default function CopilotContactComponent() {
           />
           <label
             htmlFor="email"
-            className="absolute top-4 left-4 pointer-events-none transition-all duration-150 ease-[cubic-bezier(0.4,0,0.2,1)] text-gray-400"
+            className="absolute top-4 left-4 pointer-events-none transition-all duration-150 ease-[cubic-bezier(0.4,0,0.2,1)] text-white"
           >
             Email
           </label>
@@ -112,7 +117,7 @@ export default function CopilotContactComponent() {
           />
           <label
             htmlFor="contact"
-            className="absolute top-4 left-4 pointer-events-none transition-all duration-150 ease-[cubic-bezier(0.4,0,0.2,1) ] text-gray-400"
+            className="absolute top-4 left-4 pointer-events-none transition-all duration-150 ease-[cubic-bezier(0.4,0,0.2,1) ] text-white"
           >
             Téléphone
           </label>
@@ -130,7 +135,7 @@ export default function CopilotContactComponent() {
           />
           <label
             htmlFor="subject"
-            className="absolute top-4 left-4 pointer-events-none transition-all duration-150 ease-[cubic-bezier(0.4,0,0.2,1)] text-gray-400"
+            className="absolute top-4 left-4 pointer-events-none transition-all duration-150 ease-[cubic-bezier(0.4,0,0.2,1)] text-white"
           >
             Sujet
           </label>
@@ -148,7 +153,7 @@ export default function CopilotContactComponent() {
           />
           <label
             htmlFor="message"
-            className="absolute top-4 left-4 pointer-events-none transition-all duration-150 ease-[cubic-bezier(0.4,0,0.2,1)] text-gray-400"
+            className="absolute top-4 left-4 pointer-events-none transition-all duration-150 ease-[cubic-bezier(0.4,0,0.2,1)] text-white"
           >
             Votre message
           </label>
@@ -156,7 +161,7 @@ export default function CopilotContactComponent() {
         <div className=" relative flex flex-row  items-center w-[118px] text-white">
           <button
             type="submit"
-            className="bg-[#544b5d] hover:bg-gray-300 w-[150px] h-[30px] text-base rounded-lg text-white"
+            className="bg-background-color-second hover:bg-gray-300 w-[150px] h-[30px] text-base rounded-lg text-white"
           >
             {loading ? "Envoi..." : "Envoyer"}
           </button>

@@ -1,10 +1,12 @@
-// import { useState } from "react";
+import { useContext } from "react";
 import { FaUser, FaChartLine, FaGift } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { IoMailOutline } from "react-icons/io5";
 import { MdOutlineSportsSoccer, MdSports } from "react-icons/md";
+import { UserContext } from "../../../context/UserContext";
 
 export default function SidebarCopilotDesktop() {
+  const { user } = useContext(UserContext);
   return (
     <div className="border-background-color-second rounded-b-[20px] border-r-2 pr-5 ">
       <div className="border-background-color-second rounded-tl-[20px] ">
@@ -32,7 +34,21 @@ export default function SidebarCopilotDesktop() {
           <FaGift className="mr-4" /> CADEAUX
         </NavLink>
       </div>
-      <div className="text-center py-40">AVATAR</div>
+      <div className="flex flex-col items-center my-10">
+        {user.data.avatar ? (
+          <img
+            src={`${import.meta.env.VITE_BACKEND_URL}/${user.data.avatar}`}
+            alt="Photos de profil"
+            className="w-24 h-24 rounded-full"
+          />
+        ) : (
+          <img
+            src="/user.svg"
+            alt="Photos de profil"
+            className="w-24 h-24 rounded-full"
+          />
+        )}
+      </div>
     </div>
   );
 }
