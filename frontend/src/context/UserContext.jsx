@@ -13,11 +13,9 @@ export function UserProvider({ children }) {
   );
   console.info("token from userProvider", token);
   const [user, setUser] = useState({});
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     if (!token) {
-      setIsAuthenticated(false);
       setUser({});
       return;
     }
@@ -36,7 +34,6 @@ export function UserProvider({ children }) {
         );
 
         if (!response.ok) {
-          setIsAuthenticated(false);
           setUser({});
           console.error(
             `Failed to fetch user data. HTTP status: ${response.status}`
@@ -46,11 +43,9 @@ export function UserProvider({ children }) {
 
         const data = await response.json();
         setUser(data);
-        setIsAuthenticated(true);
-        console.info("user from userContext");
       } catch (error) {
         console.error("Failed to fetch user data:", error);
-        setIsAuthenticated(false);
+
         setUser({});
       }
     };
@@ -62,8 +57,7 @@ export function UserProvider({ children }) {
     () => ({
       user,
       setUser,
-      isAuthenticated,
-      setIsAuthenticated,
+
       token,
       updateToken: (newToken) => {
         if (newToken) {
@@ -74,7 +68,7 @@ export function UserProvider({ children }) {
         setToken(newToken);
       },
     }),
-    [user, isAuthenticated, token]
+    [user, token]
   );
 
   return (

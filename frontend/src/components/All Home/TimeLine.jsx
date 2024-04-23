@@ -1,12 +1,12 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable import/no-extraneous-dependencies */
+import { motion } from "framer-motion";
 import React from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-import { motion } from "framer-motion";
-import PropTypes from "prop-types";
 import parcours from "../../data/Parcours.json";
 
 function TimelineCards({ parcour }) {
@@ -55,10 +55,10 @@ export default function Timeline() {
   );
 }
 
-TimelineCards.propTypes = {
-  parcour: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-  }).isRequired,
-};
+// TimelineCards.propTypes = {
+//   parcour: PropTypes.shape({
+//     id: PropTypes.string.isRequired,
+//     title: PropTypes.string.isRequired,
+//     description: PropTypes.string.isRequired,
+//   }).isRequired,
+// };

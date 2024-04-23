@@ -1,11 +1,12 @@
 // import { useState } from "react";
-import { FaUser, FaShoppingCart } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import { BiSolidCalendar } from "react-icons/bi";
-import { PiNotePencilBold } from "react-icons/pi";
-import { GrScorecard } from "react-icons/gr";
-import { MdPayments } from "react-icons/md";
-import { HiMiniGift } from "react-icons/hi2";
+import Calendar from "../../assets/icons/calendar.svg";
+import Cart from "../../assets/icons/cart.svg";
+import Note from "../../assets/icons/note.svg";
+import Payment from "../../assets/icons/payment.svg";
+import Promo from "../../assets/icons/promo.svg";
+import Score from "../../assets/icons/score.svg";
+import User from "../../assets/icons/user.svg";
 
 export default function Sidebar() {
   // const [isOpen, setIsOpen] = useState(false);
@@ -22,26 +23,33 @@ export default function Sidebar() {
         </h1>
       </div>
       <div className="flex flex-col space-y-4 py-4 ml-4 text-[18px]">
-        <NavLink to="/users" className="flex items-center">
-          <FaUser className="mr-4" /> USERS
+        <NavLink to="/backoffice/users" className="flex items-center">
+          <img src={User} className="w-8" alt="icon_user" />
+          <h3>USERS</h3>
         </NavLink>
-        <NavLink to="/events" className="flex items-center">
-          <BiSolidCalendar className="mr-4" /> EVENTS
+        <NavLink to="/backoffice/events" className="flex items-center">
+          <img src={Calendar} className="w-8" alt="icon_calendrier" />
+          <h3>EVENTS</h3>
         </NavLink>
-        <NavLink to="/notes" className="flex items-center">
-          <PiNotePencilBold className="mr-4" /> NOTES
+        <NavLink to="/backoffice/notes" className="flex items-center">
+          <img src={Note} className="w-8" alt="icone_note" />
+          <h3>NOTES</h3>
         </NavLink>
-        <NavLink to="/scorecard" className="flex items-center">
-          <GrScorecard className="mr-4" /> SCORE CARD
+        <NavLink to="/backoffice/scorecard" className="flex items-center">
+          <img src={Score} className="w-8" alt="icone_score_card" />
+          <h3>SCORE CARD</h3>
         </NavLink>
-        <NavLink to="/payment" className="flex items-center">
-          <MdPayments className="mr-4" /> PAYMENT
+        <NavLink to="/backoffice/payment" className="flex items-center">
+          <img src={Payment} className="w-8" alt="icone_payment" />
+          <h3>PAYMENT</h3>
         </NavLink>
-        <NavLink to="/product" className="flex items-center">
-          <FaShoppingCart className="mr-4" /> PRODUCT
+        <NavLink to="/backoffice/product" className="flex items-center">
+          <img src={Cart} className="w-8" alt="icone_panier" />
+          <h3>PRODUCT</h3>
         </NavLink>
-        <NavLink to="/codepromo" className="flex items-center">
-          <HiMiniGift className="mr-4" /> CODE PROMO
+        <NavLink to="/backoffice/codepromo" className="flex items-center">
+          <img src={Promo} className="w-8" alt="icone_code_promo" />
+          <h3>CODE PROMO</h3>
         </NavLink>
       </div>
       <div className="text-center py-40">COMPT ADMIN</div>

@@ -9,15 +9,13 @@ import NavBarYoussef from "../Navbar/NavBarYoussef";
 export default function Header() {
   const [isOpen, setOpen] = useState(false);
   const [show, setShow] = useState(false);
-  const { user, setUser, setIsAuthenticated, isAuthenticated, updateToken } =
-    useContext(UserContext);
+  const { user, setUser, updateToken } = useContext(UserContext);
 
   const [navig, setNavig] = useState("");
   const navigate = useNavigate();
 
   const handleClick = () => {
     setUser({});
-    setIsAuthenticated(false);
     updateToken();
     setShow(false);
     setNavig("");
@@ -30,14 +28,14 @@ export default function Header() {
     "bg-gradient-to-r leading-none py-1 px-2 text-[8px] md:text-[12px] md:py-2  md:px-4 from-[#F5ABF1] via-[#B980F8] to-[#7651FF] text-white  flex items-center rounded-[20px] hover:bg-gradient-to-r hover:from-[#F5ABF1] hover:via-[#F5ABF1] hover:to-[#F5ABF1]  ease-in";
 
   useEffect(() => {
-    if (isAuthenticated && user) {
-      if (user.data.is_admin === "user") {
-        setNavig("copilot/dashboard");
+    if (user) {
+      if (user.data?.is_admin === "user") {
+        setNavig("copilot");
       } else {
         setNavig("backoffice");
       }
     }
-  }, [isAuthenticated, user]);
+  }, [user]);
 
   return (
     <header className="flex flex-row justify-between items-center bg-background-color-second p-2 font-secondary-font">
