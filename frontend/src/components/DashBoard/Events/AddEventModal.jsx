@@ -3,13 +3,15 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
-import Modal from "react-modal";
+import React, { useContext, useState } from "react";
 import { ImCross } from "react-icons/im";
+import Modal from "react-modal";
+import { UserContext } from "../../../context/UserContext";
 
 Modal.setAppElement("#root"); // This line is needed for accessibility reasons
 
 export default function AddEventModal({ isOpen, onRequestClose }) {
+  const { token } = useContext(UserContext);
   const [formData, setFormData] = useState({
     city: "",
     date: "",
@@ -33,7 +35,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(formData),
     })

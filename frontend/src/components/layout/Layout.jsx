@@ -1,26 +1,8 @@
-import { useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { UserContext } from "../../context/UserContext";
-import Header from "./Header";
 import Footer from "./Footer";
+import Header from "./Header";
 
 export default function Layout({ children }) {
-  const { user, setUser } = useContext(UserContext);
-  console.info("user", user);
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/me`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.info(res);
-        setUser(res);
-      })
-      .catch((err) => console.info(err));
-  }, [setUser]);
   return (
     <>
       <Header />

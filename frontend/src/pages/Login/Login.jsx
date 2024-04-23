@@ -1,10 +1,14 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { Eye, EyeOff } from "react-feather";
+import { useNavigate } from "react-router-dom";
 import TopMain from "../../components/TopMain/TopMain";
+import { UserContext } from "../../context/UserContext";
 
 export default function Login() {
   const navigate = useNavigate();
+
+  const { updateToken } = useContext(UserContext);
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -12,13 +16,15 @@ export default function Login() {
     email: "",
     password: "",
   });
+
   const handleChange = (e) => {
     setDataForm({ ...dataForm, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    console.info(dataForm);
+
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/login`, {
       method: "POST",
       headers: {
@@ -28,18 +34,13 @@ export default function Login() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.info("res :>> ", res);
         if (res.status === 401 || res.status === 500) {
-          setTimeout(() => {
-            setErrorMessage(res.message);
-            setLoading(false);
-          }, 2000);
+          setErrorMessage(res.message);
+          setLoading(false);
         } else {
-          localStorage.setItem("token", JSON.stringify(res.token));
-          setTimeout(() => {
-            navigate("/");
-            setLoading(false);
-          }, 2000);
+          updateToken(res.token);
+          navigate("/");
+          setLoading(false);
         }
       })
       .catch((err) => console.info("err :>> ", err));

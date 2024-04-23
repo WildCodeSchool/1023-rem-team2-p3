@@ -3,9 +3,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable import/no-extraneous-dependencies */
-import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import { useEffect, useState } from "react";
 import UserInformationModal from "./UserInformationModal";
 
 export default function MainContentUser() {
@@ -35,7 +35,7 @@ export default function MainContentUser() {
     setCurrentPage(1); // Reset currentPage to 1 when a new search term is entered
   };
 
-  const filteredUsers = users.filter((user) =>
+  const filteredUsers = users?.filter((user) =>
     Object.values(user).some(
       (value) =>
         value !== null &&
@@ -92,7 +92,9 @@ export default function MainContentUser() {
             <div
               key={user.id}
               onClick={() => openModal(user)}
-              className={`px-4 py-2 flex justify-between gap-3 pointer ${index % 2 === 0 ? "bg-background-color-second" : "bg-[#5b4f67]"}`}
+              className={`px-4 py-2 flex justify-between gap-3 pointer ${
+                index % 2 === 0 ? "bg-background-color-second" : "bg-[#5b4f67]"
+              }`}
             >
               <p className="hidden w-10">{index + 1}</p>
               <p className="md:block">{user.lastname}</p>

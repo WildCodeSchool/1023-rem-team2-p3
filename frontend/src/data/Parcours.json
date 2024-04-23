@@ -18,19 +18,16 @@
   {
     "id": 4,
     "title": "Evalution",
-    "description":
-      "Notre logiciel te noteras en fonction des autres participants"
+    "description": "Notre logiciel te noteras en fonction des autres participants"
   },
   {
     "id": 5,
     "title": "Récompense",
-    "description":
-      "Repars avec ta ScoreCard ainsi qu’une paire de crampons personnalisée"
+    "description": "Repars avec ta ScoreCard ainsi qu’une paire de crampons personnalisée"
   },
   {
     "id": 6,
     "title": "Bonus",
-    "description":
-      "Jeux concours exceptionnel, et tente de vivre une aventure exceptionnelle"
+    "description": "Jeux concours exceptionnel, et tente de vivre une aventure exceptionnelle"
   }
 ]

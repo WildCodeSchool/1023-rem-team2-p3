@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../context/UserContext";
 
 export default function MainBackoffice() {
   const [totalUsers, setTotalUsers] = useState(0);
   const [totalEvents, setTotalEvents] = useState(0);
   const [totalOrders, setTotalOrders] = useState(0);
   const [totalInscriptions, setTotalInscriptions] = useState(0);
-
+  const { token } = useContext(UserContext);
   useEffect(() => {
     // Users
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/total`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -25,7 +26,7 @@ export default function MainBackoffice() {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -38,7 +39,7 @@ export default function MainBackoffice() {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/order`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -51,7 +52,7 @@ export default function MainBackoffice() {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/stockEvent`, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())

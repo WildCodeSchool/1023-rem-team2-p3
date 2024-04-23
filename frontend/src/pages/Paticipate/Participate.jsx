@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import TopMain from "../../components/TopMain/TopMain";
-import Dropdown from "../../components/Dropdown/Dropdown";
+import React from "react";
 import Stepper from "../../components/Stepper/Stepper";
+import TopMain from "../../components/TopMain/TopMain";
 
 export default function Participate() {
   return (

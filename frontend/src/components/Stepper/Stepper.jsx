@@ -1,11 +1,11 @@
 /* eslint-disable react/no-array-index-key */
-import "./stepper.css";
 import { useState } from "react";
 import { TiTick } from "react-icons/ti";
+import { formulas } from "../../data/constants/index";
 import Dropdown from "../Dropdown/Dropdown";
 import Formules from "../Formules/Formules";
 import UserInformations from "../UserInformations/UserInformations";
-import { formulas } from "../../data/constants/index";
+import "./stepper.css";
 
 export default function Stepper() {
   const steps = ["Evenement", "Formule", "Information", "Paiement"];
@@ -26,15 +26,16 @@ export default function Stepper() {
     ville: "",
     img: "",
   });
-  console.info("selectedEvent", selectedEvent);
-  console.info("selectedFormula", selectedFormula);
+  console.info("isFormValid from Stepper", isFormValid);
   return (
     <>
       <div className="flex justify-between">
         {steps.map((step, index) => (
           <div
             key={step}
-            className={`step-item ${currentStep === index + 1 && "active"} ${(index + 1 < currentStep || complete) && "complete"}`}
+            className={`step-item ${currentStep === index + 1 && "active"} ${
+              (index + 1 < currentStep || complete) && "complete"
+            }`}
           >
             <div className="step">
               <span className="text-white text-sm">
