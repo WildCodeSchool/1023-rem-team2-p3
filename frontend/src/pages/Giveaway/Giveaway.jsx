@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button/Button";
 
 import Event1 from "../../components/event/Event1";
+import { UserContext } from "../../context/UserContext";
 import reglement from "../../data/Reglement.json";
 
 export default function Giveaway() {
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
 
   const handleClick = () => {
-    navigate("/signup");
+    if (user.isLogged) {
+      if (user.data.is_admin === "user") {
+        navigate("/copilot/participate");
+      } else {
+        navigate("/");
+      }
+    } else {
+      navigate("/login");
+    }
   };
   const buttonLogin =
     "bg-gradient-to-l leading-none py-2 px-2 from-[#4CACFF] via-[#A070EF] to-[#8E78DA] text-white font-[400] text-[10px] w-[300px] h-[65px] flex items-center justify-center rounded-[20px] hover:bg-gradient-to-l hover:from-[#4CACFF] hover:via-[#4CACFF] hover:to-[#4CACFF] text-[40px] ease-in ";

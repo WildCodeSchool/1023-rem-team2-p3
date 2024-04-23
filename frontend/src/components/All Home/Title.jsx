@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "../Button/Button";
 import Avatar from "../../assets/image/ScoreCardWithShadow.png";
+import { UserContext } from "../../context/UserContext";
+import Button from "../Button/Button";
 
 export default function Title2() {
+  const { user } = useContext(UserContext);
   const buttonPrimary =
     "uppercase md:relative py-2 px-4 lg:w-[230px] lg:h-12 md:w-[200px] md:h-10 text-[15px] md:text-[18px] lg:text-[24px] font-bold bg-gradient-to-r from-gradient-color2 via-gradient-color3 to-gradient-color1 text-white text-center items-center rounded-[20px] hover:bg-gradient-to-r hover:from-gradient-color3 hover:via-gradient-color3 hover:to-gradient-color3  ease-in";
   const navigate = useNavigate();
   const handleClickSignup = () => {
-    navigate("/signup");
+    if (user.isLogged) {
+      if (user.data.is_admin === "user") {
+        navigate("/copilot/participate");
+      } else {
+        navigate("/");
+      }
+    } else {
+      navigate("/login");
+    }
   };
   return (
     <div className="lg:grid lg:grid-cols-2 m-4">

@@ -28,7 +28,7 @@ const read = async (req, res, next) => {
 const edit = async (req, res) => {
   try {
     const userId = req.payload;
-    const img = req.file.path;
+
     const { name, color } = req.body;
     const [admin] = await tables.user.getUserById(userId);
     if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
@@ -36,8 +36,13 @@ const edit = async (req, res) => {
     }
     // Récupérer l'ancienne photo de l'utilisateur
     const { id } = req.params;
-    const oldProductInfo = await tables.product.getProductById(id);
-    const oldImgPath = oldProductInfo[0][0].img;
+    const [oldProductInfo] = await tables.product.getProductById(id);
+    let { img } = oldProductInfo[0];
+    if (req.file) {
+      img = req.file.path;
+    }
+
+    const oldImgPath = oldProductInfo[0].img;
     const updateFields = {
       name,
       img,

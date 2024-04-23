@@ -32,6 +32,7 @@ import Giveaway from "./pages/Giveaway/Giveaway";
 import Legal from "./pages/Legal/Legal";
 import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound/NotFound";
+import Participate from "./pages/Paticipate/Participate";
 import Privacy from "./pages/Privacy/Privacy";
 import Signup from "./pages/Signup/Signup";
 import Workshop from "./pages/Workshop/Workshop";
@@ -91,6 +92,7 @@ export default function AppLayout() {
                   path="/copilot/copilotcadeaux"
                   element={<CopilotGiftPage />}
                 />
+                <Route path="/copilot/participate" element={<Participate />} />
               </>
             )
           ) : (

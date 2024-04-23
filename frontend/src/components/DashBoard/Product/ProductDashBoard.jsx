@@ -5,7 +5,6 @@ import EditProductModal from "./EditProductModal";
 
 export default function ProductDashBoard() {
   const [selectedProduit, setSelectedProduit] = useState(null);
-
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
@@ -45,7 +44,7 @@ export default function ProductDashBoard() {
         setProduct(data);
       })
       .catch((err) => console.info(err));
-  }, []);
+  }, [isAddModalOpen, closeEditModal]);
 
   console.info("product", product);
   return (
