@@ -48,9 +48,9 @@ export default function Signup() {
       });
   };
   return (
-    <>
+    <div className="w-full flex flex-col justify-center items-center">
       <TopMain title="Inscription" description="Rejoignez-nous" />
-      <div className="xl:w-[700px] mt-8 mb-4 ml-8 mr-8 font-secondary-font">
+      <div className=" xl:w-[700px] mt-8 mb-4 ml-8 mr-8 font-secondary-font">
         <form
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
           onSubmit={handleSubmit}
@@ -106,7 +106,7 @@ export default function Signup() {
               htmlFor="contact"
               className="absolute top-4 left-4 pointer-events-none transition-all duration-150 ease-[cubic-bezier(0.4,0,0.2,1) ] text-gray-400"
             >
-              Birthday
+              {/* Birthday */}
             </label>
           </div>
           <div className="relative text-white">
@@ -233,6 +233,6 @@ export default function Signup() {
           </a>
         </p>
       </div>
-    </>
+    </div>
   );
 }

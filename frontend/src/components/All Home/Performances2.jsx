@@ -86,26 +86,26 @@ export default function Performances2() {
           Performances
         </h1>
       </div>
-      <div className="w-screen h-80 lg:w-screen lg:h-90  ">
-        <Slider
-          dots={settings.dots}
-          infinite={settings.infinite}
-          speed={settings.speed}
-          slidesToShow={settings.slidesToShow}
-          slidesToScroll={settings.slidesToScroll}
-          initialSlide={settings.initialSlide}
-          autoplay={settings.autoplay}
-          autoplaySpeed={settings.autoplaySpeed}
-          pauseOnHover={settings.pauseOnHover}
-          nextArrow={settings.nextArrow}
-          prevArrow={settings.prevArrow}
-          responsive={settings.responsive}
-        >
-          {Workshops.map((workshop) => (
-            <Slide key={workshop.id} workshop={workshop} />
-          ))}
-        </Slider>
-      </div>
+
+      <Slider
+        dots={settings.dots}
+        infinite={settings.infinite}
+        speed={settings.speed}
+        slidesToShow={settings.slidesToShow}
+        slidesToScroll={settings.slidesToScroll}
+        initialSlide={settings.initialSlide}
+        autoplay={settings.autoplay}
+        autoplaySpeed={settings.autoplaySpeed}
+        pauseOnHover={settings.pauseOnHover}
+        nextArrow={settings.nextArrow}
+        prevArrow={settings.prevArrow}
+        responsive={settings.responsive}
+      >
+        {Workshops.map((workshop) => (
+          <Slide key={workshop.id} workshop={workshop} />
+        ))}
+      </Slider>
+
       <div className="flex justify-center items-center text-center mt-36 ">
         <Button
           type="button"

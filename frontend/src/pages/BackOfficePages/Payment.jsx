@@ -4,7 +4,7 @@ import Payment from "../../components/DashBoard/Payment/Payment";
 import Header from "../../components/DashBoard/HeaderBackOffice";
 // import SidebarMobile from "../../components/DashBoard/Sidebar/SidebarMobile";
 
-export default function Notes() {
+export default function Payments() {
   return (
     <div className="w-[90%] text-white font-secondary-font bg-[#281f31] lg:h-auto rounded-[20px] my-10 ">
       <div className="block lg:hidden">

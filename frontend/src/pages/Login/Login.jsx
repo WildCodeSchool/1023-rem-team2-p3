@@ -47,7 +47,7 @@ export default function Login() {
   };
 
   return (
-    <>
+    <div className="w-full flex flex-col justify-center items-center">
       <TopMain
         title="Se Connecter"
         description="Bon retour parmis nous&nbsp;!"
@@ -136,6 +136,6 @@ export default function Login() {
           </a>
         </p>
       </div>
-    </>
+    </div>
   );
 }
