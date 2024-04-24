@@ -7,10 +7,10 @@ import { NavLink } from "react-router-dom";
 export default function SidebarCopilotMobile() {
   return (
     <div className="border-background-color-second rounded-b-[20px] border-r-2 w-full h-full flex flex-col justify-center items-center">
-      <h1 className="font-primary-font text-center p-4 text-[20px] border-background-color-second rounded-tl-[20px]  ">
+      <h1 className="font-primary-font text-center p-2 text-[20px] border-background-color-second rounded-tl-[20px]  ">
         THE LAB
       </h1>
-      <div className="grid grid-rows-3 grid-cols-3  py-6 gap-y-10 text-[18px] w-full">
+      <div className="grid grid-rows-3 grid-cols-2 md:grid-cols-3 py-6 gap-y-10 text-[18px] w-full">
         <NavLink to="/copilot" className="flex flex-col gap-5  items-center ">
           <FaChartLine size={30} /> COPILOT
         </NavLink>

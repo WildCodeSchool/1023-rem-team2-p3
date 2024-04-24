@@ -18,8 +18,8 @@ export default function BurgerIcon({ isOpen, setOpen }) {
         </>
       ) : (
         <>
-          <span className=" absolute  w-6 h-[2px] border  border-white  bg-white rounded rotate-45 transform transition-all duration-500  " />
-          <span className=" w-6 h-[2px] border  border-white  bg-white rounded -rotate-45 transform transition-all duration-500 " />
+          <span className=" top-2 absolute  w-6 h-[2px] border  border-white  bg-white rounded rotate-45 transform transition-all duration-500  " />
+          <span className=" top-2 absolute w-6 h-[2px] border  border-white  bg-white rounded -rotate-45 transform transition-all duration-500 " />
         </>
       )}
     </button>

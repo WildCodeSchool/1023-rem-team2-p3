@@ -98,11 +98,6 @@ export default function EditProductModal({
         onSubmit={handleSubmit}
         className="flex flex-col justify-between items-center text-black gap-4"
       >
-        <img
-          src={`${import.meta.env.VITE_BACKEND_URL}/${formData.img}`}
-          className="w-5 h-5"
-          alt="PDP"
-        />
         <input
           type="file"
           name="img"

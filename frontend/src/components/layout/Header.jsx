@@ -41,18 +41,19 @@ export default function Header() {
     <header className="flex flex-row justify-between items-center bg-background-color-second p-2 font-secondary-font">
       <BurgerIcon isOpen={isOpen} setOpen={setOpen} />
 
-      <div className="flex items-center text-white ">
-        <Link to="/">
-          <img
-            src={logoNavbar}
-            alt="logo"
-            className="lg:w-20 lg:h-20 hidden md:w-10 md:h-10 md:flex"
-          />
-        </Link>
-        <h1 className="font-primary-font p-1 left-14 top-1   md:initial lg:left-20 lg:top-8">
+      {/* <div className="flex items-center text-white "> */}
+      <Link to="/" className="flex items-center text-white ">
+        <img
+          src={logoNavbar}
+          alt="logo"
+          className="lg:w-20 lg:h-20 lg:flex hidden "
+        />
+
+        <h1 className="font-primary-font absolute p-1 left-12 top-[10px]   md:initial lg:left-20 lg:top-8">
           THE LAB
         </h1>
-      </div>
+      </Link>
+      {/* </div> */}
       <NavBarYoussef isOpen={isOpen} />
       {user.isLogged ? (
         <>
@@ -61,7 +62,7 @@ export default function Header() {
             handleClick={handleClick}
             setShow={setShow}
           />
-          <div className="flex gap-6 text-white mr-10 items-center">
+          <div className="flex gap-6 text-white mr-2 lg:mr-10 items-center">
             <button className="bg-transparent border-none" type="button">
               {user.data.avatar !== null ? (
                 <Link to={navig}>

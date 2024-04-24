@@ -44,7 +44,7 @@ const read = async (req, res) => {
 const edit = async (req, res) => {
   try {
     const id = req.payload;
-    const avatar = req.file.path;
+
     const {
       taille,
       poids,
@@ -55,12 +55,18 @@ const edit = async (req, res) => {
       numero_de_telephone,
       adresse_postale,
       ville,
-      user_id,
     } = req.body;
+    // const avatar = req.file.path;
+
     // Récupérer l'ancienne photo de l'utilisateur
     const oldUserInfo = await tables.user_info.getUserInfoById(id);
     // console.log("oldUserInfo", oldUserInfo);
     const oldAvatarPath = oldUserInfo[0][0].avatar;
+    console.info("oldAvatarPath", oldAvatarPath);
+    let { avatar } = oldUserInfo[0];
+    if (req.file) {
+      avatar = req.file.path;
+    }
     // console.log("oldAvatarPath", oldAvatarPath);
     const updateFields = {
       taille,
@@ -71,13 +77,13 @@ const edit = async (req, res) => {
       sexe,
       numero_de_telephone,
       adresse_postale,
-      ville,
-      user_id, // Ajouter l'avatar aux champs à mettre à jour
+      ville, // Ajouter l'avatar aux champs à mettre à jour
     };
     // Si un nouveau fichier a été téléchargé, ajouter l'avatar aux champs à mettre à jour
     if (req.file) {
       updateFields.avatar = avatar;
     }
+
     // Créer un nouvel objet qui ne contient que les champs qui ne sont pas undefined
     const definedFields = Object.entries(updateFields).reduce(
       (a, [k, v]) => (v === undefined ? a : { ...a, [k]: v }),
@@ -88,10 +94,12 @@ const edit = async (req, res) => {
       id,
       definedFields
     );
+
     if (result.affectedRows) {
       if (oldAvatarPath && req.file) {
         fs.unlinkSync(oldAvatarPath);
       }
+      console.info("oldAvatarPath", oldAvatarPath);
       res.status(201).send("Vos informations ont été mises à jour avec succès");
     } else {
       if (req.file) {

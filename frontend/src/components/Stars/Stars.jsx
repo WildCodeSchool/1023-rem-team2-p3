@@ -30,7 +30,7 @@ function Stars(props) {
 }
 function StarsCanvas() {
   return (
-    <div className="w-screen h-[400px]">
+    <div className="w-full h-[400px]">
       <Canvas camera={{ position: [0, 0, 1] }}>
         <Suspense fallback={null}>
           <Stars />

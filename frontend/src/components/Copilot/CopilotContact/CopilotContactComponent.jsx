@@ -53,8 +53,8 @@ export default function CopilotContactComponent() {
       );
   };
   return (
-    <div className="flex  flex-col text-center items-center lg:pt-10 w-full">
-      <h1 className="text-center text-[30px] font-primary-font my-14">
+    <div className="flex  flex-col text-center items-center lg:pt-10 w-full py-4">
+      <h1 className="text-center text-[30px] font-primary-font mb-8">
         Contactez-nous
       </h1>
       <form
