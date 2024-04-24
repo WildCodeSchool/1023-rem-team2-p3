@@ -68,7 +68,7 @@ export default function Header() {
                 <Link to={navig}>
                   <div className="flex flex-row items-center gap-2">
                     <img
-                      className="w-8 rounded-full"
+                      className="w-8 h-8 rounded-full"
                       src={`${import.meta.env.VITE_BACKEND_URL}/${
                         user.data.avatar
                       }`}
@@ -80,7 +80,7 @@ export default function Header() {
               ) : (
                 <Link to={navig}>
                   <div className="flex flex-row items-center gap-2">
-                    <img className="w-8" src="/user.svg" alt="userAvatar" />
+                    <img className="w-8 h-8" src="/user.svg" alt="userAvatar" />
                     <p className="text-white">Mon profile</p>
                   </div>
                 </Link>

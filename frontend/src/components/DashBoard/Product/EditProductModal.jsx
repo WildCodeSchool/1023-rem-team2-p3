@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { ImCross } from "react-icons/im";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 Modal.setAppElement("#root"); // This line is needed for accessibility reasons
 
@@ -131,14 +132,3 @@ export default function EditProductModal({
     </Modal>
   );
 }
-
-EditProductModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onRequestClose: PropTypes.func.isRequired,
-  eventData: PropTypes.shape({
-    city: PropTypes.string,
-    date: PropTypes.string,
-    address: PropTypes.string,
-    quantity: PropTypes.number,
-  }).isRequired,
-};

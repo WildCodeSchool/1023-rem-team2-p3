@@ -4,23 +4,12 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { ImCross } from "react-icons/im";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 Modal.setAppElement("#root"); // This line is needed for accessibility reasons
 
 export default function EditUserModal({ isOpen, onRequestClose, userData }) {
-  const [formData, setFormData] = useState({
-    numero_de_telephone: userData.data.numero_de_telephone,
-    ville: userData.data.ville,
-    adresse_postale: userData.data.adresse_postale,
-    pied_fort: userData.data.pied_fort,
-    poste: userData.data.poste,
-    sexe: userData.data.sexe,
-    pointure: userData.data.pointure,
-    poids: userData.data.poids,
-    taille: userData.data.taille,
-    // avatar: `${import.meta.env.VITE_BACKEND_URL}/${userData.data.img}`,
-  });
+  const [formData, setFormData] = useState(userData[0]);
   // const [selectedPied, setSelectedPied] = useState("");
 
   console.info("userData", userData);
@@ -30,7 +19,7 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
     console.info("files", files);
     if (name === "img") {
       if (files === null) {
-        const file = `${import.meta.env.VITE_BACKEND_URL}/${formData.avatar}`;
+        const file = `${import.meta.env.VITE_BACKEND_URL}/${formData[0].avatar}`;
         console.info("file", file);
         setFormData((prevFormData) => ({
           ...prevFormData,
@@ -53,8 +42,7 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
   console.info("formData", formData);
 
   const updateUserInfo = (updatedUserInfo) => {
-    console.info("formData", formData);
-    console.info("updatedProduct", updatedUserInfo);
+    console.info("updatedUserInfo", updatedUserInfo);
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSend.append(key, value);
@@ -75,7 +63,7 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
         setFormData(updatedUserInfo);
       })
       .catch((error) => {
-        error.status(500).send({ message: "Error !" });
+        console.error("Error:", error);
       });
   };
   const handleSubmit = (event) => {
@@ -94,8 +82,9 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
       <button className="flex " onClick={onRequestClose}>
         <ImCross />
       </button>
-      <h2 className=" font-bold mb-4">Modifier vos informations</h2>
+      <h2 className=" font-bold mb-4 text-2xl">Modifier vos informations :</h2>
       {/* <hr className="mb-4" /> */}
+
       <form
         onSubmit={handleSubmit}
         className="flex flex-col justify-between items-center gap-2 text-white"
@@ -130,7 +119,7 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
             className="w-80 text-black rounded-lg p-2"
           />
         </div>
-        <div className="flex flex-col items-center gap-2">
+        {/* <div className="flex flex-col items-center gap-2">
           <p>Sexe :</p>
           <input
             type="text"
@@ -139,7 +128,19 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
             onChange={handleChange}
             className="w-80 text-black rounded-lg p-2"
           />
-        </div>
+        </div> */}
+        <span className="flex flex-col items-center gap-2">
+          <p>Sexe :</p>
+          <select
+            name="sexe"
+            className="w-80 h-[28px] rounded-lg text-background-color-second"
+            onChange={handleChange}
+          >
+            <option value={formData.sexe}>Changer de sexe</option>
+            <option value="masculin">Masculin</option>
+            <option value="féminin">Féminin</option>
+          </select>
+        </span>
         <div className="flex flex-col items-center gap-2">
           <p>Taille :</p>
           <input
@@ -160,7 +161,7 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
             className="w-80 text-black rounded-lg p-2"
           />
         </div>
-        <div className="flex flex-col items-center gap-2">
+        {/* <div className="flex flex-col items-center gap-2">
           <p>Poste</p>
           <input
             type="text"
@@ -169,29 +170,43 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
             onChange={handleChange}
             className="w-80 text-black rounded-lg p-2"
           />
-        </div>
-        {/* <span className="flex flex-col items-center gap-5">
+        </div> */}
+        <span className="flex flex-col items-center gap-2">
+          <p>Poste :</p>
+          <select
+            name="poste"
+            className="w-80 h-[28px] rounded-lg text-background-color-second"
+            onChange={handleChange}
+          >
+            <option value={formData.poste}>Changer de poste</option>
+            <option value="gardien">Gardien</option>
+            <option value="défenseur">Défenseur</option>
+            <option value="milieu">Milieu</option>
+            <option value="attaquant">Attaquant</option>
+          </select>
+        </span>
+        <span className="flex flex-col items-center gap-2">
           <p>Pied fort :</p>
           <select
-            className="w-72 md:w-80 h-[28px] rounded-lg text-background-color-second"
+            name="pied_fort"
+            className="w-80 h-[28px] rounded-lg text-background-color-second"
             onChange={handleChange}
-            value={formData.pied_fort}
           >
-            <option value="">{formData.pied_fort}</option>
-            <option value="gauche">gauche</option>
-            <option value={formData.pied_fort}>droit</option>
+            <option value={formData.pied_fort}>Changer de pied fort</option>
+            <option value="gauche">Gauche</option>
+            <option value="droit">Droite</option>
           </select>
-        </span> */}
-        <div className="flex flex-col items-center gap-2">
+        </span>
+        {/* <div className="flex flex-col items-center gap-2">
           <p>Pied fort</p>
           <input
             type="text"
-            name="pointure"
+            name="pied_fort"
             value={formData.pied_fort}
             onChange={handleChange}
             className="w-80 text-black rounded-lg p-2"
           />
-        </div>
+        </div> */}
         <div className="flex flex-col items-center gap-2">
           <p>Pointure</p>
           <input
@@ -237,14 +252,3 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
     </Modal>
   );
 }
-
-EditUserModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onRequestClose: PropTypes.func.isRequired,
-  eventData: PropTypes.shape({
-    city: PropTypes.string,
-    date: PropTypes.string,
-    address: PropTypes.string,
-    quantity: PropTypes.number,
-  }).isRequired,
-};

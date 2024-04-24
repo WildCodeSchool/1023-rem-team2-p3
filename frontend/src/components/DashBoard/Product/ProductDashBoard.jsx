@@ -44,7 +44,7 @@ export default function ProductDashBoard() {
         setProduct(data);
       })
       .catch((err) => console.info(err));
-  }, [isAddModalOpen, closeEditModal]);
+  }, [isAddModalOpen, isEditModalOpen]);
 
   console.info("product", product);
   return (
@@ -70,6 +70,13 @@ export default function ProductDashBoard() {
           <AddEventModal
             isOpen={isAddModalOpen}
             onRequestClose={closeAddModal}
+          />
+        )}
+        {isEditModalOpen && (
+          <EditProductModal
+            isOpen={isEditModalOpen}
+            onRequestClose={closeEditModal}
+            eventData={selectedProduit}
           />
         )}
       </div>
@@ -99,13 +106,6 @@ export default function ProductDashBoard() {
               </p>
             </div>
           ))}
-        {isEditModalOpen && (
-          <EditProductModal
-            isOpen={isEditModalOpen}
-            onRequestClose={closeEditModal}
-            eventData={selectedProduit}
-          />
-        )}
       </div>
       {/* </div> */}
     </div>
