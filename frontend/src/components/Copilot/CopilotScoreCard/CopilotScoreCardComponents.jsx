@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function CopilotGiftComponent() {
+export default function CopilotScoreCardComponent() {
   const [text, setText] = useState("");
   const [index, setIndex] = useState(0);
   const phrases = ["Soyez prêts...", "Bientôt disponible !"];
