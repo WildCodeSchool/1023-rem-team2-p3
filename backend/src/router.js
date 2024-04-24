@@ -105,6 +105,12 @@ router.post(
   verifyToken,
   stockEventController.checkUserEventById
 );
+// Route pour afficher les events d'un user
+router.get(
+  "/stockEvent/user",
+  verifyToken,
+  stockEventController.checkUserEventBUserId
+);
 
 // --------------------ROUTES FOR USERINFOS--------------------//
 //* ************************//

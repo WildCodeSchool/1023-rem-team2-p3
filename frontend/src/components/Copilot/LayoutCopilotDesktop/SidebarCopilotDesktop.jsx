@@ -1,10 +1,13 @@
-// import { useState } from "react";
-import { FaChartLine, FaGift, FaUser } from "react-icons/fa";
+import { useContext } from "react";
+import { FaChartLine, FaCalendarAlt, FaUser } from "react-icons/fa";
 import { IoMailOutline } from "react-icons/io5";
 import { MdOutlineSportsSoccer, MdSports } from "react-icons/md";
+import { GrScorecard } from "react-icons/gr";
 import { NavLink } from "react-router-dom";
+import { UserContext } from "../../../context/UserContext";
 
 export default function SidebarCopilotDesktop() {
+  const { user } = useContext(UserContext);
   return (
     <div className="border-background-color-second rounded-b-[20px] border-r-2 pr-5 ">
       <div className="border-background-color-second rounded-tl-[20px] ">
@@ -19,6 +22,15 @@ export default function SidebarCopilotDesktop() {
         <NavLink to="/copilot/copilotprofile" className="flex items-center">
           <FaUser className="mr-4" /> PROFILE
         </NavLink>
+        <NavLink to="/copilot/copilotevenements" className="flex items-center ">
+          <FaCalendarAlt className="mr-4" /> EVENEMENTS
+        </NavLink>
+        <NavLink
+          to="/copilot/copilot_score_card"
+          className="flex items-center "
+        >
+          <GrScorecard className="mr-4" /> SCORE CARD
+        </NavLink>
         <NavLink
           to="/copilot/copilotentrainements"
           className="flex items-center"
@@ -31,11 +43,22 @@ export default function SidebarCopilotDesktop() {
         <NavLink to="/copilot/copilotcontact" className="flex items-center">
           <IoMailOutline className="mr-4" /> CONTACT
         </NavLink>
-        <NavLink to="/copilot/copilotcadeaux" className="flex items-center">
-          <FaGift className="mr-4" /> CADEAUX
-        </NavLink>
       </div>
-      <div className="text-center py-40">AVATAR</div>
+      <div className="flex flex-col items-center my-10">
+        {user.data.avatar ? (
+          <img
+            src={`${import.meta.env.VITE_BACKEND_URL}/${user.data.avatar}`}
+            alt="Photos de profil"
+            className="w-24 h-24 rounded-full"
+          />
+        ) : (
+          <img
+            src="/user.svg"
+            alt="Photos de profil"
+            className="w-24 h-24 rounded-full"
+          />
+        )}
+      </div>
     </div>
   );
 }

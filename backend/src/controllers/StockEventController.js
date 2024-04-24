@@ -59,6 +59,20 @@ const checkUserEventById = async (req, res) => {
   }
 };
 
+const checkUserEventBUserId = async (req, res) => {
+  const user_id = req.payload;
+  const [eventsForUser] = await tables.stock_event.checkUserEventByUserId(
+    user_id
+  );
+  if (eventsForUser.length === 0) {
+    return res
+      .status(404)
+      .json({ error: "Vous n'êtes pas inscrit a un Event" });
+  } else {
+    res.status(200).json(eventsForUser);
+  }
+};
+
 const checkUserEvent = async (req, res) => {
   try {
     const user_id = req.payload;
@@ -84,4 +98,5 @@ module.exports = {
   createStockEvent,
   checkUserEventById,
   checkUserEvent,
+  checkUserEventBUserId,
 };

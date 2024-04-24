@@ -33,6 +33,18 @@ class StockEventManager extends AbstractManager {
     );
   }
 
+  async checkUserEventByUserId(user_id) {
+    return this.database.query(
+      `SELECT se.id, se.event_id, e.city, e.date, e.address, se.user_id, u.lastname, u.firstname, u.email, se.created_at
+FROM ${this.table} AS se
+JOIN event AS e ON se.event_id = e.id
+JOIN user AS u ON se.user_id = u.id
+WHERE se.user_id = ?
+`,
+      [user_id]
+    );
+  }
+
   async checkUserEvent(event_id, user_id) {
     return this.database.query(
       `SELECT * FROM ${this.table} WHERE event_id = ? AND user_id = ?`,

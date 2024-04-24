@@ -3,6 +3,9 @@ import HeaderCopilotMobile from "../../components/Copilot/LayoutCopilotMobile/He
 import SidebarCopilotMobile from "../../components/Copilot/LayoutCopilotMobile/SidebarCopiloteMobile";
 import HeaderCopilotDesktop from "../../components/Copilot/LayoutCopilotDesktop/HeaderCopilotDesktop";
 import SidebarCopiloteDesktop from "../../components/Copilot/LayoutCopilotDesktop/SidebarCopilotDesktop";
+import CopilotNotesComponent from "../../components/Copilot/CopilotMain/CopilotNotesComponent";
+import CopilotNoteGen from "../../components/Copilot/CopilotMain/CopilotNoteGen";
+import CopiloteUserEvent from "../../components/Copilot/CopilotMain/CopiloteUserEvent";
 
 export default function CopilotPages() {
   return (
@@ -15,6 +18,9 @@ export default function CopilotPages() {
         <HeaderCopilotDesktop />
         <div className="flex flex-row">
           <SidebarCopiloteDesktop />
+          <CopilotNotesComponent />
+          <CopilotNoteGen />
+          <CopiloteUserEvent />
         </div>
       </div>
     </div>

@@ -59,6 +59,9 @@ const CodePromo = React.lazy(() => import("./pages/BackOfficePages/CodePromo"));
 const CopilotPages = React.lazy(
   () => import("./pages/CopilotPages/CopilotPages")
 );
+const CopilotPagesMobile = React.lazy(
+  () => import("./pages/CopilotPages/CopilotPagesMobile")
+);
 const CopilotProfilePage = React.lazy(
   () => import("./pages/CopilotPages/CopilotProfilePage")
 );
@@ -71,8 +74,11 @@ const CopilotMissionPage = React.lazy(
 const CopilotContactPage = React.lazy(
   () => import("./pages/CopilotPages/CopilotContactPage")
 );
-const CopilotGiftPage = React.lazy(
-  () => import("./pages/CopilotPages/CopilotGiftPage")
+const CopilotEventPage = React.lazy(
+  () => import("./pages/CopilotPages/CopilotEventPage")
+);
+const CopilotScoreCard = React.lazy(
+  () => import("./pages/CopilotPages/CopilotScoreCardPage")
 );
 const Participate = React.lazy(() => import("./pages/Paticipate/Participate"));
 const ForgotPassword = React.lazy(
@@ -122,6 +128,10 @@ export default function AppLayout() {
               <>
                 <Route path="/copilot" element={<CopilotPages />} />
                 <Route
+                  path="/copilot/copilothome"
+                  element={<CopilotPagesMobile />}
+                />
+                <Route
                   path="/copilot/copilotprofile"
                   element={<CopilotProfilePage />}
                 />
@@ -138,8 +148,12 @@ export default function AppLayout() {
                   element={<CopilotContactPage />}
                 />
                 <Route
-                  path="/copilot/copilotcadeaux"
-                  element={<CopilotGiftPage />}
+                  path="/copilot/copilotevenements"
+                  element={<CopilotEventPage />}
+                />
+                <Route
+                  path="/copilot/copilot_score_card"
+                  element={<CopilotScoreCard />}
                 />
                 <Route path="/copilot/participate" element={<Participate />} />
               </>
