@@ -20,7 +20,7 @@ export default function CopilotNotesComponent() {
   return (
     <div className="flex flex-col justify-center items-center h-full">
       <h2 className="text-2xl font-primary-font mb-4">Mes notes</h2>
-      <div className="flex flex-wrap justify-center gap-4">
+      <div className="flex flex-wrap justify-center gap-4 mx-10">
         {notes.length === 0 ? (
           <>
             <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
