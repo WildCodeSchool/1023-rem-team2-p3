@@ -8,10 +8,12 @@ import CopilotUserEvent from "../../components/Copilot/CopilotMain/CopiloteUserE
 
 export default function CopilotPages() {
   return (
-    <div className="w-[90%] text-white font-secondary-font bg-[#281f31] lg:h-auto rounded-[20px] my-10 ">
+    <div className="w-[90%] md:w-auto text-white font-secondary-font bg-[#281f31] lg:h-auto rounded-[20px] my-10 ">
       <div className="block lg:hidden">
         <HeaderCopilotDesktop />
         <CopilotNotesComponent />
+        <CopilotNoteGen />
+        <CopilotUserEvent />
       </div>
       <div className="hidden lg:flex lg:flex-col">
         <HeaderCopilotMobile />

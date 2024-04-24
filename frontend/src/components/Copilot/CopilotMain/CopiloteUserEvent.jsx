@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { LuMapPin } from "react-icons/lu";
 import { MdOutlineDateRange } from "react-icons/md";
 import { CiMapPin } from "react-icons/ci";
-import { IoTicketOutline } from "react-icons/io5";
 
 export default function CopilotUserEvent() {
   const [userEvents, setUserEvents] = useState([]);
@@ -16,7 +15,10 @@ export default function CopilotUserEvent() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setUserEvents(data);
+        const filtered = data.sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
+        setUserEvents(filtered);
       })
       .catch((error) => console.error("Error:", error));
   }, []);
@@ -26,7 +28,7 @@ export default function CopilotUserEvent() {
       <div className="font-primary-font text-center p-4 text-2xl">
         <span>Mes prochains événements </span>
       </div>
-      <div className="text-white font-secondary-font text-[16px] md:text-[20px]">
+      <div className="flex flex-col items-center text-white font-secondary-font text-[16px] md:text-[20px] my-4">
         {userEvents.map((event, index) => (
           <div
             key={index}
