@@ -114,7 +114,7 @@ router.get("/user/info", verifyToken, userInfoController.browse);
 //* ************************//
 // (specific USER)
 // Route to get a specific user info by ID
-// router.get("/user/informations", verifyToken, userInfoController.read); JOINTURE DANS /ME
+router.get("/user/informations", verifyToken, userInfoController.read);
 // Route to add a new user info
 router.post("/user/info", verifyToken, upload, userInfoController.add);
 // Route to update a user info

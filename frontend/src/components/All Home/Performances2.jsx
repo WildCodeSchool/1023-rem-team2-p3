@@ -66,7 +66,7 @@ function Slide({ workshop }) {
       <img
         src={workshop.image}
         alt={workshop.nom}
-        className=" h-64 w-96 object-cover rounded-[50px]"
+        className=" h-64 w-72 object-cover rounded-[50px]"
       />
     </div>
   );
@@ -86,25 +86,26 @@ export default function Performances2() {
           Performances
         </h1>
       </div>
-
-      <Slider
-        dots={settings.dots}
-        infinite={settings.infinite}
-        speed={settings.speed}
-        slidesToShow={settings.slidesToShow}
-        slidesToScroll={settings.slidesToScroll}
-        initialSlide={settings.initialSlide}
-        autoplay={settings.autoplay}
-        autoplaySpeed={settings.autoplaySpeed}
-        pauseOnHover={settings.pauseOnHover}
-        nextArrow={settings.nextArrow}
-        prevArrow={settings.prevArrow}
-        responsive={settings.responsive}
-      >
-        {Workshops.map((workshop) => (
-          <Slide key={workshop.id} workshop={workshop} />
-        ))}
-      </Slider>
+      <div className="w-[90vw]">
+        <Slider
+          dots={settings.dots}
+          infinite={settings.infinite}
+          speed={settings.speed}
+          slidesToShow={settings.slidesToShow}
+          slidesToScroll={settings.slidesToScroll}
+          initialSlide={settings.initialSlide}
+          autoplay={settings.autoplay}
+          autoplaySpeed={settings.autoplaySpeed}
+          pauseOnHover={settings.pauseOnHover}
+          nextArrow={settings.nextArrow}
+          prevArrow={settings.prevArrow}
+          responsive={settings.responsive}
+        >
+          {Workshops.map((workshop) => (
+            <Slide key={workshop.id} workshop={workshop} />
+          ))}
+        </Slider>
+      </div>
 
       <div className="flex justify-center items-center text-center mt-36 ">
         <Button
