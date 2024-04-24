@@ -31,7 +31,7 @@ export default function SidebarCopilotDesktop() {
           <IoMailOutline className="mr-4" /> CONTACT
         </NavLink>
         <NavLink to="/copilotcadeaux" className="flex items-center">
-          <FaGift className="mr-4" /> CADEAUX
+          <FaGift className="mr-4" /> EVENEMENTS
         </NavLink>
       </div>
       <div className="flex flex-col items-center my-10">

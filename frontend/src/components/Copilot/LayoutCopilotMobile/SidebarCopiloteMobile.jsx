@@ -1,10 +1,12 @@
-import React from "react";
+import { useContext } from "react";
 import { FaUser, FaChartLine, FaGift } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { IoMailOutline } from "react-icons/io5";
 import { MdOutlineSportsSoccer, MdSports } from "react-icons/md";
+import { UserContext } from "../../../context/UserContext";
 
 export default function SidebarCopilotMobile() {
+  const { user } = useContext(UserContext);
   return (
     <div className="border-background-color-second rounded-b-[20px] border-r-2 w-full h-full flex flex-col justify-center items-center">
       <h1 className="font-primary-font text-center p-4 text-[20px] border-background-color-second rounded-tl-[20px]  ">
@@ -42,11 +44,24 @@ export default function SidebarCopilotMobile() {
           to="/copilotcadeaux"
           className="flex flex-col gap-5 items-center "
         >
-          <FaGift size={30} /> CADEAUX
+          <FaGift size={30} /> EVENEMENTS
         </NavLink>
       </div>
-      <span className=" border-2 border-white w-1/2" />
-      <p className="text-center py-8">AVATAR</p>
+      <div className="flex flex-col items-center my-10">
+        {user.data.avatar ? (
+          <img
+            src={`${import.meta.env.VITE_BACKEND_URL}/${user.data.avatar}`}
+            alt="Photos de profil"
+            className="w-24 h-24 rounded-full"
+          />
+        ) : (
+          <img
+            src="/user.svg"
+            alt="Photos de profil"
+            className="w-24 h-24 rounded-full"
+          />
+        )}
+      </div>
     </div>
   );
 }
