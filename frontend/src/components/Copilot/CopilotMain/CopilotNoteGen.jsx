@@ -25,7 +25,7 @@ export default function CopilotNoteGen() {
         <span>Ma note générale</span>
       </div>
       {noteGen !== null ? (
-        <div className="rounded-xl bg-background-color-second text-white w-52 h-52 flex justify-center items-center flex-col">
+        <div className="rounded-xl border-2 border-white bg-background-color-second text-white w-52 h-52 flex justify-center items-center flex-col">
           <span className="text-4xl font-bold">{noteGen}</span>
         </div>
       ) : (

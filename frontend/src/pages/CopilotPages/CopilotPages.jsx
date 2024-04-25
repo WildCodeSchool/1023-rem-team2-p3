@@ -6,6 +6,8 @@ import SidebarCopiloteDesktop from "../../components/Copilot/LayoutCopilotDeskto
 import CopilotNotesComponent from "../../components/Copilot/CopilotMain/CopilotNotesComponent";
 import CopilotNoteGen from "../../components/Copilot/CopilotMain/CopilotNoteGen";
 import CopiloteUserEvent from "../../components/Copilot/CopilotMain/CopiloteUserEvent";
+import CopilotQR from "../../components/Copilot/CopilotMain/CopilotQR";
+import CopilotChart from "../../components/Copilot/CopilotMain/CopilotChart";
 
 export default function CopilotPages() {
   return (
@@ -23,6 +25,10 @@ export default function CopilotPages() {
             <div className="flex flex-row justify-evenly text-center items-center">
               <CopilotNoteGen />
               <CopiloteUserEvent />
+            </div>
+            <div className="flex flex-row justify-evenly text-center items-center">
+              <CopilotChart />
+              <CopilotQR />
             </div>
           </div>
         </div>
