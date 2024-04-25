@@ -25,43 +25,43 @@ export default function CopilotNotesComponent() {
           <>
             <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
               <span className="text-[16px] font-bold">0</span>
-              <span className="text-[8px]">Note physique</span>
+              <span className="text-violet-400">PHY</span>
             </div>
             <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
               <span className="text-[16px] font-bold">0</span>
-              <span className="text-[8px]">Note vitesse</span>
+              <span className="text-violet-400">VIT</span>
             </div>
             <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
               <span className="text-[16px] font-bold">0</span>
-              <span className="text-[8px]">Note passe</span>
+              <span className="text-violet-400">PAS</span>
             </div>
             <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
               <span className="text-[16px] font-bold">0</span>
-              <span className="text-[8px]">Note tir</span>
+              <span className="text-violet-400">TIR</span>
             </div>
             <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
               <span className="text-[16px] font-bold">0</span>
-              <span className="text-[8px]">Note dribble</span>
+              <span className="text-violet-400">DRI</span>
             </div>
             <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
               <span className="text-[16px] font-bold">0</span>
-              <span className="text-[8px]">Note vista</span>
+              <span className="text-violet-400">VIS</span>
             </div>
             <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
               <span className="text-[16px] font-bold">0</span>
-              <span className="text-[8px]">Note cf</span>
+              <span className="text-violet-400">CF</span>
             </div>
             <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
               <span className="text-[16px] font-bold">0</span>
-              <span className="text-[8px]">Note plongeon</span>
+              <span className="text-violet-400">PLO</span>
             </div>
             <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
               <span className="text-[16px] font-bold">0</span>
-              <span className="text-[8px]">Note dega</span>
+              <span className="text-violet-400">DEG</span>
             </div>
             <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
               <span className="text-[16px] font-bold">0</span>
-              <span className="text-[8px]">Note pied faible</span>
+              <span className="text-violet-400"> BAF</span>
             </div>
           </>
         ) : (
@@ -72,7 +72,7 @@ export default function CopilotNotesComponent() {
                   <span className="text-[16px] font-bold">
                     {note.note_physique || "0"}
                   </span>
-                  <span className="text-[8px]">Note physique</span>
+                  <span className="text-violet-400">PHY</span>
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
@@ -80,7 +80,7 @@ export default function CopilotNotesComponent() {
                   <span className="text-[16px] font-bold">
                     {note.note_vitesse || "0"}
                   </span>
-                  <span className="text-[8px]">Note vitesse</span>
+                  <span className="text-violet-400">VIT</span>
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
@@ -88,7 +88,7 @@ export default function CopilotNotesComponent() {
                   <span className="text-[16px] font-bold">
                     {note.note_passe || "0"}
                   </span>
-                  <span className="text-[8px]">Note passe</span>
+                  <span className="text-violet-400">PAS</span>
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
@@ -96,7 +96,7 @@ export default function CopilotNotesComponent() {
                   <span className="text-[16px] font-bold">
                     {note.note_tir || "0"}
                   </span>
-                  <span className="text-[8px]">Note tir</span>
+                  <span className="text-violet-400">TIR</span>
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
@@ -104,7 +104,7 @@ export default function CopilotNotesComponent() {
                   <span className="text-[16px] font-bold">
                     {note.note_dribble || "0"}
                   </span>
-                  <span className="text-[8px]">Note dribble</span>
+                  <span className="text-violet-400">DRI</span>
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
@@ -112,7 +112,7 @@ export default function CopilotNotesComponent() {
                   <span className="text-[16px] font-bold">
                     {note.note_vista || "0"}
                   </span>
-                  <span className="text-[8px]">Note vista</span>
+                  <span className="text-violet-400">VIS</span>
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
@@ -120,7 +120,7 @@ export default function CopilotNotesComponent() {
                   <span className="text-[16px] font-bold">
                     {note.note_cf || "0"}
                   </span>
-                  <span className="text-[8px]">Note cf</span>
+                  <span className="text-violet-400">CF</span>
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
@@ -128,7 +128,7 @@ export default function CopilotNotesComponent() {
                   <span className="text-[16px] font-bold">
                     {note.note_plongeon || "0"}
                   </span>
-                  <span className="text-[8px]">Note plongeon</span>
+                  <span className="text-violet-400">PLO</span>
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
@@ -136,7 +136,7 @@ export default function CopilotNotesComponent() {
                   <span className="text-[16px] font-bold">
                     {note.note_dega || "0"}
                   </span>
-                  <span className="text-[8px]">Note dega</span>
+                  <span className="text-violet-400">DEG</span>
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
@@ -144,7 +144,7 @@ export default function CopilotNotesComponent() {
                   <span className="text-[16px] font-bold">
                     {note.note_pied_faible || "0"}
                   </span>
-                  <span className="text-[8px]">Note pied faible</span>
+                  <span className="text-violet-400"> BAF</span>
                 </div>
               </React.Fragment>
             </>

@@ -5,6 +5,8 @@ import SidebarCopilotDesktop from "../../components/Copilot/LayoutCopilotDesktop
 import CopilotNotesComponent from "../../components/Copilot/CopilotMain/CopilotNotesComponent";
 import CopilotNoteGen from "../../components/Copilot/CopilotMain/CopilotNoteGen";
 import CopilotUserEvent from "../../components/Copilot/CopilotMain/CopiloteUserEvent";
+import CopilotQR from "../../components/Copilot/CopilotMain/CopilotQR";
+import CopilotChart from "../../components/Copilot/CopilotMain/CopilotChart";
 
 export default function CopilotPages() {
   return (
@@ -14,6 +16,8 @@ export default function CopilotPages() {
         <CopilotNotesComponent />
         <CopilotNoteGen />
         <CopilotUserEvent />
+        <CopilotQR />
+        <CopilotChart />
       </div>
       <div className="hidden lg:flex lg:flex-col">
         <HeaderCopilotMobile />
@@ -23,6 +27,8 @@ export default function CopilotPages() {
             <CopilotNotesComponent />
             <CopilotNoteGen />
             <CopilotUserEvent />
+            <CopilotQR />
+            <CopilotChart />
           </div>
         </div>
       </div>
