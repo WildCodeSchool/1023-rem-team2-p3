@@ -1,34 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import CopilotNotesInfo from "./CopilotNotesInfo";
+import CopilotScoreCardNotes from "./CopilotScoreCardNotes";
 
-export default function CopilotScoreCardComponent() {
-  const [text, setText] = useState("");
-  const [index, setIndex] = useState(0);
-  const phrases = ["Soyez prêts...", "Bientôt disponible !"];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (index < phrases.length) {
-        const phrase = phrases[index];
-        setText(phrase.substring(0, text.length + 1));
-        if (text === phrase) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setText("");
-            setIndex((prevIndex) =>
-              prevIndex === phrases.length - 1 ? 0 : prevIndex + 1
-            );
-          }, 1500);
-        }
-      }
-    }, 150);
-    return () => clearInterval(interval);
-  }, [text, index]);
-
+export default function CopilotScoreCardComponents() {
   return (
-    <div className="w-[90%] text-white  font-secondary-font bg-[#281f31] lg:h-auto rounded-[20px]">
-      <h1 className="flex justify-center text-center text-violet-500 font-primary-font text-2xl lg:mt-80">
-        {text}
-      </h1>
+    <div>
+      <div className="flex flex-col justify-center text-center items-center m-10">
+        <h2 className=" text-2xl font-primary-font mb-4">Mes notes</h2>
+        <p className="text-xl font-secondary-font">
+          Vous pouvez consulter les notes que vous avez reçues lors de votre
+          dernier événement
+        </p>
+      </div>
+      <CopilotScoreCardNotes />
+      <CopilotNotesInfo />
     </div>
   );
 }
