@@ -13,6 +13,7 @@ dist
 dist-ssr
 *.local
 .env
+./src/assets/vidéos
 
 # Editor directories and files
 .vscode/*
