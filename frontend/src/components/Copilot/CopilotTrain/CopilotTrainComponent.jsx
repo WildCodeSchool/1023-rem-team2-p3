@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+/* eslint-disable no-return-assign */
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
+import React, { useEffect, useRef, useState } from "react";
 import Popup from "./Popup";
-import { videoDescriptions, videoSources, videoTitles, videoDifficulties } from "./videoDescriptions";
-
+import { videoSources, videoTitles } from "./videoDescriptions";
 
 export default function CopilotTrainComponent() {
   const [hoverStates, setHoverStates] = useState([]);
@@ -40,11 +41,12 @@ export default function CopilotTrainComponent() {
   };
 
   return (
-    <>
-      <div className="flex flex-wrap gap-4 justify-center items-center lg:h-auto rounded-[20px]  mt-6 md:justify-items-center md:mb-6 mb-6">
-        {videoSources.map(({ id, source }) => (
-          <div
+    <div className="flex flex-wrap gap-4 justify-center items-center lg:h-auto rounded-[20px]  mt-6 md:justify-items-center md:mb-6 mb-6">
+      {videoSources.map(({ id, source, difficulties, title, description }) => (
+        <>
+          <button
             key={id}
+            type="button"
             className="grid grid-cols-1 gap-4"
             onMouseOver={() => handleMouseOver(id)}
             onMouseOut={() => handleMouseOut(id)}
@@ -64,18 +66,18 @@ export default function CopilotTrainComponent() {
                 </div>
               )}
             </div>
-          </div>
-        ))}
-      </div>
-      {selectedVideo !== null && (
-        <Popup
-          videoSource={videoSources[selectedVideo]}
-          videoTitle={videoTitles[selectedVideo]}
-          videoDescription={videoDescriptions[selectedVideo]}
-          videoDifficulty={videoDifficulties[selectedVideo]}
-          onClose={() => setSelectedVideo(null)}
-        />
-      )}
-    </>
+          </button>
+          {selectedVideo !== null && (
+            <Popup
+              source={source}
+              difficulties={difficulties}
+              description={description}
+              title={title}
+              setSelectedVideo={setSelectedVideo}
+            />
+          )}
+        </>
+      ))}
+    </div>
   );
 }
