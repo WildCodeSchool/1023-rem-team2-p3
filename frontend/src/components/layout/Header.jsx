@@ -74,14 +74,22 @@ export default function Header() {
                       }`}
                       alt="avatarUser"
                     />
-                    <p className="text-white">Mon profile</p>
+                    {user.data.is_admin === "user" ? (
+                      <p className="text-white">COPILOT</p>
+                    ) : (
+                      <p className="text-white">BACKOFFICE</p>
+                    )}
                   </div>
                 </Link>
               ) : (
                 <Link to={navig}>
                   <div className="flex flex-row items-center gap-2">
                     <img className="w-8 h-8" src="/user.svg" alt="userAvatar" />
-                    <p className="text-white">Mon profile</p>
+                    {user.data.is_admin === "user" ? (
+                      <p className="text-white">COPILOT</p>
+                    ) : (
+                      <p className="text-white">BACKOFFICE</p>
+                    )}
                   </div>
                 </Link>
               )}
