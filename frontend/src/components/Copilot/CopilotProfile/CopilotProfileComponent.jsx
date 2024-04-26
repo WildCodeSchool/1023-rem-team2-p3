@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from "react";
 // import { UserContext } from "../../../context/UserContext";
 import EditUserModal from "./EditUserModal";
+import AddProfileCopilotModal from "./AddProfileCopilotModal";
 
 export default function UserCopilot() {
   // const { user } = useContext(UserContext);
 
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [formData, setFormData] = useState();
+
+  const openAddModal = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const closeAddModal = () => {
+    setIsAddModalOpen(false);
+  };
+
   const openEditModal = () => {
     setIsEditModalOpen(true);
   };
@@ -27,7 +38,7 @@ export default function UserCopilot() {
         setFormData(data);
       })
       .catch((err) => console.info(err));
-  }, [isEditModalOpen]);
+  }, [isAddModalOpen, isEditModalOpen]);
   console.info("isEditModalOpen", isEditModalOpen);
   // useEffect(() => {}, [user, closeEditModal, setIsEditModalOpen]);
   console.info("formData", formData);
@@ -35,6 +46,12 @@ export default function UserCopilot() {
   // console.info("formData.avatar", formData.avatar);
   return (
     <div className="flex flex-col gap-4 text-white font-secondary-font items-center w-full py-5">
+      {isAddModalOpen && (
+        <AddProfileCopilotModal
+          isOpen={isAddModalOpen}
+          onRequestClose={closeAddModal}
+        />
+      )}
       {isEditModalOpen && (
         <EditUserModal
           isOpen={isEditModalOpen}
@@ -146,14 +163,23 @@ export default function UserCopilot() {
           </div>
         </div>
       ))}
-
-      <button
-        onClick={openEditModal}
-        type="button"
-        className="flex justify-center items-center text-white bg-gray-400 p-2 rounded-lg text-center "
-      >
-        Mettre à jour mes informations
-      </button>
+      {formData?.length ? (
+        <button
+          onClick={openEditModal}
+          type="button"
+          className="flex justify-center items-center text-white bg-gray-400 p-2 rounded-lg text-center "
+        >
+          Mettre à jour mes informations
+        </button>
+      ) : (
+        <button
+          onClick={openAddModal}
+          type="button"
+          className="flex justify-center items-center text-white bg-gray-400 p-2 rounded-lg text-center "
+        >
+          Veuillez saisir vos informations
+        </button>
+      )}
     </div>
   );
 }
