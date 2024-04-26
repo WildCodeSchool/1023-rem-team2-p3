@@ -38,7 +38,7 @@ export default function Header() {
   }, [user]);
 
   return (
-    <header className="flex flex-row justify-between items-center bg-background-color-second p-2 font-secondary-font">
+    <header className="flex flex-row justify-between items-center bg-background-color-second p-2 font-secondary-font h-[49px] lg:h-auto">
       <BurgerIcon isOpen={isOpen} setOpen={setOpen} />
 
       {/* <div className="flex items-center text-white "> */}
