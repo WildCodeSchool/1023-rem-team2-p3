@@ -1,34 +1,81 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import Popup from "./Popup";
+import { videoDescriptions, videoSources, videoTitles, videoDifficulties } from "./videoDescriptions";
+
 
 export default function CopilotTrainComponent() {
-  const [text, setText] = useState("");
-  const [index, setIndex] = useState(0);
-  const phrases = ["Soyez prêts...", "Bientôt disponible !"];
+  const [hoverStates, setHoverStates] = useState([]);
+  const videoRefs = useRef([]);
+
+  const [selectedVideo, setSelectedVideo] = useState(null);
+
+  const handleClick = (index) => {
+    setSelectedVideo(index);
+  };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (index < phrases.length) {
-        const phrase = phrases[index];
-        setText(phrase.substring(0, text.length + 1));
-        if (text === phrase) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setText("");
-            setIndex((prevIndex) =>
-              prevIndex === phrases.length - 1 ? 0 : prevIndex + 1
-            );
-          }, 1500);
-        }
+    videoRefs.current = Array(videoSources.length).fill(null);
+  }, [videoSources.length]);
+
+  const handleMouseOver = (index) => {
+    setHoverStates((prevHoverStates) => {
+      const newHoverStates = [...prevHoverStates];
+      newHoverStates[index] = true;
+      if (videoRefs.current[index]) {
+        videoRefs.current[index].play();
       }
-    }, 150);
-    return () => clearInterval(interval);
-  }, [text, index]);
+      return newHoverStates;
+    });
+  };
+
+  const handleMouseOut = (index) => {
+    setHoverStates((prevHoverStates) => {
+      const newHoverStates = [...prevHoverStates];
+      newHoverStates[index] = false;
+      if (videoRefs.current[index]) {
+        videoRefs.current[index].pause();
+      }
+      return newHoverStates;
+    });
+  };
 
   return (
-    <div className="w-[90%] text-white  font-secondary-font bg-[#281f31] lg:h-auto rounded-[20px]">
-      <h1 className="flex justify-center text-center text-violet-500 font-primary-font text-2xl lg:mt-80">
-        {text}
-      </h1>
-    </div>
+    <>
+      <div className="flex flex-wrap gap-4 justify-center items-center lg:h-auto rounded-[20px]  mt-6 md:justify-items-center md:mb-6 mb-6">
+        {videoSources.map(({ id, source }) => (
+          <div
+            key={id}
+            className="grid grid-cols-1 gap-4"
+            onMouseOver={() => handleMouseOver(id)}
+            onMouseOut={() => handleMouseOut(id)}
+            onClick={() => handleClick(id)}
+          >
+            <div className="w-64 h-36 relative">
+              <video
+                className="w-full h-full rounded-[20px]"
+                src={source}
+                muted
+                loop
+                ref={(ref) => (videoRefs.current[id] = ref)}
+              />
+              {hoverStates[id] && (
+                <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 text-white">
+                  <p>{videoTitles[id]}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+      {selectedVideo !== null && (
+        <Popup
+          videoSource={videoSources[selectedVideo]}
+          videoTitle={videoTitles[selectedVideo]}
+          videoDescription={videoDescriptions[selectedVideo]}
+          videoDifficulty={videoDifficulties[selectedVideo]}
+          onClose={() => setSelectedVideo(null)}
+        />
+      )}
+    </>
   );
 }
