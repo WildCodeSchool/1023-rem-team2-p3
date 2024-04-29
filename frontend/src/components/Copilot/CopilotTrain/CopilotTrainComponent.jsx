@@ -10,6 +10,8 @@ export default function CopilotTrainComponent() {
 
   const [selectedVideo, setSelectedVideo] = useState(null);
 
+  console.log(se);
+
   const handleClick = (index) => {
     setSelectedVideo(index);
   };
@@ -55,10 +57,10 @@ export default function CopilotTrainComponent() {
             <div className="w-64 h-36 relative">
               <video
                 className="w-full h-full rounded-[20px]"
-                src={source}
+                src={`${import.meta.env.VITE_BACKEND_URL}/${source}`}
                 muted
                 loop
-                ref={(ref) => (videoRefs.current[id] = ref)}
+                ref={(ref) => console.log("ref", ref)||(videoRefs.current[id] = ref)}
               />
               {hoverStates[id] && (
                 <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 text-white">

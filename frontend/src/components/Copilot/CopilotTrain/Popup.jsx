@@ -26,7 +26,7 @@ function Popup({ setSelectedVideo, source, difficulties, description, title }) {
     videoRef.current.play();
     videoRef.current.muted = true;
   };
-
+console.log(source);
   return (
     <div className="fixed inset-0 flex items-center justify-center z-10">
       <div className="bg-[#281f31] p-8 rounded-lg shadow-lg relative w-full md:w-1/2">
@@ -39,7 +39,7 @@ function Popup({ setSelectedVideo, source, difficulties, description, title }) {
         <video
           ref={videoRef}
           className="w-full mb-4"
-          src={source}
+          src={`${import.meta.env.VITE_BACKEND_URL}/${source}`}
           controls
           autoPlay
           onCanPlay={handlePlay}
