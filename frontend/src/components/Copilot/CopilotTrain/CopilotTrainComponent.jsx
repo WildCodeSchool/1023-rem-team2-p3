@@ -2,15 +2,13 @@
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
 import React, { useEffect, useRef, useState } from "react";
 import Popup from "./Popup";
-import { videoSources, videoTitles } from "./videoDescriptions";
+import videoSources from "./videoDescriptions";
 
 export default function CopilotTrainComponent() {
   const [hoverStates, setHoverStates] = useState([]);
   const videoRefs = useRef([]);
 
   const [selectedVideo, setSelectedVideo] = useState(null);
-
-  console.log(se);
 
   const handleClick = (index) => {
     setSelectedVideo(index);
@@ -44,7 +42,7 @@ export default function CopilotTrainComponent() {
 
   return (
     <div className="flex flex-wrap gap-4 justify-center items-center lg:h-auto rounded-[20px]  mt-6 md:justify-items-center md:mb-6 mb-6">
-      {videoSources.map(({ id, source, difficulties, title, description }) => (
+      {videoSources.map(({ id, source, title }) => (
         <>
           <button
             key={id}
@@ -60,21 +58,21 @@ export default function CopilotTrainComponent() {
                 src={`${import.meta.env.VITE_BACKEND_URL}/${source}`}
                 muted
                 loop
-                ref={(ref) => console.log("ref", ref)||(videoRefs.current[id] = ref)}
+                ref={(ref) => (videoRefs.current[id] = ref)}
               />
               {hoverStates[id] && (
                 <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 text-white">
-                  <p>{videoTitles[id]}</p>
+                  <p>{title}</p>
                 </div>
               )}
             </div>
           </button>
           {selectedVideo !== null && (
             <Popup
-              source={source}
-              difficulties={difficulties}
-              description={description}
-              title={title}
+              source={videoSources[selectedVideo].source}
+              difficulties={videoSources[selectedVideo].difficulties}
+              description={videoSources[selectedVideo].description}
+              title={videoSources[selectedVideo].title}
               setSelectedVideo={setSelectedVideo}
             />
           )}
