@@ -6,6 +6,7 @@ export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [requestSuccess, setRequestSuccess] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -21,6 +22,7 @@ export default function ForgotPassword() {
       .then((res) => {
         console.info("res", res);
         if (res.status === 200) {
+          setRequestSuccess(true);
           return res.json().then((data) => {
             setTimeout(() => {
               setErrorMessage(data.message);
@@ -31,6 +33,7 @@ export default function ForgotPassword() {
           });
         }
         if (res.status === 400) {
+          setRequestSuccess(false);
           return res.json().then((data) => {
             throw new Error(data.message);
           });
@@ -46,6 +49,7 @@ export default function ForgotPassword() {
       })
       .catch((error) => {
         console.error("Error:", error);
+        setRequestSuccess(false);
         setTimeout(() => {
           setErrorMessage(error.message);
           setLoading(false);
@@ -61,7 +65,15 @@ export default function ForgotPassword() {
         description="Récupérez votre mot de passe"
       />
       <div className="xl:w-[700px] mt-8 mb-4 ml-8 mr-8">
-        {errorMessage && <p className="text-red-600 mb-2">{errorMessage}</p>}{" "}
+        {errorMessage && (
+          <p
+            className={
+              requestSuccess ? "text-green-600 mb-2" : "text-red-600 mb-2"
+            }
+          >
+            {errorMessage}
+          </p>
+        )}{" "}
         <form
           onSubmit={handleSubmit}
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
