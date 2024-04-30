@@ -10,8 +10,10 @@ export default function FuturesEvents() {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`)
       .then((response) => response.json())
       .then((data) => {
+        const currentDate = new Date();
         const filtered = data
           .filter((event) => event.status === "active")
+          .filter((event) => new Date(event.date) > currentDate)
           .sort((a, b) => new Date(a.date) - new Date(b.date))
           .slice(0, 3);
         setEvents(filtered);
@@ -19,13 +21,11 @@ export default function FuturesEvents() {
       .catch((error) => console.error("Error:", error));
   }, [setEvents]);
   return (
-    <>
-      <div>
-        <h1 className="flex flex-col items-center text-white font-primary-font text-[24px] m-4">
-          Derniers évènements
-        </h1>
-      </div>
-      <div className="text-white  flex flex-col justify-center items-center font-secondary-font text-[16px] mx-10 my-5 ">
+    <div className="mb-5">
+      <h1 className="flex flex-col items-center text-white font-primary-font text-[24px] m-4">
+        Prochains évènements
+      </h1>
+      <div className="text-white  flex flex-col justify-center items-center font-secondary-font text-[16px] ">
         {events.map((event, index) => (
           <div
             // eslint-disable-next-line react/no-array-index-key
@@ -53,6 +53,6 @@ export default function FuturesEvents() {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }

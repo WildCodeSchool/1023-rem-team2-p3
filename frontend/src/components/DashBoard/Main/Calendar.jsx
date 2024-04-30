@@ -60,10 +60,10 @@ export default function CalendarComponent() {
 
   return (
     <div className="flex flex-col justify-center items-center p-4">
-      <div className="font-primary-font text-center p-4 text-[20px]">
+      <div className="font-primary-font text-center p-4 text-2xl">
         <span>Calendrier des événements</span>
       </div>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center text-xl">
         <div className="flex items-center mb-2">
           <button onClick={handlePrevMonth} className="w-10">
             &#8249;
@@ -73,8 +73,8 @@ export default function CalendarComponent() {
             &#8250;
           </button>
         </div>
-        <div className="border border-gray-200 rounded-lg p-4">
-          <div className="grid grid-cols-7 gap-1 mb-2 w-[500px]">
+        <div className="border border-white rounded-lg p-4 text-2xl">
+          <div className="grid grid-cols-7 gap-1 mb-2 w-[500px] lg:w-[700px]">
             {["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].map(
               (dayName) => (
                 <div key={dayName} className="text-xs text-gray-500 font-bold">
@@ -107,10 +107,10 @@ export default function CalendarComponent() {
           </div>
         </div>
         <div className="m-5">
-          <span className="rounded-full p-1 bg-violet-500 text-white">
+          <span className="rounded-full p-2 bg-violet-500 text-white">
             Date actuelle
           </span>{" "}
-          <span className="rounded-full p-1 bg-red-500  text-white">
+          <span className="rounded-full p-2 bg-red-500  text-white">
             Date d'événements
           </span>
         </div>

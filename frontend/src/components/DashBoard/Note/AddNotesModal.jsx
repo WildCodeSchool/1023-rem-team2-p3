@@ -3,7 +3,9 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import PropTypes from "prop-types";
 import React, { useContext, useEffect, useState } from "react";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { ImCross } from "react-icons/im";
+import { MdErrorOutline } from "react-icons/md";
 import Modal from "react-modal";
 import { UserContext } from "../../../context/UserContext";
 
@@ -18,8 +20,23 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   const [note, setNote] = useState({});
   const [userNotes, setUserNotes] = useState([]);
   const [eventUsers, setEventUsers] = useState([]);
+  const [notification, setNotification] = useState({
+    message: "",
+    success: false,
+  });
+
+  // Fonction pour afficher la notification et la cacher après 2 secondes
+  const showNotification = (message, success) => {
+    setNotification({ message, success });
+
+    // Masquer la notification après 2 secondes
+    setTimeout(() => {
+      setNotification({ message: "", success: false });
+    }, 2000);
+  };
 
   useEffect(() => {
+    // Récupération de la liste des événements depuis l'API
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`)
       .then((response) => response.json())
       .then((data) => {
@@ -32,6 +49,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   }, []);
 
   useEffect(() => {
+    // Récupération des utilisateurs associés à l'événement sélectionné depuis l'API
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/stockEvent`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -50,6 +68,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   }, [selectedEvent]);
 
   useEffect(() => {
+    // Récupération des notes utilisateur depuis l'API
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/note`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -58,7 +77,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       .then((response) => response.json())
       .then((data) => {
         setUserNotes(data);
-        console.info("data fetch get:", data);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -66,102 +84,75 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   }, []);
 
   const handleNoteChange = (event) => {
-    // Construire le corps de la requête
-    // const body = {
-    //   name: note[selectedCharacteristic],
-    //   user_id: selectedUser,
-    // };
+    // Mise à jour de la note lors de la saisie dans le champ de texte
     const { name, value } = event.target;
     setNote({ ...note, [name]: value, user_id: selectedUser });
   };
-  console.info("note", note);
-  // logique pour les notes
+
+  // Fonction pour soumettre la note
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // console.info("note body:", body);
-    console.info("selectedUser body:", selectedUser);
-    console.info("userNotes", userNotes);
+    // Vérification si tous les champs nécessaires sont remplis
+    if (!selectedEvent || !selectedUser || !note[selectedCharacteristic]) {
+      showNotification(
+        "Error, veuillez remplir tous les champs et réessayer",
+        false
+      );
+      return;
+    }
 
-    //
-    // for(let i = 0 ; i<userNotes.length ; i++) {
-    // if(userNotes[i].user_id === selectedUser) {
-
-    // }
-    // }
     const filterNoteUser = userNotes.filter(
       (notess) => parseInt(notess.user_id, 10) === parseInt(selectedUser, 10)
     );
-    console.info("filterNoteUser", filterNoteUser);
-    //
-    // Vérifier si l'utilisateur a déjà des notes
-    if (!filterNoteUser.length) {
-      console.info("note.length fetch post:", userNotes);
-      // Si l'utilisateur n'a pas de notes, envoyer une requête POST
-      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/note/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(note),
+
+    // Construction de l'URL et de la méthode de requête
+    const url = filterNoteUser.length
+      ? `${import.meta.env.VITE_BACKEND_URL}/api/note/${selectedUser}`
+      : `${import.meta.env.VITE_BACKEND_URL}/api/note/`;
+    const method = filterNoteUser.length ? "PUT" : "POST";
+
+    // Envoi de la requête pour ajouter ou mettre à jour la note
+    fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(note),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Affichage de la notification de succès
+        showNotification("Note ajoutée avec succès", true);
+        // Réinitialisation des champs et fermeture du modal
+        setNote({});
+        setSelectedUser("");
+        setSelectedCharacteristic("");
+        // onRequestClose();
       })
-        .then((response) => response.json())
-        .then((data) => {
-          console.info("Data post:", data);
-          console.info("body fetch post:", { note, user_id: selectedUser });
-          console.info("userNotes fetch post:", userNotes);
-          // Réinitialiser les champs et fermer le modal
-          setSelectedUser("");
-          setSelectedCharacteristic("");
-          setNote("");
-          onRequestClose();
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    } else {
-      // Si l'utilisateur a déjà des notes, envoyer une requête PUT
-      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/note/${selectedUser}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(note),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.info("Data put:", data);
-          console.info("selectedUser", selectedUser);
-          console.info("body fetch put:", note, { user_id: selectedUser });
-          console.info("body fetch put:", note, { user_id: selectedUser });
-          console.info("userNotes fetch put:", userNotes);
-          console.info("note.length fetch put:", note.length);
-          console.info("selectedUser fetch put:", selectedUser);
-          // Réinitialiser les champs et fermer le modal
-          setSelectedUser("");
-          setSelectedCharacteristic("");
-          setNote("");
-          onRequestClose();
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
+      .catch((error) => {
+        // Affichage de la notification d'erreur
+        showNotification(
+          "Erreur lors de l'ajout ou de la mise à jour de la note",
+          false
+        );
+        console.error("Error:", error);
+      });
   };
 
   const handleEventChange = (e) => {
+    // Mise à jour de l'événement sélectionné
     setSelectedEvent(e.target.value);
   };
 
   const handleUserChange = (e) => {
+    // Mise à jour de l'utilisateur sélectionné
     setSelectedUser(e.target.value);
-    console.info("selectedUser:", selectedUser);
-    console.info("e.target.value:", e.target.value);
   };
 
   const handleCharacteristicChange = (e) => {
+    // Mise à jour de la caractéristique sélectionnée
     setSelectedCharacteristic(e.target.value);
   };
 
@@ -177,10 +168,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       </button>
       <h2 className="text-2xl font-bold mb-4">Ajouter des notes</h2>
       <label>
-        {/* <p className="text-lg mb-4">
-          Sélectionnez un événement pour lequel vous souhaitez attribuer les
-          notes aux participants:
-        </p> */}
         <span className="text-white text-[20px] font-secondary-font">
           Evénement:
           <select
@@ -199,9 +186,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       </label>
       <hr className="mb-4" />
       <label>
-        {/* <p className="text-lg mb-4">
-          Sélectionnez un participant à qui vous souhaitez attribuer les notes :
-        </p> */}
         <span className="text-white text-[20px] font-secondary-font">
           Participant:
           <select
@@ -220,10 +204,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       </label>
       <hr className="mb-4" />
       <label>
-        {/* <p className="text-lg mb-4">
-          Sélectionnez la caractéristique à laquelle vous souhaitez attribuer la
-          note :
-        </p> */}
         <span className="text-white text-[20px] font-secondary-font">
           Caractéristique:
           <select
@@ -292,6 +272,20 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
           Ajouter
         </button>
       </form>
+      {notification.message && (
+        <div
+          data-aos="fade-right"
+          data-aos-duration="3500"
+          className={`absolute bottom-4 right-4 px-10 py-2 rounded-lg flex items-center ${notification.success ? "bg-green-500" : "bg-red-500"} text-white text-sm`}
+        >
+          {notification.success ? (
+            <IoCheckmarkDoneCircle className="mr-2" />
+          ) : (
+            <MdErrorOutline className="mr-2" />
+          )}
+          {notification.message}
+        </div>
+      )}
     </Modal>
   );
 }

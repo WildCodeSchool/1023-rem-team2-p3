@@ -3,7 +3,6 @@ import Header from "../../components/DashBoard/HeaderBackOffice";
 import CalendarComponent from "../../components/DashBoard/Main/Calendar";
 import FuturesEvents from "../../components/DashBoard/Main/FuturesEvents";
 import MainBackoffice from "../../components/DashBoard/Main/MainBackoffice";
-import TotalPayments from "../../components/DashBoard/Main/TotalPayments";
 import Sidebar from "../../components/DashBoard/Sidebar";
 import HeaderM from "../../components/DashBoard/Sidebar/HeaderM";
 import SidebarMobile from "../../components/DashBoard/Sidebar/SidebarMobile";
@@ -23,7 +22,6 @@ export default function BackOfficePages() {
             <MainBackoffice />
             <div className="flex flex-row justify-center">
               <CalendarComponent />
-              <TotalPayments />
             </div>
             <FuturesEvents />
           </div>
