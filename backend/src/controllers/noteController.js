@@ -11,10 +11,6 @@ const noteController = {
       // Récupère la valeur de la note depuis req.body
       const note = req.body;
       const { user_id } = req.body;
-      console.info("Note ajoutée :", note); // Affiche la valeur de la note dans la console
-      console.info("req.body:", req.body);
-      console.info("req.payload:", req.payload);
-      console.info("id:", id);
       const [admin] = await tables.user.getUserById(id);
       if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
         return res.status(401).json({ error: "Vous n'avez pas les droits" });
@@ -30,9 +26,6 @@ const noteController = {
 
       // Insère la nouvelle note dans la base de données
       const [result] = await tables.note.create({ ...note, user_id });
-      console.info("Insère la nouvelle note result:", result);
-      console.info("Insère la nouvelle note note:", note);
-      console.info("Insère la nouvelle note user_id:", user_id);
       if (result.affectedRows) {
         return res.json({ message: "Note ajoutée avec succès" });
       }
@@ -144,7 +137,7 @@ const noteController = {
       const [result] = await tables.note.update(id, updateFields);
 
       if (result.affectedRows) {
-        res.json({ message: "Note updated" });
+        res.json({ message: "Note à été mise à jour" });
       } else {
         res.json({ message: "Error" });
       }
@@ -165,7 +158,7 @@ const noteController = {
       }
       const [result] = await tables.note.delete(id);
       if (result.affectedRows) {
-        res.json({ message: "Note deleted" });
+        res.json({ message: "Note supprimée" });
       } else {
         res.json({ message: "Error" });
       }

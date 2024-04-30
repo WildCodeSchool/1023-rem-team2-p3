@@ -77,3 +77,16 @@ difficulty: 1 (difficulté qui serait en enum(1,2,3)), attribut(enum(tir, passe,
 composant : CopilotTrainComponent.
 
 Description : Pouvoir stocké dans le back les vidéos ou alors mettre les vidéos sur youtube et après importé les liens.
+
+**Titre : Title TOPMAIN version mobile**
+
+composant : tous où on ajoute TOPMAIN.
+
+Description : le title n'est pas centré.
+
+**Titre : Input date de naissance page inscription**
+
+composant : .
+
+Description : le input ne s'affiche pas correctement.
+
