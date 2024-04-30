@@ -13,11 +13,17 @@ export default function UserInformations({
   };
 
   const handleUserInfosChange = (e) => {
-    setFormUserInfos({ ...formUserInfos, [e.target.name]: e.target.value });
-    const isFormValid = Object.values(formUserInfos).every(
-      (value) => value !== ""
-    );
-    setIsFormValid(isFormValid);
+    setFormUserInfos((prevFormUserInfos) => {
+      const updatedFormUserInfos = {
+        ...prevFormUserInfos,
+        [e.target.name]: e.target.value,
+      };
+      const isFormValid = Object.values(updatedFormUserInfos).every(
+        (value) => value !== "" && value !== null && value !== undefined
+      );
+      setIsFormValid(isFormValid);
+      return updatedFormUserInfos;
+    });
   };
 
   return (
@@ -200,8 +206,8 @@ export default function UserInformations({
       <div className="relative text-white">
         <input
           type="file"
-          id="avatar"
-          name="avatar"
+          id="img"
+          name="img"
           className="input"
           accept="image/*"
           onChange={handleUserInfosChange}

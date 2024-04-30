@@ -32,7 +32,7 @@ export default function Dropdown({ setSelectedEvent }) {
       });
   }, []);
   useEffect(() => {
-    setSelectedEvent(selected.id);
+    setSelectedEvent(selected);
   }, [selected, setSelectedEvent]);
   return (
     <>

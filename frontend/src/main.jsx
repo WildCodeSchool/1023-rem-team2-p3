@@ -11,6 +11,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import { UserContext, UserProvider } from "./context/UserContext";
 import "./index.css";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 // import About from "./pages/About/About";
 // import BackOfficePages from "./pages/BackOfficePages/BackOfficePages";
 // import CodePromo from "./pages/BackOfficePages/CodePromo";
@@ -163,6 +164,7 @@ export default function AppLayout() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="forgot/password" element={<ForgotPassword />} />
+              <Route path="/reset" element={<ResetPassword />} />
             </>
           )}
           <Route path="*" element={<NotFound />} />

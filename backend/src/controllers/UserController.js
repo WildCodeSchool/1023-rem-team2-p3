@@ -151,9 +151,24 @@ const deleteUser = async (req, res) => {
 const createPasswordResetToken = async (req, res) => {
   try {
     const { email } = req.body;
-    const token = await tables.user.createPasswordResetToken(email);
-    await tables.user.sendPasswordResetEmail(email, token, req);
-    res.status(200).json({ message: "Email de réinitialisation envoyé" });
+    console.info("email", email);
+    const [user] = await tables.user.getUserByEmail(email);
+    console.info("user", user);
+    if (user.length) {
+      const tokenResetPassword = jwt.sign(
+        { payload: user[0].id },
+        process.env.SECRET_KEY_JWT,
+        { expiresIn: "0.5h" }
+      );
+      console.info("tokenResetPassword", tokenResetPassword);
+      await tables.user.sendPasswordResetEmail(tokenResetPassword, email, req);
+      res.status(200).json({
+        message:
+          "Votre demande a été prise en compte ! Un mail vous a été envoyé .",
+      });
+    } else {
+      res.status(401).json({ message: "Email non trouvé" });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -161,13 +176,19 @@ const createPasswordResetToken = async (req, res) => {
 
 const resetPassword = async (req, res) => {
   try {
-    const { token, newPassword } = req.body;
-    const [user] = await tables.user.getUserByResetToken(token);
-    if (!user.length) {
-      return res.status(404).json({ error: "Token invalide ou expiré" });
+    const { token } = req.query;
+    // console.info("token", token);
+    const tokenResetPassword = jwt.verify(token, process.env.SECRET_KEY_JWT);
+    console.info("tokenResetPassword", tokenResetPassword);
+    const { hashedPassword } = req.body;
+    const [user] = await tables.user.updateUserOnlyPassword(
+      tokenResetPassword.payload,
+      hashedPassword
+    );
+    console.info("user", user);
+    if (!user.affectedRows) {
+      res.status(404).json({ error: "Token invalide ou expiré" });
     }
-
-    await tables.user.resetPassword(user[0], newPassword);
     res.status(200).json({ message: "Mot de passe réinitialisé" });
   } catch (error) {
     res.status(500).json({ error: error.message });
