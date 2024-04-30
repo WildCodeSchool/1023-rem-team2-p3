@@ -70,7 +70,7 @@ const noteController = {
         res.status(400).send("Vous n'avez pas encore vos notes");
       }
     } catch (error) {
-      res.sendStatus(500).json({ message: "error" });
+      res.status(500).json({ message: "error" });
     }
   },
 
