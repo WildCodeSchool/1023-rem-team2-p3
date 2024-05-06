@@ -4,7 +4,17 @@ const tables = require("../tables");
 const getAllEvents = async (req, res) => {
   try {
     const [events] = await tables.event.getAllEvent();
-    res.status(200).json(events);
+    const currentDate = Date.now();
+    const updatedEvents = await Promise.all(
+      events.map(async (event) => {
+        if (new Date(event.date) <= new Date(currentDate)) {
+          await tables.event.updateStatusEvent(event.id);
+        }
+        return event;
+      })
+    );
+    console.info("events", updatedEvents);
+    res.status(200).json(updatedEvents);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
