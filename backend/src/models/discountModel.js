@@ -70,6 +70,13 @@ class discountManager extends AbstractManager {
       [id]
     );
   }
+
+  async updateStatusDiscount(id) {
+    return this.database.query(
+      `UPDATE ${this.table} SET status = false where id = ?`,
+      [id]
+    );
+  }
 }
 
 module.exports = discountManager;

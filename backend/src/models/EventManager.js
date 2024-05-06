@@ -44,7 +44,14 @@ class EventManager extends AbstractManager {
     ]);
   }
 
-  async desactivateEvent(id) {
+  async updateStatusEvent(id) {
+    return this.database.query(
+      `UPDATE ${this.table} SET status = "inactive" where id = ?`,
+      [id]
+    );
+  }
+
+  async desactivateEvent() {
     return this.database.query(
       // `UPDATE ${this.table} SET status = "inactive" WHERE id = ?`,
       `select * from ${this.table}`
