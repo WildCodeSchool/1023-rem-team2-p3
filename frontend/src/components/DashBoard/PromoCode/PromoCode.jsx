@@ -135,7 +135,7 @@ export default function PromoCode() {
                 {discounts.status ? (
                   <p className="w-32 text-center">Actif</p>
                 ) : (
-                  <p className="w-32 text-center">inactif</p>
+                  <p className="w-32 text-center">Inactif</p>
                 )}
               </button>
             ))}

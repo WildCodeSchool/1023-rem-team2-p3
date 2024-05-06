@@ -59,7 +59,7 @@ export default function UserCopilot() {
           userData={formData}
         />
       )}
-      <h1 className=" text-2xl">Vos information Personnels :</h1>
+      <h1 className=" text-2xl">Votre information personnelle :</h1>
       {formData?.map((users) => (
         <div className="grid grid-cols-1 lg:grid-cols-2 w-full justify-center items-center gap-5">
           <div className="flex flex-col items-center gap-5">

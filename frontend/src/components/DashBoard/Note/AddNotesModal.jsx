@@ -17,7 +17,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   const [selectedEvent, setSelectedEvent] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
   const [selectedCharacteristic, setSelectedCharacteristic] = useState("");
-  const [note, setNote] = useState({});
+  const [note, setNote] = useState("");
   const [userNotes, setUserNotes] = useState([]);
   const [eventUsers, setEventUsers] = useState([]);
   const [notification, setNotification] = useState({
@@ -123,10 +123,11 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.info("Success:", data);
         // Affichage de la notification de succès
         showNotification("Note ajoutée avec succès", true);
         // Réinitialisation des champs et fermeture du modal
-        setNote({});
+        setNote("");
         setSelectedUser("");
         setSelectedCharacteristic("");
         // onRequestClose();
