@@ -2,6 +2,7 @@ import { useState } from "react";
 import AddNotesModal from "./AddNotesModal";
 
 export default function AddNotes() {
+  const [note, setNote] = useState("");
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const openAddModal = () => {
     setIsAddModalOpen(true);
@@ -24,8 +25,12 @@ export default function AddNotes() {
           Ajouter une note
         </button>
         <AddNotesModal
+          note={note}
+          setNote={setNote}
           isOpen={isAddModalOpen}
-          onRequestClose={() => setIsAddModalOpen(false)}
+          onRequestClose={() => {
+            setIsAddModalOpen(false);
+          }}
         />
       </div>
     </div>

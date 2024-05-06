@@ -13,7 +13,6 @@ function App() {
     <div className="max-w-[1600px] md:flex md:flex-col justify-center items-center">
       <Title />
       <Timeline />
-      {/* <Performances /> */}
       <Performances2 />
       <Events />
       <CarteInfo />

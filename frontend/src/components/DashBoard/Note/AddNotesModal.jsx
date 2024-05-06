@@ -11,13 +11,17 @@ import { UserContext } from "../../../context/UserContext";
 
 Modal.setAppElement("#root");
 
-export default function AddEventModal({ isOpen, onRequestClose }) {
+export default function AddEventModal({
+  isOpen,
+  onRequestClose,
+  note,
+  setNote,
+}) {
   const { token } = useContext(UserContext);
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
   const [selectedCharacteristic, setSelectedCharacteristic] = useState("");
-  const [note, setNote] = useState("");
   const [userNotes, setUserNotes] = useState([]);
   const [eventUsers, setEventUsers] = useState([]);
   const [notification, setNotification] = useState({
@@ -81,7 +85,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, []);
+  }, [note]);
 
   const handleNoteChange = (event) => {
     // Mise à jour de la note lors de la saisie dans le champ de texte
@@ -92,7 +96,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   // Fonction pour soumettre la note
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    setNote("");
     // Vérification si tous les champs nécessaires sont remplis
     if (!selectedEvent || !selectedUser || !note[selectedCharacteristic]) {
       showNotification(
@@ -194,7 +198,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
             onChange={handleUserChange}
             value={selectedUser}
           >
-            <option value="">Sélectionnez un participant</option>
+            <option>Sélectionnez un participant</option>
             {eventUsers.map((user) => (
               <option className="text-xs" key={user.id} value={user.user_id}>
                 {user.lastname} {user.firstname} {user.email}
@@ -294,4 +298,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
 AddEventModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
+  note: PropTypes.string.isRequired,
+  setNote: PropTypes.func.isRequired,
 };

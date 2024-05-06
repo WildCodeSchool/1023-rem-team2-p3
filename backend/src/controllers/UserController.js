@@ -34,7 +34,7 @@ const getUserByEmail = async (req, res) => {
           const token = jwt.sign(
             { payload: user[0].id },
             process.env.SECRET_KEY_JWT,
-            { expiresIn: "0.5h" }
+            { expiresIn: "1h" }
           );
           res.status(200).json({ token, status: 200 });
         } else {
