@@ -11,23 +11,20 @@ import { UserContext } from "../../../context/UserContext";
 
 Modal.setAppElement("#root");
 
-export default function AddEventModal({
-  isOpen,
-  onRequestClose,
-  note,
-  setNote,
-}) {
+export default function AddEventModal({ isOpen, onRequestClose }) {
   const { token } = useContext(UserContext);
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
   const [selectedCharacteristic, setSelectedCharacteristic] = useState("");
   const [userNotes, setUserNotes] = useState([]);
+  const [note, setNote] = useState("");
   const [eventUsers, setEventUsers] = useState([]);
   const [notification, setNotification] = useState({
     message: "",
     success: false,
   });
+  console.info("note", note);
 
   // Fonction pour afficher la notification et la cacher après 2 secondes
   const showNotification = (message, success) => {
@@ -85,20 +82,18 @@ export default function AddEventModal({
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, [note]);
+  }, []);
 
   const handleNoteChange = (event) => {
     // Mise à jour de la note lors de la saisie dans le champ de texte
-    const { name, value } = event.target;
-    setNote({ ...note, [name]: value, user_id: selectedUser });
+    setNote(event.target.value);
   };
 
   // Fonction pour soumettre la note
   const handleSubmit = (event) => {
     event.preventDefault();
-    setNote("");
     // Vérification si tous les champs nécessaires sont remplis
-    if (!selectedEvent || !selectedUser || !note[selectedCharacteristic]) {
+    if (!selectedEvent || !selectedUser || !note) {
       showNotification(
         "Error, veuillez remplir tous les champs et réessayer",
         false
@@ -123,7 +118,7 @@ export default function AddEventModal({
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(note),
+      body: JSON.stringify({note[selectedCharacteristic]}),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -266,7 +261,7 @@ export default function AddEventModal({
           type="text"
           name={selectedCharacteristic}
           placeholder="Note"
-          value={note[selectedCharacteristic]}
+          value={note}
           onChange={handleNoteChange}
           className="w-[70px] p-2 rounded-lg text-sm"
         />
@@ -298,6 +293,4 @@ export default function AddEventModal({
 AddEventModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
-  note: PropTypes.string.isRequired,
-  setNote: PropTypes.func.isRequired,
 };
