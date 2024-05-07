@@ -3,13 +3,11 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import PropTypes from "prop-types";
 import React, { useContext, useEffect, useState } from "react";
-import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { ImCross } from "react-icons/im";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { MdErrorOutline } from "react-icons/md";
 import Modal from "react-modal";
 import { UserContext } from "../../../context/UserContext";
-
-Modal.setAppElement("#root");
 
 export default function AddEventModal({ isOpen, onRequestClose }) {
   const { token } = useContext(UserContext);
@@ -24,7 +22,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
     message: "",
     success: false,
   });
-  console.info("note", note);
 
   // Fonction pour afficher la notification et la cacher après 2 secondes
   const showNotification = (message, success) => {
@@ -37,6 +34,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   };
 
   useEffect(() => {
+    Modal.setAppElement("#root");
     // Récupération de la liste des événements depuis l'API
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`)
       .then((response) => response.json())
@@ -47,9 +45,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         setEvents(filtered);
       })
       .catch((error) => console.error("Error:", error));
-  }, []);
-
-  useEffect(() => {
     // Récupération des utilisateurs associés à l'événement sélectionné depuis l'API
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/stockEvent`, {
       headers: {
@@ -66,9 +61,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, [selectedEvent]);
-
-  useEffect(() => {
     // Récupération des notes utilisateur depuis l'API
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/note`, {
       headers: {
@@ -82,11 +74,14 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, []);
+  }, [selectedEvent]);
 
+  console.info("notification", notification.message);
+  console.info("note", note);
   const handleNoteChange = (event) => {
     // Mise à jour de la note lors de la saisie dans le champ de texte
-    setNote(event.target.value);
+    const { value } = event.target;
+    setNote(value);
   };
 
   // Fonction pour soumettre la note
@@ -118,17 +113,19 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({note[selectedCharacteristic]}),
+      body: JSON.stringify({
+        [selectedCharacteristic]: note,
+        user_id: selectedUser,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.info("Success:", data);
         // Affichage de la notification de succès
         showNotification("Note ajoutée avec succès", true);
         // Réinitialisation des champs et fermeture du modal
-        setNote("");
         setSelectedUser("");
         setSelectedCharacteristic("");
+        setNote("");
         // onRequestClose();
       })
       .catch((error) => {
@@ -276,7 +273,9 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         <div
           data-aos="fade-right"
           data-aos-duration="3500"
-          className={`absolute bottom-4 right-4 px-10 py-2 rounded-lg flex items-center ${notification.success ? "bg-green-500" : "bg-red-500"} text-white text-sm`}
+          className={`absolute bottom-4 right-4 px-10 py-2 rounded-lg flex items-center ${
+            notification.success ? "bg-green-500" : "bg-red-500"
+          } text-white text-sm`}
         >
           {notification.success ? (
             <IoCheckmarkDoneCircle className="mr-2" />
