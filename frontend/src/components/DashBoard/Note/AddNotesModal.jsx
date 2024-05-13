@@ -74,7 +74,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, [selectedEvent]);
+  }, [selectedEvent, notification.message]);
 
   console.info("notification", notification.message);
   console.info("note", note);
