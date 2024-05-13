@@ -12,8 +12,16 @@ export default function CopilotNoteGen() {
     })
       .then((response) => response.json())
       .then((data) => {
-        const totalNotes = data.reduce((acc, note) => acc + note.note_gen, 0);
-        const moyenne = totalNotes / data.length;
+        // Récupération des valeurs des notes de l'index 1 à 11
+        const notes = Object.values(data[0]).slice(1, 12);
+
+        // Calcul du total des notes
+        const totalNotes = notes.reduce((acc, note) => acc + note, 0);
+
+        // Calcul de la moyenne
+        const moyenne = totalNotes / notes.length;
+
+        // Mise à jour de l'état de la moyenne
         setNoteGen(moyenne.toFixed(2));
       })
       .catch((error) => console.error("Error:", error));

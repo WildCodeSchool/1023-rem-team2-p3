@@ -25,7 +25,9 @@ export default function AddNotes() {
         </button>
         <AddNotesModal
           isOpen={isAddModalOpen}
-          onRequestClose={() => setIsAddModalOpen(false)}
+          onRequestClose={() => {
+            setIsAddModalOpen(false);
+          }}
         />
       </div>
     </div>

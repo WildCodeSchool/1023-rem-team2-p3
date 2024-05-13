@@ -26,7 +26,7 @@ export default function CopilotUserEvent() {
   return (
     <div>
       <div className="font-primary-font text-center p-4 text-2xl">
-        <span>Mes prochains événements </span>
+        <span>Mes événements </span>
       </div>
       <div className="flex flex-col items-center text-white font-secondary-font text-[16px] md:text-[20px] my-4">
         {userEvents.map((event, index) => (

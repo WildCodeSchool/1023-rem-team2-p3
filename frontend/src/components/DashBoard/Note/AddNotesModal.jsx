@@ -3,13 +3,11 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import PropTypes from "prop-types";
 import React, { useContext, useEffect, useState } from "react";
-import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { ImCross } from "react-icons/im";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { MdErrorOutline } from "react-icons/md";
 import Modal from "react-modal";
 import { UserContext } from "../../../context/UserContext";
-
-Modal.setAppElement("#root");
 
 export default function AddEventModal({ isOpen, onRequestClose }) {
   const { token } = useContext(UserContext);
@@ -17,8 +15,8 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   const [selectedEvent, setSelectedEvent] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
   const [selectedCharacteristic, setSelectedCharacteristic] = useState("");
-  const [note, setNote] = useState({});
   const [userNotes, setUserNotes] = useState([]);
+  const [note, setNote] = useState("");
   const [eventUsers, setEventUsers] = useState([]);
   const [notification, setNotification] = useState({
     message: "",
@@ -36,6 +34,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
   };
 
   useEffect(() => {
+    Modal.setAppElement("#root");
     // Récupération de la liste des événements depuis l'API
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`)
       .then((response) => response.json())
@@ -46,9 +45,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         setEvents(filtered);
       })
       .catch((error) => console.error("Error:", error));
-  }, []);
-
-  useEffect(() => {
     // Récupération des utilisateurs associés à l'événement sélectionné depuis l'API
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/stockEvent`, {
       headers: {
@@ -65,9 +61,6 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, [selectedEvent]);
-
-  useEffect(() => {
     // Récupération des notes utilisateur depuis l'API
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/note`, {
       headers: {
@@ -81,20 +74,21 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, []);
+  }, [selectedEvent, notification.message]);
 
+  console.info("notification", notification.message);
+  console.info("note", note);
   const handleNoteChange = (event) => {
     // Mise à jour de la note lors de la saisie dans le champ de texte
-    const { name, value } = event.target;
-    setNote({ ...note, [name]: value, user_id: selectedUser });
+    const { value } = event.target;
+    setNote(value);
   };
 
   // Fonction pour soumettre la note
   const handleSubmit = (event) => {
     event.preventDefault();
-
     // Vérification si tous les champs nécessaires sont remplis
-    if (!selectedEvent || !selectedUser || !note[selectedCharacteristic]) {
+    if (!selectedEvent || !selectedUser || !note) {
       showNotification(
         "Error, veuillez remplir tous les champs et réessayer",
         false
@@ -119,16 +113,19 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(note),
+      body: JSON.stringify({
+        [selectedCharacteristic]: note,
+        user_id: selectedUser,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
         // Affichage de la notification de succès
         showNotification("Note ajoutée avec succès", true);
         // Réinitialisation des champs et fermeture du modal
-        setNote({});
         setSelectedUser("");
         setSelectedCharacteristic("");
+        setNote("");
         // onRequestClose();
       })
       .catch((error) => {
@@ -193,7 +190,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
             onChange={handleUserChange}
             value={selectedUser}
           >
-            <option value="">Sélectionnez un participant</option>
+            <option>Sélectionnez un participant</option>
             {eventUsers.map((user) => (
               <option className="text-xs" key={user.id} value={user.user_id}>
                 {user.lastname} {user.firstname} {user.email}
@@ -261,7 +258,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
           type="text"
           name={selectedCharacteristic}
           placeholder="Note"
-          value={note[selectedCharacteristic]}
+          value={note}
           onChange={handleNoteChange}
           className="w-[70px] p-2 rounded-lg text-sm"
         />
@@ -276,7 +273,9 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         <div
           data-aos="fade-right"
           data-aos-duration="3500"
-          className={`absolute bottom-4 right-4 px-10 py-2 rounded-lg flex items-center ${notification.success ? "bg-green-500" : "bg-red-500"} text-white text-sm`}
+          className={`absolute bottom-4 right-4 px-10 py-2 rounded-lg flex items-center ${
+            notification.success ? "bg-green-500" : "bg-red-500"
+          } text-white text-sm`}
         >
           {notification.success ? (
             <IoCheckmarkDoneCircle className="mr-2" />
