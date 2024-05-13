@@ -79,33 +79,33 @@ class UserManager extends AbstractManager {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async sendPasswordResetEmail(user, token, req) {
+  async sendPasswordResetEmail(token, email) {
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: "outlook",
+      secure: false,
       auth: {
-        user: "your-email@gmail.com DANS VARIABLE D'ENVIRONNEMENT",
-        pass: "your-password DANS VARIABLE D'ENVIRONNEMENT",
+        type: "login",
+        user: "thelab_soccer@outlook.fr",
+        pass: "EdenKhouani2024",
       },
     });
 
     const mailOptions = {
-      to: user.email,
-      from: "your-email@gmail.com",
+      to: email,
+      from: "thelab_soccer@outlook.fr",
       subject: "Réinitialisation du mot de passe",
       text: `Vous recevez ce message parce que vous avez demandé la réinitialisation du mot de passe de votre compte.
       Veuillez cliquer sur le lien suivant, ou le coller dans votre navigateur pour compléter le processus :
-      http://${req.headers.host}/reset/${token}
+      http://localhost:3000/reset?token=${token}
       Si vous n'avez pas demandé cette réinitialisation, veuillez ignorer cet e-mail et votre mot de passe restera inchangé.`,
     };
-
-    await transporter.sendMail(mailOptions);
-  }
-
-  async getUserByResetToken(token) {
-    return this.database.query(
-      `SELECT * FROM ${this.table} WHERE resetPasswordToken = ? AND resetPasswordExpires > ?`,
-      [token, Date.now()]
-    );
+    await transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.info(error);
+      } else {
+        console.info("Email sent: ", info.response);
+      }
+    });
   }
 
   async resetPassword(user, newPassword) {

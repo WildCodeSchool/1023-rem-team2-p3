@@ -145,7 +145,7 @@ export default function Signup() {
               {passwordVisible ? <Eye /> : <EyeOff />}
             </button>
             <label
-              htmlFor="name"
+              htmlFor="password"
               className="absolute top-4 left-4 pointer-events-none transition-all duration-150 ease-[cubic-bezier(0.4,0,0.2,1)] text-gray-400"
             >
               Mot de passe*
@@ -170,7 +170,7 @@ export default function Signup() {
             </button>
             {errorMessage && <p className="text-red-500">{errorMessage}</p>}
             <label
-              htmlFor="name"
+              htmlFor="password"
               className="absolute top-4 left-4 pointer-events-none transition-all duration-150 ease-[cubic-bezier(0.4,0,0.2,1)] text-gray-400"
             >
               Confirmation*

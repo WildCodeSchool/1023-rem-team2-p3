@@ -37,12 +37,8 @@ router.put(
   userControllers.updatePassword
 );
 // ROUTES FOR USER TO REINITIALIZE PASSWORD
-router.post(
-  "/reset-password",
-  verifyToken,
-  userControllers.createPasswordResetToken
-);
-router.put("/reset-password", verifyToken, userControllers.resetPassword);
+router.post("/reset-password", userControllers.createPasswordResetToken);
+router.patch("/reset-password", hashedPassword, userControllers.resetPassword);
 
 // Route to get User when login
 router.get("/me", verifyToken, userControllers.getUserById);

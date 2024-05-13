@@ -6,12 +6,18 @@ import Dropdown from "../Dropdown/Dropdown";
 import Formules from "../Formules/Formules";
 import UserInformations from "../UserInformations/UserInformations";
 import "./stepper.css";
+import Recapitulatif from "../Recapitulatif/Recapitulatif";
 
 export default function Stepper() {
   const steps = ["Evenement", "Formule", "Information", "Paiement"];
   const [currentStep, setcurrentStep] = useState(1);
   const [complete, setcomplete] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState({
+    id: "",
+    address: "",
+    city: "",
+    date: "",
+  });
   const [selectedFormula, setSelectedFormula] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const [formUserInfos, setFormUserInfos] = useState({
@@ -27,6 +33,7 @@ export default function Stepper() {
     img: "",
   });
   console.info("isFormValid from Stepper", isFormValid);
+  console.info("formUserInfos from Stepper", formUserInfos);
   return (
     <>
       <div className="flex justify-between">
@@ -54,11 +61,11 @@ export default function Stepper() {
         <button
           className="mt-4 text-md font-bold text-center text-secondary bg-primary focus:outline-none 
             bg-gradient-to-r from-[#4CACFF] via-[#A070EF] to-[#8E78DA] rounded-xl hover:bg-gradient-to-r hover:from-[#4CACFF] hover:via-[#4CACFF] hover:to-[#4CACFF] ease-in font-primary-font p-2"
-          disabled={
-            (currentStep === 1 && !selectedEvent) ||
-            (currentStep === 2 && !selectedFormula) ||
-            (currentStep === 3 && !isFormValid)
-          }
+          // disabled={
+          //   (currentStep === 1 && !selectedEvent) ||
+          //   (currentStep === 2 && !selectedFormula) ||
+          //   (currentStep === 3 && !isFormValid)
+          // }
           onClick={() => {
             if (currentStep === steps.length) {
               setcomplete(true);
@@ -84,6 +91,12 @@ export default function Stepper() {
           formUserInfos={formUserInfos}
           setFormUserInfos={setFormUserInfos}
           setIsFormValid={setIsFormValid}
+        />
+      )}
+      {currentStep === 4 && (
+        <Recapitulatif
+          selectedFormula={selectedFormula}
+          selectedEvent={selectedEvent}
         />
       )}
     </>
