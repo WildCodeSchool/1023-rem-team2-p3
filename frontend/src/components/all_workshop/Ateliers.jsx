@@ -46,10 +46,10 @@ export default function Ateliers() {
       <PopupAtelier trigger={buttonPopup} setTrigger={setButtonPopup}>
         <div className="flex flex-row justify-between items-center md:items-stretch ">
           <div className="flex flex-row gap-5 flex-wrap">
-            <h2 className="text-white font-bold font-secondary-font">
+            <h2 className="font-bold font-secondary-font text-primary-color">
               {atelier[selectedAtelier?.id - 1]?.nom}
             </h2>
-            <p className="text-white font-secondary-font ">
+            <p className="font-secondary-font text-gray-400 mr-2">
               {atelier[selectedAtelier?.id - 1]?.description}
             </p>
           </div>

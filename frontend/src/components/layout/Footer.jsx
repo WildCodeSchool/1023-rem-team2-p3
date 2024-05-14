@@ -59,15 +59,19 @@ function Footer() {
             </Link>
           </div>
         </div>
-        <div className="flex flex-col  flex-wrap gap-10 justify-center">
+        <div className="flex flex-col  flex-wrap gap-10 justify-center pr-2">
           <h1 className="text-white font-bold font-secondary-font">
             Nos partenaires
           </h1>
-          <p className="text-white font-secondary-font">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            itaque explicabo fugit a dolorum quod,
+          <p className="text-white font-secondary-font max-w-[700px] text-xs">
+            Bienvenue dans The Lab, votre destination pour débloquer tout le
+            potentiel footballistique. Notre approche innovante associe
+            technologie de pointe et coaching d'experts pour identifier et
+            développer les talents. Avec nos évaluations précises et nos
+            recommandations personnalisées, chaque joueur peut atteindre de
+            nouveaux sommets sur le terrain.{" "}
           </p>
-          <Link to="#En savoir plus">
+          <Link to="/about">
             <div className="flex items-center justify-center">
               <p className=" text-learnMore-color font-secondary-font">
                 En savoir plus
@@ -75,7 +79,7 @@ function Footer() {
               <img src={next} alt="next" className="w-8 h-8" />
             </div>
           </Link>
-          <div className="flex gap-10 justify-center md:gap-10  items-center">
+          <div className="flex gap-10 justify-center md:gap-10 items-center">
             <Link to="https://www.lafrenchtech-stl.com/">
               <img
                 src={french}
@@ -98,7 +102,7 @@ function Footer() {
           <div className="flex gap-5 items-center">
             <img src={mail} alt="email" className="w-8 h-8" />
             <p className="text-white font-bold underline font-secondary-font">
-              thelab@gmail.com
+              thelabfr.contact@gmail.com
             </p>
           </div>
         </Link>
@@ -106,11 +110,11 @@ function Footer() {
           <Link to="https://www.facebook.com/">
             <img src={facebook} alt="facebook" className="w-8 h-8" />
           </Link>
-          <Link to="https://www.youtube.com">
+          <Link to="https://www.youtube.com/channel/UCuB2YZGqxAXG1-mxpMyAgbA">
             <img src={youtube} alt="youtube" className="w-8 h-8" />
           </Link>
 
-          <Link to="https://www.instagram.com/">
+          <Link to="https://www.instagram.com/thelabsoccer/">
             <img src={instagram} alt="instagram" className="w-8 h-8" />
           </Link>
         </div>

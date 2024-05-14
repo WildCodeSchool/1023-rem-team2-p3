@@ -1,29 +1,31 @@
 // import React from 'react'
 import { useState } from "react";
 
-import image1 from "../../assets/image/ScoreCardMain.png";
+import image1 from "../../assets/image/ScoreCardMen.png";
+import image2 from "../../assets/image/ScoreCardWomen.png";
+import image3 from "../../assets/image/ScoreCardGoal.png";
 
 export default function CarteInfo() {
   const [images, setImages] = useState([
     {
       id: 1,
-      src: image1,
+      src: image2,
       description:
-        "text pour gardien lambda Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+        "Brillez sur le terrain avec confiance et détermination, mesdames. Peu importe votre position ou votre style de jeu, The Lab vous offre les outils pour vous épanouir et atteindre de nouveaux sommets dans le football féminin.",
       position: 0,
     },
     {
       id: 2,
       src: image1,
       description:
-        "text pour joueur dracaufeu de foot Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+        "Découvrez votre potentiel comme jamais auparavant. Que vous soyez un attaquant flamboyant, un milieu de terrain créatif ou un défenseur solide, The Lab vous guide vers l'excellence.",
       position: 1,
     },
     {
       id: 3,
-      src: image1,
+      src: image3,
       description:
-        "text pour joueuse endou de foot Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
+        "Dominez votre surface de réparation avec assurance et précision. Que vous soyez un gardien agile ou un expert en anticipation, The Lab vous aide à perfectionner vos compétences pour être au sommet de votre jeu.",
       position: 2,
     },
   ]);
@@ -58,7 +60,7 @@ export default function CarteInfo() {
       <h2 className="font-secondary-font text-white font-[600] text-center text-[25px] md:text-[50px] mb-10">
         NOTRE SCORECARD
       </h2>
-      <div className="flex flex-row justify-center items-center gap-0 relative w-[70%] mr-10 md:mr-20  md:w-[80%] md:h-[400px] h-[100px]">
+      <div className="flex flex-row justify-center items-center gap-0 relative w-[80%] md:w-[80%] md:mr-24 lg:mr-0 mr-8 md:h-[400px] h-[100px]">
         {images.map((img, index) => (
           <button
             key={img.id}
@@ -81,7 +83,7 @@ export default function CarteInfo() {
           </button>
         ))}
       </div>
-      <p className="text-white md:mt-20 mt-20 pb-20 text-xl md:text-2xl text-center">
+      <p className="text-white md:mt-20 mt-20 pb-20 text-xl md:text-2xl text-center md:mx-24 mx-8 lg:w-[800px] w-auto">
         {images[currentIndex].description}
       </p>
     </div>
