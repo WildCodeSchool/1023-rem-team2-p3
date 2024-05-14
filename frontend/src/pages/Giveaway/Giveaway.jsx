@@ -44,7 +44,7 @@ export default function Giveaway() {
             REGLEMENT
           </h2>
           <div className="bg-gray-800 p-5 border-white border-2">
-            <p className="text-gray-300 font-secondary-font text-center scrollbar md:scrollbar-thumb-black md:scrollbar-track-white  scrollbar-track-transparent h-80 overflow-y-scroll ">
+            <p className="text-gray-300 font-secondary-font text-left scrollbar md:scrollbar-thumb-black md:scrollbar-track-white  scrollbar-track-transparent h-80 overflow-y-scroll ">
               {reglement}
             </p>
           </div>
