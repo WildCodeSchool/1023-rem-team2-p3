@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "firstName": "Nadir",
+    "lastName": "Khouani",
+    "Role": "CEO et Fondateur de THELAB",
+    "Description": "Lorem Ipsum",
+    "Portfolio": "URL PORTFOLIO",
+    "image": "URL IMAGE"
+  },
+  {
+    "id": 2,
+    "firstName": "Aleksandra",
+    "lastName": "Hamon",
+    "Role": "Développeuse Web",
+    "Description": "Lorem Ipsum",
+    "Portfolio": "https://my-portfolio-fawn-kappa-27.vercel.app/",
+    "image": "https://avatars.githubusercontent.com/u/148757966?s=400&u=868e90a549ec48d82f85bb1e95dbc953fb440c51&v=4"
+  }
+]

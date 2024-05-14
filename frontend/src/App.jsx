@@ -1,40 +1,23 @@
-import Counter from "./components/Counter";
-import logo from "./assets/logo.svg";
-
-import "./App.css";
+import React from "react";
+import Title from "./components/All Home/Title";
+import Timeline from "./components/All Home/TimeLine";
+// import Performances from "./components/All Home/Performances";
+import Performances2 from "./components/All Home/Performances2";
+import Events from "./components/All Home/Events";
+import CarteInfo from "./components/carteInfo/CarteInfo";
+import Event1 from "./components/event/Event1";
+import ButtonEvent from "./components/All Home/ButtonEvent";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React !</p>
-
-        <Counter />
-
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {" | "}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+    <div className="max-w-[1600px] md:flex md:flex-col justify-center items-center">
+      <Title />
+      <Timeline />
+      <Performances2 />
+      <Events />
+      <CarteInfo />
+      <Event1 />
+      <ButtonEvent />
     </div>
   );
 }
