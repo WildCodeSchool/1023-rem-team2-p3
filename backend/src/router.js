@@ -49,8 +49,11 @@ router.get("/me", verifyToken, userControllers.getUserById);
 
 //* ************************//
 // (specific ADMIN OR SUPERADMIN)
-// Route to get All Users
+// Route to get All Users with jointure
 router.get("/users", verifyToken, userControllers.getAllUsers);
+// Route to get All Users withouth jointure
+router.get("/userss", verifyToken, userControllers.getAllUserss);
+
 // Route to delete User
 router.delete("/users", verifyToken, userControllers.deleteUser);
 // Route to get total users

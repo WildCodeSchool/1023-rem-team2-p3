@@ -1,8 +1,5 @@
-/* eslint-disable no-shadow */
-/* eslint-disable react/jsx-no-bind */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable react/jsx-no-bind */
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { useEffect, useState } from "react";
@@ -35,24 +32,12 @@ export default function MainContentUser() {
     setCurrentPage(1); // Reset currentPage to 1 when a new search term is entered
   };
 
-  const filteredUsers = users?.filter((user) =>
-    Object.values(user).some(
-      (value) =>
-        value !== null &&
-        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  );
-
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
-
   const nextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage((prevPages) => prevPages + 1);
   };
 
   const prevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    setCurrentPage((prevPages) => prevPages - 1);
   };
 
   function openModal(user) {
@@ -63,7 +48,17 @@ export default function MainContentUser() {
   function closeModal() {
     setIsModalOpen(false);
   }
-
+  const filteredUsers = users?.filter((user) =>
+    Object.values(user).some(
+      (value) =>
+        value !== null &&
+        value.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredUsers?.slice(indexOfFirstUser, indexOfLastUser);
+  console.info("current", currentUsers);
   return (
     <div className="flex flex-col text-center items-center w-full lg:pt-10">
       <h1 className="text-center text-[30px] font-primary-font">
@@ -89,14 +84,15 @@ export default function MainContentUser() {
             <p className="hidden md:block">Date de naissance</p>
           </div>
           {currentUsers.map((user, index) => (
-            <div
-              key={user.id}
+            <button
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
               onClick={() => openModal(user)}
               className={`px-4 py-2 flex justify-between gap-3 pointer ${
                 index % 2 === 0 ? "bg-background-color-second" : "bg-[#5b4f67]"
               }`}
             >
-              <p className="hidden w-10">{index + 1}</p>
+              {/* <p className="hidden w-10">{index + 1}</p> */}
               <p className="md:block">{user.lastname}</p>
               <p className="hidden md:block">{user.firstname}</p>
               <p className="w-40">{user.email}</p>
@@ -105,7 +101,7 @@ export default function MainContentUser() {
                   locale: fr,
                 })}
               </p>
-            </div>
+            </button>
           ))}
         </div>
       </div>
@@ -127,7 +123,7 @@ export default function MainContentUser() {
         </button>
         <button
           onClick={nextPage}
-          disabled={currentUsers.length < usersPerPage}
+          disabled={currentUsers?.length < usersPerPage}
           className="py-2 px-8 bg-background-color-second text-white rounded pointer"
         >
           Next

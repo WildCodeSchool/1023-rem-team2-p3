@@ -53,7 +53,7 @@ function Popup({ setSelectedVideo, source, difficulties, description, title }) {
         </p>
       </div>
     </div>
-);
+  );
 }
 
 export default Popup;

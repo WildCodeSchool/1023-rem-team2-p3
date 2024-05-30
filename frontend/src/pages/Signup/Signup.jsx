@@ -29,6 +29,7 @@ export default function Signup() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
       method: "POST",
       headers: {

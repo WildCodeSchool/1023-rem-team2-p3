@@ -22,6 +22,10 @@ class UserManager extends AbstractManager {
     );
   }
 
+  async getAllUserss() {
+    return this.database.query(`SELECT * FROM ${this.table}`);
+  }
+
   async updateUser(id, updateFields) {
     const setClause = Object.keys(updateFields)
       .map((key) => `${key} = ?`)
