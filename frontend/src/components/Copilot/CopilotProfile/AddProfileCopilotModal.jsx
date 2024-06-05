@@ -112,7 +112,7 @@ export default function AddProfileCopilotModal({
         <div className="flex flex-col items-center gap-2 ">
           <p> Numéro de téléphone :</p>
           <input
-            type="tel"
+            type="text"
             name="numero_de_telephone"
             value={formData.numero_de_telephone}
             placeholder="Numéro de téléphone"
@@ -287,8 +287,6 @@ export default function AddProfileCopilotModal({
       </form>
       {notification.message && (
         <div
-          data-aos="fade-right"
-          data-aos-duration="3500"
           className={`fixed bottom-4 right-4 px-5 sm:px-5 py-2 rounded-lg flex items-center ${
             notification.success ? "bg-green-500" : "bg-red-500"
           } text-white text-sm`}
