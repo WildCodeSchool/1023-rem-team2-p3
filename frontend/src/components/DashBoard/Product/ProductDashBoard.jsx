@@ -10,6 +10,10 @@ export default function ProductDashBoard() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [product, setProduct] = useState();
+  const [notification, setNotification] = useState({
+    message: "",
+    success: false,
+  });
 
   const openAddModal = () => {
     setIsAddModalOpen(true);
@@ -44,7 +48,7 @@ export default function ProductDashBoard() {
         setProduct(data);
       })
       .catch((err) => console.info(err));
-  }, [isAddModalOpen, isEditModalOpen]);
+  }, [isAddModalOpen, isEditModalOpen, notification.message]);
 
   console.info("product", product);
   return (
@@ -70,6 +74,8 @@ export default function ProductDashBoard() {
           <AddEventModal
             isOpen={isAddModalOpen}
             onRequestClose={closeAddModal}
+            notification={notification}
+            setNotification={setNotification}
           />
         )}
         {isEditModalOpen && (
@@ -77,6 +83,8 @@ export default function ProductDashBoard() {
             isOpen={isEditModalOpen}
             onRequestClose={closeEditModal}
             eventData={selectedProduit}
+            notification={notification}
+            setNotification={setNotification}
           />
         )}
       </div>

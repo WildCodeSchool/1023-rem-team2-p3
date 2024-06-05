@@ -10,6 +10,9 @@ DROP TABLE IF EXISTS score_card;
 DROP TABLE IF EXISTS privilege;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS missions;
+DROP TABLE IF EXISTS user_missions;
+
 CREATE TABLE user (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     lastname VARCHAR(80) NOT NULL,
@@ -155,4 +158,22 @@ CREATE TABLE orders (
     CONSTRAINT fk_order_product_id FOREIGN KEY (product_id) REFERENCES product(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE missions (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    mission VARCHAR(255) NOT NULL,
+    difficulty INT NOT NULL CHECK (difficulty IN (1, 2, 3)),
+    poste ENUM('attaquant', 'milieu', 'défenseur', 'gardien', 'all') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE user_missions (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    status ENUM('Non commencé', 'En cours', 'Terminé') NOT NULL DEFAULT 'Non commencé',
+    user_id INT NOT NULL,
+    CONSTRAINT fk_user_missions_user_id FOREIGN KEY (user_id) REFERENCES user(id),
+    missions_id INT NOT NULL,
+    CONSTRAINT fk_user_missions_missions_id FOREIGN KEY (missions_id) REFERENCES missions(id)
 );

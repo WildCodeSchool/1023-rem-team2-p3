@@ -4,13 +4,31 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { ImCross } from "react-icons/im";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { MdErrorOutline } from "react-icons/md";
 // import PropTypes from "prop-types";
 
 Modal.setAppElement("#root"); // This line is needed for accessibility reasons
 
-export default function EditUserModal({ isOpen, onRequestClose, userData }) {
+export default function EditUserModal({
+  isOpen,
+  onRequestClose,
+  userData,
+  notification,
+  setNotification,
+}) {
   const [formData, setFormData] = useState(userData[0]);
   // const [selectedPied, setSelectedPied] = useState("");
+
+  // Fonction pour afficher la notification et la cacher après 2 secondes
+  const showNotification = (message, success) => {
+    setNotification({ message, success });
+
+    // Masquer la notification après 2 secondes
+    setTimeout(() => {
+      setNotification({ message: "", success: false });
+    }, 1000);
+  };
 
   console.info("userData", userData);
   const handleChange = (event) => {
@@ -60,16 +78,20 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
       .then((response) => response.json())
       .then((data) => {
         console.info("Success:", data);
+        showNotification("Profil mis à jour avec succès", true);
         setFormData(updatedUserInfo);
       })
       .catch((error) => {
+        showNotification("Erreur lors de la mise à jour du profil", false);
         console.error("Error:", error);
       });
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     updateUserInfo(formData);
-    onRequestClose();
+    setTimeout(() => {
+      onRequestClose();
+    }, 1000);
   };
   console.info("formData", formData);
   return (
@@ -249,6 +271,22 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
           Enregistrer
         </button>
       </form>
+      {notification.message && (
+        <div
+          data-aos="fade-right"
+          data-aos-duration="3500"
+          className={`fixed bottom-4 right-4 px-5 sm:px-5 py-2 rounded-lg flex items-center ${
+            notification.success ? "bg-green-500" : "bg-red-500"
+          } text-white text-sm`}
+        >
+          {notification.success ? (
+            <IoCheckmarkDoneCircle className="mr-2" />
+          ) : (
+            <MdErrorOutline className="mr-2" />
+          )}
+          {notification.message}
+        </div>
+      )}
     </Modal>
   );
 }

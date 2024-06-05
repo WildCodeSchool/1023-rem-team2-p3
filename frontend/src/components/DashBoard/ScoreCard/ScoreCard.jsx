@@ -11,6 +11,10 @@ export default function AddScoreCard() {
   const [userNotes, setUserNotes] = useState([]);
   const [eventUsers, setEventUsers] = useState([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [notification, setNotification] = useState({
+    message: "",
+    success: false,
+  });
 
   // Récupérez les utilisateurs lors du chargement initial
   useEffect(() => {
@@ -302,6 +306,8 @@ export default function AddScoreCard() {
                   isOpen={isAddModalOpen}
                   userNotes={userNotes}
                   onRequestClose={closeAddModal}
+                  notification={notification}
+                  setNotification={setNotification}
                 />
               )}
             </>

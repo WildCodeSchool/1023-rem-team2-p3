@@ -12,6 +12,10 @@ export default function PromoCode() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [notification, setNotification] = useState({
+    message: "",
+    success: false,
+  });
 
   const discountPerPage = 10;
 
@@ -30,7 +34,7 @@ export default function PromoCode() {
         setPromoCode(data);
       })
       .catch((err) => console.info(err));
-  }, []);
+  }, [notification.message]);
   const nextPage = () => {
     setCurrentPage((prevPages) => prevPages + 1);
   };
@@ -94,6 +98,8 @@ export default function PromoCode() {
           <AddDiscountModal
             isOpen={isAddModalOpen}
             onRequestClose={closeAddModal}
+            notification={notification}
+            setNotification={setNotification}
           />
         )}
       </div>

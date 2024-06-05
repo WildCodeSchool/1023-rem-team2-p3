@@ -9,6 +9,10 @@ export default function UserCopilot() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [formData, setFormData] = useState();
+  const [notification, setNotification] = useState({
+    message: "",
+    success: false,
+  });
 
   const openAddModal = () => {
     setIsAddModalOpen(true);
@@ -38,7 +42,7 @@ export default function UserCopilot() {
         setFormData(data);
       })
       .catch((err) => console.info(err));
-  }, [isAddModalOpen, isEditModalOpen]);
+  }, [isAddModalOpen, isEditModalOpen, notification.message]);
   console.info("isEditModalOpen", isEditModalOpen);
   // useEffect(() => {}, [user, closeEditModal, setIsEditModalOpen]);
   console.info("formData", formData);
@@ -46,22 +50,22 @@ export default function UserCopilot() {
   // console.info("formData.avatar", formData.avatar);
   return (
     <div className="flex flex-col gap-4 text-white font-secondary-font items-center w-full py-5">
-      {isAddModalOpen && (
-        <AddProfileCopilotModal
-          isOpen={isAddModalOpen}
-          onRequestClose={closeAddModal}
-        />
-      )}
       {isEditModalOpen && (
         <EditUserModal
           isOpen={isEditModalOpen}
           onRequestClose={closeEditModal}
           userData={formData}
+          notification={notification}
+          setNotification={setNotification}
         />
       )}
       <h1 className=" text-2xl">Votre information personnelle :</h1>
-      {formData?.map((users) => (
-        <div className="grid grid-cols-1 lg:grid-cols-2 w-full justify-center items-center gap-5">
+      {formData?.map((users, index) => (
+        <div
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          className="grid grid-cols-1 lg:grid-cols-2 w-full justify-center items-center gap-5"
+        >
           <div className="flex flex-col items-center gap-5">
             <p>Numéro de téléphone :</p>
             <input
@@ -69,6 +73,7 @@ export default function UserCopilot() {
               value={users.numero_de_telephone}
               // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
+              readOnly
             />
           </div>
           <div className="flex flex-col items-center gap-5">
@@ -78,6 +83,7 @@ export default function UserCopilot() {
               value={users.ville}
               // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
+              readOnly
             />
           </div>
           <div className="flex flex-col items-center gap-5">
@@ -87,6 +93,7 @@ export default function UserCopilot() {
               value={users.adresse_postale}
               // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
+              readOnly
             />
           </div>
           <div className="flex flex-col items-center gap-5">
@@ -96,6 +103,7 @@ export default function UserCopilot() {
               value={users.sexe}
               // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
+              readOnly
             />
           </div>
           <div className="flex flex-col items-center gap-5">
@@ -105,6 +113,7 @@ export default function UserCopilot() {
               value={users.taille}
               // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
+              readOnly
             />
           </div>
           <div className="flex flex-col items-center gap-5">
@@ -114,6 +123,7 @@ export default function UserCopilot() {
               value={users.poids}
               // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
+              readOnly
             />
           </div>
           <div className="flex flex-col items-center gap-5">
@@ -123,6 +133,7 @@ export default function UserCopilot() {
               value={users.poste}
               // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
+              readOnly
             />
           </div>
           <div className="flex flex-col items-center gap-5">
@@ -132,6 +143,7 @@ export default function UserCopilot() {
               value={users.pied_fort}
               // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
+              readOnly
             />
           </div>
           <div className="flex flex-col items-center gap-5 h-full">
@@ -141,6 +153,7 @@ export default function UserCopilot() {
               value={users.pointure}
               // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
+              readOnly
             />
           </div>
           <div className="flex flex-col items-center gap-5">
@@ -179,6 +192,14 @@ export default function UserCopilot() {
         >
           Veuillez saisir vos informations
         </button>
+      )}
+      {isAddModalOpen && (
+        <AddProfileCopilotModal
+          isOpen={isAddModalOpen}
+          onRequestClose={closeAddModal}
+          notification={notification}
+          setNotification={setNotification}
+        />
       )}
     </div>
   );

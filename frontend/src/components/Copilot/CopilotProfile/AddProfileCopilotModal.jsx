@@ -3,10 +3,17 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { ImCross } from "react-icons/im";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { MdErrorOutline } from "react-icons/md";
 
 Modal.setAppElement("#root"); // This line is needed for accessibility reasons
 
-export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
+export default function AddProfileCopilotModal({
+  isOpen,
+  onRequestClose,
+  notification,
+  setNotification,
+}) {
   const [formData, setFormData] = useState({
     numero_de_telephone: "",
     ville: "",
@@ -27,6 +34,16 @@ export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
       ...prevFormData,
       [name]: name === "img" ? file : value,
     }));
+  };
+
+  // Fonction pour afficher la notification et la cacher après 2 secondes
+  const showNotification = (message, success) => {
+    setNotification({ message, success });
+
+    // Masquer la notification après 2 secondes
+    setTimeout(() => {
+      setNotification({ message: "", success: false });
+    }, 1000);
   };
 
   console.info("formData", formData);
@@ -50,23 +67,27 @@ export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
       .then((response) => response.json())
       .then((data) => {
         console.info("Success:", data);
+        showNotification("Profile créer avec succès", true);
         // Reset the form and close the modal
-        setFormData({
-          numero_de_telephone: "",
-          ville: "",
-          adresse_postale: "",
-          sexe: "",
-          taille: "",
-          poids: "",
-          poste: "",
-          pied_fort: "",
-          pointure: "",
-          img: "",
-        });
+        // setFormData({
+        //   numero_de_telephone: "",
+        //   ville: "",
+        //   adresse_postale: "",
+        //   sexe: "",
+        //   taille: "",
+        //   poids: "",
+        //   poste: "",
+        //   pied_fort: "",
+        //   pointure: "",
+        //   img: "",
+        // });
 
-        onRequestClose();
+        setTimeout(() => {
+          onRequestClose();
+        }, 1000);
       })
       .catch((error) => {
+        showNotification("Erreur lors de la création de votre profil", false);
         console.error("Error:", error);
       });
   };
@@ -264,6 +285,22 @@ export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
           Enregistrer
         </button>
       </form>
+      {notification.message && (
+        <div
+          data-aos="fade-right"
+          data-aos-duration="3500"
+          className={`fixed bottom-4 right-4 px-5 sm:px-5 py-2 rounded-lg flex items-center ${
+            notification.success ? "bg-green-500" : "bg-red-500"
+          } text-white text-sm`}
+        >
+          {notification.success ? (
+            <IoCheckmarkDoneCircle className="mr-2" />
+          ) : (
+            <MdErrorOutline className="mr-2" />
+          )}
+          {notification.message}
+        </div>
+      )}
     </Modal>
   );
 }

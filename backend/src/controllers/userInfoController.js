@@ -99,13 +99,14 @@ const edit = async (req, res) => {
       if (oldAvatarPath && req.file) {
         fs.unlinkSync(oldAvatarPath);
       }
-      console.info("oldAvatarPath", oldAvatarPath);
-      res.status(201).send("Vos informations ont été mises à jour avec succès");
+      res.status(201).json({
+        message: "Vos informations ont été mises à jour avec succès !",
+      });
     } else {
       if (req.file) {
         fs.unlinkSync(req.file.path);
       }
-      res.status(401).send("erreur lors de l'enregistrement");
+      res.status(401).json({ message: "erreur lors de l'enregistrement" });
     }
   } catch (error) {
     if (req.file) {

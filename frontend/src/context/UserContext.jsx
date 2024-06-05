@@ -66,6 +66,18 @@ export function UserProvider({ children }) {
           localStorage.removeItem("token");
         }
         setToken(newToken);
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/usermissions`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.info("Success:", data);
+          })
+          .catch((err) => console.info(err));
       },
     }),
     [user, token]

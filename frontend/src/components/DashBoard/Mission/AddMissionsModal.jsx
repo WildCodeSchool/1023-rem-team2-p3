@@ -11,16 +11,16 @@ import { MdErrorOutline } from "react-icons/md";
 
 Modal.setAppElement("#root"); // This line is needed for accessibility reasons
 
-export default function AddEventModal({
+export default function AddMissionsModal({
   isOpen,
   onRequestClose,
   notification,
   setNotification,
 }) {
   const [formData, setFormData] = useState({
-    name: "",
-    color: "",
-    img: null,
+    mission: "",
+    difficulty: null,
+    poste: null,
   });
 
   // Fonction pour afficher la notification et la cacher après 2 secondes
@@ -34,11 +34,11 @@ export default function AddEventModal({
   };
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    const file = name === "img" ? files[0] : null;
+    const { name, value } = e.target;
+
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: name === "img" ? file : value,
+      [name]: value,
     }));
   };
 
@@ -47,28 +47,23 @@ export default function AddEventModal({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formDataToSend = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataToSend.append(key, value);
-    });
-    console.info("formDataToSend", formDataToSend);
-    // Send a POST request to your API
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products`, {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/missions`, {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
       },
-      body: formDataToSend,
+      body: JSON.stringify(formData),
     })
       .then((response) => response.json())
       .then((data) => {
         console.info("Success:", data);
-        showNotification("Produit ajoutée avec succès", true);
+        showNotification("Mission ajoutée avec succès", true);
         // Reset the form and close the modal
         setFormData({
-          name: "",
-          color: "",
-          img: "",
+          mission: "",
+          difficulty: null,
+          poste: null,
         });
 
         setTimeout(() => {
@@ -76,7 +71,7 @@ export default function AddEventModal({
         }, 1000);
       })
       .catch((error) => {
-        showNotification("Erreur lors de l'ajout du produit", false);
+        showNotification("Erreur lors de l'ajout de la mission", false);
         console.error("Error:", error);
       });
   };
@@ -91,35 +86,78 @@ export default function AddEventModal({
       <button className="flex " onClick={onRequestClose}>
         <ImCross />
       </button>
-      <h2 className="text-2xl font-bold mb-4">Ajouter un produit</h2>
+      <h2 className="text-2xl font-bold mb-4">Ajouter une mission</h2>
       <p className="text-xs mb-4">Veuillez remplir les champs suivants :</p>
       <hr className="mb-4" />
       <form
         onSubmit={handleSubmit}
         className="flex flex-col justify-between items-center text-black gap-4"
       >
-        <input
-          type="file"
-          name="img"
-          onChange={handleChange}
-          className="w-[200px] p-2 rounded-lg text-sm text-white"
-        />
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          placeholder="Nom"
-          onChange={handleChange}
-          className="w-[200px] p-2 rounded-lg text-sm"
-        />
-        <input
-          type="text"
-          name="color"
-          placeholder="Couleur"
-          value={formData.color}
-          onChange={handleChange}
-          className="w-[200px] p-2 rounded-lg text-sm"
-        />
+        <label>
+          <span className="text-white text-[20px] font-secondary-font flex flex-col items-center gap-5">
+            Description de la mission :
+            <input
+              type="text"
+              name="mission"
+              placeholder="Description de la mission"
+              value={formData.mission}
+              onChange={handleChange}
+              className="w-[200px] p-2 rounded-lg text-sm text-black"
+            />
+          </span>
+        </label>
+        <label>
+          <span className="text-white text-[20px] font-secondary-font">
+            Niveau de difficulté de la mission :
+            <select
+              className="w-72 md:w-80 m-8 text-background-color-second"
+              name="difficulty"
+              onChange={handleChange}
+            >
+              <option className="text-xs" value="">
+                Sélectionnez une difficulté
+              </option>
+              <option className="text-xs" value={1}>
+                1
+              </option>
+              <option className="text-xs" value={2}>
+                2
+              </option>
+              <option className="text-xs" value={3}>
+                3
+              </option>
+            </select>
+          </span>
+        </label>
+        <label>
+          <span className="text-white text-[20px] font-secondary-font">
+            Poste ciblé par la mission :
+            <select
+              className="w-72 md:w-80 m-8 text-background-color-second"
+              name="poste"
+              onChange={handleChange}
+            >
+              <option className="text-xs" value="">
+                Sélectionnez un poste
+              </option>
+              <option className="text-xs" value="attaquant">
+                Attaquant
+              </option>
+              <option className="text-xs" value="milieu">
+                Milieu
+              </option>
+              <option className="text-xs" value="défenseur">
+                Défenseur
+              </option>
+              <option className="text-xs" value="gardien">
+                Gardien
+              </option>
+              <option className="text-xs" value="all">
+                All
+              </option>
+            </select>
+          </span>
+        </label>
 
         <button
           type="submit"

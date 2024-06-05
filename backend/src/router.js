@@ -18,6 +18,8 @@ const orderController = require("./controllers/orderController");
 const userControllers = require("./controllers/UserController");
 const eventControllers = require("./controllers/EventController");
 const productController = require("./controllers/productController");
+const missionsController = require("./controllers/missionsControllers");
+const userMissionsController = require("./controllers/userMissionsControllers");
 const discountStatus = require("./services/discountStatus");
 const expireDiscount = require("./services/expireDiscount");
 
@@ -253,5 +255,34 @@ router.post("/payment", verifyToken, paymentController.addPayment);
 // admin & superAdmin
 router.get("/order", verifyToken, orderController.getOrder);
 router.post("/order", verifyToken, orderController.addOrders);
+
+// --------------------ROUTES FOR missions -------------------//
+
+// admin & superAdmin
+router.post("/missions", verifyToken, missionsController.addMissions);
+router.put("/missions/:id", verifyToken, missionsController.updateMissions);
+
+// user
+router.get("/missions", verifyToken, missionsController.getAllMissions);
+
+// --------------------ROUTES FOR missions -------------------//
+
+// user
+
+router.get(
+  "/usermissions",
+  verifyToken,
+  userMissionsController.getUserMissions
+);
+router.post(
+  "/usermissions",
+  verifyToken,
+  userMissionsController.addUserMissions
+);
+router.put(
+  "/usermissions/:id",
+  verifyToken,
+  userMissionsController.updateUserMissions
+);
 
 module.exports = router;

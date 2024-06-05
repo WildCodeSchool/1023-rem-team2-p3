@@ -6,25 +6,25 @@ composant : tout les composants lors de la connexion
 
 Description : Pendant l'utilisation de la application quand le token expire on est immediatement déconnecté de l'application et on est dans l'obligation de se reconnecter pour continuer à utiliser l'application.
 
-**Titre : Problème de css sur la pages APP à cause du Carroussel**
+**Titre : Problème de css sur la pages APP à cause du Carroussel OK**
 
 composant : APP || All Home/Performance2
 
 Description : Le carroussel utilise la bibliothèque de react-slick qui possède des proprièté css déjà exisante qui fait que le composant n'est pas bon en css / les flèches ne sont pas centré par rapport au image.
 
-**Titre : Problème de css sur la pages à propos**
+**Titre : Problème de css sur la pages à propos OK**
 
 composant : About
 
 Description : Certain éléments sort de l'écran l'une des raisons est due à data-aos="fade-left"data-aos-duration="3000" lorsque il n'est pas apparue.
 
-**Titre : Problème de css sur la pages App et jeu concours**
+**Titre : Problème de css sur la pages App et jeu concours OK**
 
 composant : Workshop et APP
 
 Description : Un éléments sort de l'écran la raison est due à data-aos="fade-left"data-aos-duration="3000" lorsque que l'élément n'est pas apparue.
 
-**Titre : Problème de css sur la pages jeu concours**
+**Titre : Problème de css sur la pages jeu concours OK**
 
 composant : Workshop
 
@@ -32,7 +32,7 @@ Description : Un éléments sort de l'écran la raison est due à data-aos="fade
 
 # **_Suggestion :_**
 
-**Titre : Utilisation de la route ScoreCard**
+**Titre : Utilisation de la route ScoreCard OK**
 
 composant : DashBoard/AddScoreCard
 
@@ -58,11 +58,11 @@ Description : Dans le POST du User Info ne pas rendre obligatoire les champs non
 
 **Titre : Affichage du TopMain**
 
-composant : TopMain, APP, Workshop, Signup et Login .
+composant : TopMain, jeux concours .
 
-Description : Pouvoir afficher le top main dans App et workshop et que lorsque l'on remplis les champs de signup ou login que le comportement du topMain soit comme celui de contact.
+Description : Pouvoir afficher le top main dans Jeux concours et que lorsque l'on remplis les champs de signup ou login que le comportement du topMain soit comme celui de contact.
 
-**Titre : Donnée des missions**
+**Titre : Donnée des missions OK**
 
 composant : CopilotMissionsComponents.
 
@@ -84,9 +84,8 @@ composant : tous où on ajoute TOPMAIN.
 
 Description : le title n'est pas centré.
 
-**Titre : Input date de naissance page inscription**
+**Titre : Input date de naissance page inscription ??**
 
 composant : .
 
 Description : le input ne s'affiche pas correctement.
-

@@ -8,7 +8,7 @@ export default function Event1() {
     <div className="flex flex-col gap-5 lg:mx-36">
       <div className="lg:grid lg:grid-cols-[2fr] flex flex-col gap-5 lg:gap-0">
         <h2
-          data-aos="fade-right"
+          data-aos="fade-up"
           data-aos-offset="300"
           data-aos-easing="ease-in-sine"
           className="lg:w-[440px]  lg:col-start-1 lg:col-end-2 w-auto bg-gradient-to-r from-gradient-color2  via-gradient-color3 to-gradient-color1 text-transparent bg-clip-text text-xl lg:text-4xl text-center lg:text-left font-secondary-font font-bold"
@@ -16,7 +16,7 @@ export default function Event1() {
           Réalisez votre rêve de compétition internationale
         </h2>
         <p
-          data-aos="fade-left"
+          data-aos="fade-up"
           data-aos-offset="300"
           data-aos-easing="ease-in-sine"
           className="lg:w-[2/4] lg:col-start-2 lg:col-end-2 lg:row-start-2 lg:row-end-2 text-white  lg:text-right text-center font-secondary-font text-lg font-[300]  items-end "
@@ -27,7 +27,7 @@ export default function Event1() {
         </p>
       </div>
       <div
-        data-aos="flip-left"
+        data-aos="flip-right"
         data-aos-easing="ease-out-cubic"
         data-aos-duration="3000"
         className="flex flex-row sm:justify-around items-center justify-around "

@@ -8,6 +8,7 @@ import Payment from "../../assets/icons/payment.svg";
 import Promo from "../../assets/icons/promo.svg";
 import Score from "../../assets/icons/score.svg";
 import User from "../../assets/icons/user.svg";
+import Miss from "../../assets/icons/miss.svg";
 import Admin from "../../assets/icons/admin.svg";
 import { UserContext } from "../../context/UserContext";
 
@@ -61,6 +62,10 @@ export default function Sidebar() {
         >
           <img src={Promo} className="w-8" alt="icone_code_promo" />
           <h3>CODE PROMO</h3>
+        </NavLink>
+        <NavLink to="/backoffice/missions" className="flex items-center  gap-2">
+          <img src={Miss} className="w-8" alt="icone_missions" />
+          <h3>Missions</h3>
         </NavLink>
         {user?.data.is_admin === "superAdmin" && (
           <NavLink to="/backoffice/role" className="flex items-center  gap-2">

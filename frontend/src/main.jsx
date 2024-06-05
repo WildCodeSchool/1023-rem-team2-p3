@@ -57,6 +57,7 @@ const ScoreCard = React.lazy(() => import("./pages/BackOfficePages/ScoreCard"));
 const Payment = React.lazy(() => import("./pages/BackOfficePages/Payment"));
 const Product = React.lazy(() => import("./pages/BackOfficePages/Product"));
 const CodePromo = React.lazy(() => import("./pages/BackOfficePages/CodePromo"));
+const Mission = React.lazy(() => import("./pages/BackOfficePages/Missions"));
 const Role = React.lazy(() => import("./pages/BackOfficePages/Role"));
 const CopilotPages = React.lazy(
   () => import("./pages/CopilotPages/CopilotPages")
@@ -126,6 +127,7 @@ export default function AppLayout() {
                 <Route path="/backoffice/payment" element={<Payment />} />
                 <Route path="/backoffice/product" element={<Product />} />
                 <Route path="/backoffice/codepromo" element={<CodePromo />} />
+                <Route path="/backoffice/missions" element={<Mission />} />
                 {user.data?.is_admin === "superAdmin" && (
                   <Route path="/backoffice/role" element={<Role />} />
                 )}

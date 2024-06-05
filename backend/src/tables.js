@@ -23,6 +23,9 @@ const StockEventManager = require("./models/StockEventManager");
 const paymentManager = require("./models/paymentManager");
 const orderManager = require("./models/orderManager");
 
+const missionsManager = require("./models/missionsManager");
+const userMissionsManager = require("./models/userMissionsManager");
+
 const managers = [
   NoteManager,
   ScoreCardManager,
@@ -36,6 +39,8 @@ const managers = [
   orderManager,
   StockEventManager,
   UserInfoManager,
+  missionsManager,
+  userMissionsManager,
   // Add other managers here
 ];
 
