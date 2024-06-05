@@ -89,3 +89,7 @@ Description : le title n'est pas centré.
 composant : .
 
 Description : le input ne s'affiche pas correctement.
+
+Description des notes modifié lorem avec icone + titre
+Le calcul de la note général exclure les 0 et PUT dans le bac
+Changer le qr Code pour que ça renvoie un PDF

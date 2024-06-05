@@ -160,7 +160,6 @@ export default function About() {
         data-aos-duration="3000"
       >
         {services.map((service, index) => (
-          // eslint-disable-next-line react/jsx-props-no-spreading
           <Link to={service.Portfolio}>
             <ServiceCard key={service.title} index={index} {...service} />
           </Link>

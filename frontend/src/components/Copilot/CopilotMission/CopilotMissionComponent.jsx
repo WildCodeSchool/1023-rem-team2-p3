@@ -1,7 +1,5 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-plusplus */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../../context/UserContext";
 
@@ -9,65 +7,6 @@ export default function CopilotMissionComponent() {
   const { user } = useContext(UserContext);
   const [formData, setFormData] = useState([]);
   const [missions, setMissions] = useState([]);
-  // useEffect(() => {
-  //   fetch(`${import.meta.env.VITE_BACKEND_URL}/api/usermissions`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.info("Success:", data);
-  //     })
-  //     .catch((err) => console.info(err));
-  // }, []);
-  // const [allMissions, setAllMissions] = useState();
-
-  // const mission = [
-  //   {
-  //     id: 1,
-  //     missi: "Réalise 2 passes décisives durant le même match.",
-  //     status: "Non commencé",
-  //     difficulty: 1,
-  //   },
-  //   {
-  //     id: 2,
-  //     missi:
-  //       "Réalise 10 passes précises dans les pieds au sol durant le même match.",
-  //     status: "Non commencé",
-  //     difficulty: 2,
-  //   },
-  //   {
-  //     id: 3,
-  //     missi: "Marquez 3 buts durant le même match.",
-  //     status: "Non commencé",
-  //     difficulty: 3,
-  //   },
-  //   {
-  //     id: 4,
-  //     missi: "Cours 5 km durant le même match.",
-  //     status: "Non commencé",
-  //     difficulty: 2,
-  //   },
-  //   {
-  //     id: 5,
-  //     missi: "Gagne 5 duels de la tête durant le même match.",
-  //     status: "Non commencé",
-  //     difficulty: 2,
-  //   },
-  //   {
-  //     id: 6,
-  //     missi: "Réalise 5 interceptions défensives.",
-  //     status: "Non commencé",
-  //     difficulty: 1,
-  //   },
-  // ];
-  // console.info("user", user.data);
-  // console.info("allMissions", allMissions);
-  // console.info("formData", formData);
-  // console.info("user.poste", user.data.poste);
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/usermissions`, {
@@ -78,23 +17,9 @@ export default function CopilotMissionComponent() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.info(data);
         setFormData(data);
       })
       .catch((err) => console.info(err));
-
-    // fetch(`${import.meta.env.VITE_BACKEND_URL}/api/missions`, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-    //   },
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.info(data);
-    //     setAllMissions(data);
-    //   })
-    //   .catch((err) => console.info(err));
   }, [missions]);
   const filterFormdata = formData.filter(
     (form) => form.user_id === user.data.user_id
@@ -104,13 +29,6 @@ export default function CopilotMissionComponent() {
       missi.id === id ? { ...missi, status: newStatus } : missi
     );
     setMissions(updatedMissions);
-    console.info("index", index);
-    console.info("id", id);
-    console.info("filterFormdata", filterFormdata);
-    console.info(
-      "filterFormdata[id - 1]?.missions_id",
-      filterFormdata[id - 1]?.missions_id
-    );
     fetch(
       `${import.meta.env.VITE_BACKEND_URL}/api/usermissions/${filterFormdata[index]?.missions_id}`,
       {
@@ -119,7 +37,6 @@ export default function CopilotMissionComponent() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
         },
-        // body: formDataToSend,
         body: JSON.stringify({ status: newStatus }),
       }
     )
@@ -162,20 +79,6 @@ export default function CopilotMissionComponent() {
   };
 
   const handleClick = (id, currentStatus, index) => {
-    // const updatedMissions = missions.map((miss) =>
-    //   miss.id === id
-    //     ? {
-    //         ...miss,
-    //         status:
-    //           currentStatus === "Non commencé"
-    //             ? "En cours"
-    //             : currentStatus === "En cours"
-    //               ? "Terminé"
-    //               : "Non commencé",
-    //       }
-    //     : miss
-    // );
-    // setMissions(updatedMissions);
     const newStatus =
       currentStatus === "Non commencé"
         ? "En cours"
@@ -224,7 +127,6 @@ export default function CopilotMissionComponent() {
             </div>
             <p className="w-48 text-center">{miss.mission}</p>
           </div>
-          {/* {console.info("index", index)} */}
           <button
             onClick={() => handleClick(miss.id, miss.status, index)}
             value={miss.status}

@@ -1,17 +1,14 @@
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useMemo, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 
 export const UserContext = createContext({});
 
 export function UserProvider({ children }) {
-  // const navigate = useNavigate();
   const [token, setToken] = useState(() =>
     localStorage.getItem("token")
       ? JSON.parse(localStorage.getItem("token"))
       : null
   );
-  console.info("token from userProvider", token);
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -20,7 +17,6 @@ export function UserProvider({ children }) {
       return;
     }
 
-    // Si un token est présent, fetch les données utilisateur
     const fetchUserData = async () => {
       try {
         const response = await fetch(

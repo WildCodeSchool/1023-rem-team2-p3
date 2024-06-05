@@ -15,6 +15,7 @@ export default function AddScoreCard() {
     message: "",
     success: false,
   });
+  const [noteGen, setNoteGen] = useState(null);
 
   // Récupérez les utilisateurs lors du chargement initial
   useEffect(() => {
@@ -190,8 +191,7 @@ export default function AddScoreCard() {
                         key !== "note_tir" &&
                         key !== "note_dribble" &&
                         key !== "note_vista" &&
-                        key !== "note_cf" &&
-                        key !== "note_pied_faible" && (
+                        key !== "note_cf" && (
                           <th
                             key={key}
                             className="border border-white font-bold text-[8px] p-2"
@@ -235,8 +235,7 @@ export default function AddScoreCard() {
                           key !== "note_tir" &&
                           key !== "note_dribble" &&
                           key !== "note_vista" &&
-                          key !== "note_cf" &&
-                          key !== "note_pied_faible" && (
+                          key !== "note_cf" && (
                             <td key={key} className="border border-white p-2">
                               {value}
                             </td>
@@ -292,8 +291,7 @@ export default function AddScoreCard() {
             userNotes[0].note_tir !== null &&
             userNotes[0].note_dribble !== null &&
             userNotes[0].note_vista !== null &&
-            userNotes[0].note_cf !== null &&
-            userNotes[0].note_pied_faible !== null) ? (
+            userNotes[0].note_cf !== null) ? (
             <>
               <button
                 onClick={openAddModal}

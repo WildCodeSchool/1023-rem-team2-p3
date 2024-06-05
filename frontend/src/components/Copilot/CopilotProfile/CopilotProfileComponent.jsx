@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-// import { UserContext } from "../../../context/UserContext";
 import EditUserModal from "./EditUserModal";
 import AddProfileCopilotModal from "./AddProfileCopilotModal";
 
 export default function UserCopilot() {
-  // const { user } = useContext(UserContext);
-
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [formData, setFormData] = useState();
@@ -43,11 +40,7 @@ export default function UserCopilot() {
       })
       .catch((err) => console.info(err));
   }, [isAddModalOpen, isEditModalOpen, notification.message]);
-  console.info("isEditModalOpen", isEditModalOpen);
-  // useEffect(() => {}, [user, closeEditModal, setIsEditModalOpen]);
-  console.info("formData", formData);
 
-  // console.info("formData.avatar", formData.avatar);
   return (
     <div className="flex flex-col gap-4 text-white font-secondary-font items-center w-full py-5">
       {isEditModalOpen && (
@@ -71,7 +64,6 @@ export default function UserCopilot() {
             <input
               type="text"
               value={users.numero_de_telephone}
-              // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
               readOnly
             />
@@ -81,7 +73,6 @@ export default function UserCopilot() {
             <input
               type="text"
               value={users.ville}
-              // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
               readOnly
             />
@@ -91,7 +82,6 @@ export default function UserCopilot() {
             <input
               type="text"
               value={users.adresse_postale}
-              // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
               readOnly
             />
@@ -101,7 +91,6 @@ export default function UserCopilot() {
             <input
               type="text"
               value={users.sexe}
-              // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
               readOnly
             />
@@ -111,7 +100,6 @@ export default function UserCopilot() {
             <input
               type="text"
               value={users.taille}
-              // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
               readOnly
             />
@@ -121,7 +109,6 @@ export default function UserCopilot() {
             <input
               type="text"
               value={users.poids}
-              // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
               readOnly
             />
@@ -131,7 +118,6 @@ export default function UserCopilot() {
             <input
               type="text"
               value={users.poste}
-              // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
               readOnly
             />
@@ -141,7 +127,6 @@ export default function UserCopilot() {
             <input
               type="text"
               value={users.pied_fort}
-              // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
               readOnly
             />
@@ -151,7 +136,6 @@ export default function UserCopilot() {
             <input
               type="text"
               value={users.pointure}
-              // onChange={handleSearchChange}
               className="w-80 text-black rounded-lg p-2"
               readOnly
             />
@@ -162,14 +146,12 @@ export default function UserCopilot() {
               <img
                 src={`${import.meta.env.VITE_BACKEND_URL}/${users.avatar}`}
                 alt="Photos de profil"
-                // onChange={handleSearchChange}
                 className="w-40 h-40 rounded-full"
               />
             ) : (
               <img
                 src="/user.svg"
                 alt="Photos de profil"
-                // onChange={handleSearchChange}
                 className="w-40 h-40 rounded-full"
               />
             )}

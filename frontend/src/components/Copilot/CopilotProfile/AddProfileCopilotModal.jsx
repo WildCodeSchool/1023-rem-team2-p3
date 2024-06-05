@@ -36,11 +36,9 @@ export default function AddProfileCopilotModal({
     }));
   };
 
-  // Fonction pour afficher la notification et la cacher après 2 secondes
   const showNotification = (message, success) => {
     setNotification({ message, success });
 
-    // Masquer la notification après 2 secondes
     setTimeout(() => {
       setNotification({ message: "", success: false });
     }, 1000);
@@ -56,7 +54,6 @@ export default function AddProfileCopilotModal({
       formDataToSend.append(key, value);
     });
     console.info("formDataToSend", formDataToSend);
-    // Send a POST request to your API
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/info`, {
       method: "POST",
       headers: {
@@ -68,20 +65,6 @@ export default function AddProfileCopilotModal({
       .then((data) => {
         console.info("Success:", data);
         showNotification("Profile créer avec succès", true);
-        // Reset the form and close the modal
-        // setFormData({
-        //   numero_de_telephone: "",
-        //   ville: "",
-        //   adresse_postale: "",
-        //   sexe: "",
-        //   taille: "",
-        //   poids: "",
-        //   poste: "",
-        //   pied_fort: "",
-        //   pointure: "",
-        //   img: "",
-        // });
-
         setTimeout(() => {
           onRequestClose();
         }, 1000);
@@ -103,8 +86,6 @@ export default function AddProfileCopilotModal({
         <ImCross />
       </button>
       <h2 className=" font-bold mb-4 text-2xl">Saisir vos informations :</h2>
-      {/* <hr className="mb-4" /> */}
-
       <form
         onSubmit={handleSubmit}
         className="flex flex-col justify-between items-center gap-2 text-white"
@@ -145,16 +126,6 @@ export default function AddProfileCopilotModal({
             required
           />
         </div>
-        {/* <div className="flex flex-col items-center gap-2">
-          <p>Sexe :</p>
-          <input
-            type="text"
-            name="sexe"
-            value={formData.sexe}
-            onChange={handleChange}
-            className="w-80 text-black rounded-lg p-2"
-          />
-        </div> */}
         <span className="flex flex-col items-center gap-2">
           <p>Sexe :</p>
           <select
@@ -192,16 +163,6 @@ export default function AddProfileCopilotModal({
             required
           />
         </div>
-        {/* <div className="flex flex-col items-center gap-2">
-          <p>Poste</p>
-          <input
-            type="text"
-            name="poste"
-            value={formData.poste}
-            onChange={handleChange}
-            className="w-80 text-black rounded-lg p-2"
-          />
-        </div> */}
         <span className="flex flex-col items-center gap-2">
           <p>Poste :</p>
           <select
@@ -230,16 +191,6 @@ export default function AddProfileCopilotModal({
             <option value="droit">Droite</option>
           </select>
         </span>
-        {/* <div className="flex flex-col items-center gap-2">
-          <p>Pied fort</p>
-          <input
-            type="text"
-            name="pied_fort"
-            value={formData.pied_fort}
-            onChange={handleChange}
-            className="w-80 text-black rounded-lg p-2"
-          />
-        </div> */}
         <div className="flex flex-col items-center gap-2">
           <p>Pointure</p>
           <input
@@ -255,29 +206,10 @@ export default function AddProfileCopilotModal({
         <input
           type="file"
           name="img"
-          // value={`${import.meta.env.VITE_BACKEND_URL}/${formData.img}`}
           onChange={handleChange}
           className="w-[200px] p-2 rounded-lg text-sm text-white"
           required
         />
-        {/* <div className="flex flex-col items-center gap-2">
-          <p>Avatar :</p>
-          {formData.avatar ? (
-            <img
-              src={`${import.meta.env.VITE_BACKEND_URL}/${formData.avatar}`}
-              alt="Photos de profil"
-              // onChange={handleSearchChange}
-              className="w-20 h-20 rounded-full"
-            />
-          ) : (
-            <img
-              src="/user.svg"
-              alt="Photos de profil"
-              // onChange={handleSearchChange}
-              className="w-20 h-20 rounded-full"
-            />
-          )}
-        </div> */}
         <button
           type="submit"
           className="bg-[#544b5d] hover:bg-gray-300 w-[90px] h-[30px] text-base rounded-lg text-white"

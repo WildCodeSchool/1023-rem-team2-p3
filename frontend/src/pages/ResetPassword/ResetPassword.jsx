@@ -9,7 +9,6 @@ export default function ResetPassword() {
     confirmPassword: "",
   });
   const [params] = useSearchParams();
-  //   console.info("params", params.get("token"));
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
