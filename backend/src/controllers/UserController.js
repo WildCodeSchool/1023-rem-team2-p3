@@ -19,6 +19,22 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const getAllUserss = async (req, res) => {
+  try {
+    const id = req.payload;
+    const [admin] = await tables.user.getUserById(id);
+
+    if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
+      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+    }
+    const [users] = await tables.user.getAllUserss();
+    delete users[0].hashedPassword;
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 const getUserByEmail = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -280,6 +296,7 @@ const getTotalUsers = async (req, res) => {
 
 module.exports = {
   getAllUsers,
+  getAllUserss,
   addUser,
   updateUserWithoutPassword,
   updatePassword,

@@ -1,9 +1,10 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../../context/UserContext";
 
 export default function CopilotChart() {
   const [notes, setNotes] = useState([]);
-
+  const { user } = useContext(UserContext);
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/mynote`, {
       headers: {
@@ -46,7 +47,9 @@ export default function CopilotChart() {
         {notes.map((note, index) => (
           <div className="flex flex-col">
             <div key={index} className="flex items-center gap-8 md:gap-12">
-              <div className="w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+              <div
+                className={`w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative ${user.data.poste === "gardien" && "hidden"} `}
+              >
                 <div
                   className={`w-full ${getBarColor(note.note_physique)} transition-all absolute bottom-0`}
                   style={{ height: `${note.note_physique || 0}%` }}
@@ -56,7 +59,9 @@ export default function CopilotChart() {
                 </span>
               </div>
 
-              <div className="w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+              <div
+                className={`w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative ${user.data.poste === "gardien" && "hidden"} `}
+              >
                 <div
                   className={`w-full ${getBarColor(note.note_vitesse)} transition-all absolute bottom-0`}
                   style={{ height: `${note.note_vitesse || 0}%` }}
@@ -66,7 +71,9 @@ export default function CopilotChart() {
                 </span>
               </div>
 
-              <div className="w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+              <div
+                className={`w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative ${user.data.poste === "gardien" && "hidden"} `}
+              >
                 <div
                   className={`w-full ${getBarColor(note.note_passe)} transition-all absolute bottom-0`}
                   style={{ height: `${note.note_passe || 0}%` }}
@@ -76,7 +83,9 @@ export default function CopilotChart() {
                 </span>
               </div>
 
-              <div className="w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+              <div
+                className={`w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative ${user.data.poste === "gardien" && "hidden"} `}
+              >
                 <div
                   className={`w-full ${getBarColor(note.note_tir)} transition-all absolute bottom-0`}
                   style={{ height: `${note.note_tir || 0}%` }}
@@ -85,7 +94,9 @@ export default function CopilotChart() {
                   {note.note_tir || 0}
                 </span>
               </div>
-              <div className="w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+              <div
+                className={`w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative ${user.data.poste === "gardien" && "hidden"} `}
+              >
                 <div
                   className={`w-full ${getBarColor(note.note_dribble)} transition-all absolute bottom-0`}
                   style={{ height: `${note.note_dribble || 0}%` }}
@@ -94,7 +105,9 @@ export default function CopilotChart() {
                   {note.note_dribble || 0}
                 </span>
               </div>
-              <div className="w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+              <div
+                className={`w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative ${user.data.poste === "gardien" && "hidden"} `}
+              >
                 <div
                   className={`w-full ${getBarColor(note.note_vista)} transition-all absolute bottom-0`}
                   style={{ height: `${note.note_vista || 0}%` }}
@@ -103,7 +116,9 @@ export default function CopilotChart() {
                   {note.note_vista || 0}
                 </span>
               </div>
-              <div className="w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+              <div
+                className={`w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative ${user.data.poste === "gardien" && "hidden"} `}
+              >
                 <div
                   className={`w-full ${getBarColor(note.note_cf)} transition-all absolute bottom-0`}
                   style={{ height: `${note.note_cf || 0}%` }}
@@ -112,7 +127,9 @@ export default function CopilotChart() {
                   {note.note_cf || 0}
                 </span>
               </div>
-              <div className="w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+              <div
+                className={`w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative ${user.data.poste !== "gardien" && "hidden"} `}
+              >
                 <div
                   className={`w-full ${getBarColor(note.note_plongeon)} transition-all absolute bottom-0`}
                   style={{ height: `${note.note_plongeon || 0}%` }}
@@ -121,7 +138,20 @@ export default function CopilotChart() {
                   {note.note_plongeon || 0}
                 </span>
               </div>
-              <div className="w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative">
+              <div
+                className={`w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative ${user.data.poste !== "gardien" && "hidden"} `}
+              >
+                <div
+                  className={`w-full ${getBarColor(note.note_arrets)} transition-all absolute bottom-0`}
+                  style={{ height: `${note.note_arrets || 0}%` }}
+                />
+                <span className=" absolute bottom-full left-1/2 transform -translate-x-1/2">
+                  {note.note_arrets || 0}
+                </span>
+              </div>
+              <div
+                className={`w-1 h-28 md:w-3 md:h-64 bg-gray-200 rounded-lg overflow-hidden relative ${user.data.poste !== "gardien" && "hidden"} `}
+              >
                 <div
                   className={`w-full ${getBarColor(note.note_dega)} transition-all absolute bottom-0`}
                   style={{ height: `${note.note_dega || 0}%` }}
@@ -141,16 +171,57 @@ export default function CopilotChart() {
               </div>
             </div>
             <div className="flex text-violet-500">
-              <span className="m-1 md:m-4 justify-center">PHY</span>
-              <span className="m-1 md:m-4 justify-center">VIT</span>
-              <span className="m-1 md:m-4 justify-center">PAS</span>
-              <span className="m-1 md:m-4 justify-center">TIR</span>
-              <span className="m-1 md:m-4 justify-center">DRI</span>
-              <span className="m-1 md:m-4 justify-center">VIS</span>
-              <span className="m-1 md:m-4 justify-center">CF</span>
-              <span className="m-1 md:m-4 justify-center">PLO</span>
-              <span className="m-1 md:m-4 justify-center">DEG</span>
-              <span className="m-1 md:m-4 justify-center">BAF</span>
+              <span
+                className={`m-1 md:m-4 justify-center ${user.data.poste === "gardien" && "hidden"}`}
+              >
+                PHY
+              </span>
+              <span
+                className={`m-1 md:m-4 justify-center ${user.data.poste === "gardien" && "hidden"}`}
+              >
+                VIT
+              </span>
+              <span
+                className={`m-1 md:m-4 justify-center ${user.data.poste === "gardien" && "hidden"}`}
+              >
+                PAS
+              </span>
+              <span
+                className={`m-1 md:m-4 justify-center ${user.data.poste === "gardien" && "hidden"}`}
+              >
+                TIR
+              </span>
+              <span
+                className={`m-1 md:m-4 justify-center ${user.data.poste === "gardien" && "hidden"}`}
+              >
+                DRI
+              </span>
+              <span
+                className={`m-1 md:m-4 justify-center ${user.data.poste === "gardien" && "hidden"}`}
+              >
+                VIS
+              </span>
+              <span
+                className={`m-1 md:m-4 justify-center ${user.data.poste === "gardien" && "hidden"}`}
+              >
+                CF
+              </span>
+              <span
+                className={`m-1 md:m-4 justify-center ${user.data.poste !== "gardien" && "hidden"}`}
+              >
+                PLO
+              </span>
+              <span
+                className={`m-1 md:m-4 justify-center ${user.data.poste !== "gardien" && "hidden"}`}
+              >
+                ARR
+              </span>
+              <span
+                className={`m-1 md:m-4 justify-center ${user.data.poste !== "gardien" && "hidden"}`}
+              >
+                DEG
+              </span>
+              <span className="m-1 md:m-4 justify-center ">PF</span>
             </div>
           </div>
         ))}

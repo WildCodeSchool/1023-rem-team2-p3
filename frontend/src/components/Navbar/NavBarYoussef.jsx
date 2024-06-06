@@ -8,13 +8,13 @@ export default function NavBarYoussef({ isOpen, setOpen }) {
   useClickAway(() => setOpen(false), ref);
 
   const activeLink =
-    "text-center text-[17px] bg-gradient-to-r from-gradient-color1 via-gradient-color2 to-gradient-color3 text-transparent bg-clip-text font-bold pr-3";
+    "text-center text-[40px] lg:text-[18px] bg-gradient-to-r from-gradient-color1 via-gradient-color2 to-gradient-color3 text-transparent bg-clip-text font-bold pr-3";
   const inactiveLink =
-    "text-white text-center text-[17px] font-[400] hover:bg-gradient-to-r from-gradient-color1 via-gradient-color3 to-gradient-color2 hover:text-transparent hover:bg-clip-text ease-in duration-300 pr-3";
+    "text-white text-center text-[40px] lg:text-[18px] font-[400] hover:bg-gradient-to-r from-gradient-color1 via-gradient-color3 to-gradient-color2 hover:text-transparent hover:bg-clip-text ease-in duration-300 pr-3";
   return (
     <div
       ref={ref}
-      className={` flex flex-col gap-1 lg:gap-4 lg:relative lg:flex lg:flex-row lg:items-center rounded-bl lg:bg-transparent  ${isOpen ? "fixed mt-5 h-[200px] justify-between  top-7 left-0 p-3 text-[15px] z-20 bg-background-color-second" : "hidden"}`}
+      className={` flex flex-col  lg:gap-4 lg:pl-60 lg:relative lg:flex lg:flex-row lg:items-center rounded-bl lg:bg-transparent  ${isOpen ? "fixed  h-[100%] w-full justify-evenly top-0 left-0 p-3 text-[15px] z-20 bg-background-color-second" : "hidden"}`}
     >
       <NavLink
         onClick={() => setOpen((prev) => !prev)}

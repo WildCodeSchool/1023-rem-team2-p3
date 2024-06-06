@@ -1,9 +1,11 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../../context/UserContext";
 
 export default function CopilotNotesComponent() {
   const [notes, setNotes] = useState([]);
-
+  const { user } = useContext(UserContext);
+  console.info("user", user);
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/mynote`, {
       headers: {
@@ -68,7 +70,9 @@ export default function CopilotNotesComponent() {
           notes.map((note, index) => (
             <>
               <React.Fragment key={index}>
-                <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
+                <div
+                  className={`rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col ${user.data.poste === "gardien" && "hidden"}`}
+                >
                   <span className="text-[16px] font-bold">
                     {note.note_physique || "0"}
                   </span>
@@ -76,7 +80,9 @@ export default function CopilotNotesComponent() {
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
-                <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
+                <div
+                  className={`rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col ${user.data.poste === "gardien" && "hidden"}`}
+                >
                   <span className="text-[16px] font-bold">
                     {note.note_vitesse || "0"}
                   </span>
@@ -84,7 +90,9 @@ export default function CopilotNotesComponent() {
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
-                <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
+                <div
+                  className={`rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col ${user.data.poste === "gardien" && "hidden"}`}
+                >
                   <span className="text-[16px] font-bold">
                     {note.note_passe || "0"}
                   </span>
@@ -92,7 +100,9 @@ export default function CopilotNotesComponent() {
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
-                <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
+                <div
+                  className={`rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col ${user.data.poste === "gardien" && "hidden"}`}
+                >
                   <span className="text-[16px] font-bold">
                     {note.note_tir || "0"}
                   </span>
@@ -100,7 +110,9 @@ export default function CopilotNotesComponent() {
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
-                <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
+                <div
+                  className={`rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col ${user.data.poste === "gardien" && "hidden"}`}
+                >
                   <span className="text-[16px] font-bold">
                     {note.note_dribble || "0"}
                   </span>
@@ -108,7 +120,9 @@ export default function CopilotNotesComponent() {
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
-                <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
+                <div
+                  className={`rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col ${user.data.poste === "gardien" && "hidden"}`}
+                >
                   <span className="text-[16px] font-bold">
                     {note.note_vista || "0"}
                   </span>
@@ -116,7 +130,9 @@ export default function CopilotNotesComponent() {
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
-                <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
+                <div
+                  className={`rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col ${user.data.poste === "gardien" && "hidden"}`}
+                >
                   <span className="text-[16px] font-bold">
                     {note.note_cf || "0"}
                   </span>
@@ -124,7 +140,9 @@ export default function CopilotNotesComponent() {
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
-                <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
+                <div
+                  className={`rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col ${user.data.poste !== "gardien" && "hidden"}`}
+                >
                   <span className="text-[16px] font-bold">
                     {note.note_plongeon || "0"}
                   </span>
@@ -132,7 +150,19 @@ export default function CopilotNotesComponent() {
                 </div>
               </React.Fragment>
               <React.Fragment key={index}>
-                <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
+                <div
+                  className={`rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col ${user.data.poste !== "gardien" && "hidden"}`}
+                >
+                  <span className="text-[16px] font-bold">
+                    {note.note_arrets || "0"}
+                  </span>
+                  <span className="text-violet-400">ARR</span>
+                </div>
+              </React.Fragment>
+              <React.Fragment key={index}>
+                <div
+                  className={`rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col ${user.data.poste !== "gardien" && "hidden"}`}
+                >
                   <span className="text-[16px] font-bold">
                     {note.note_dega || "0"}
                   </span>
@@ -144,7 +174,7 @@ export default function CopilotNotesComponent() {
                   <span className="text-[16px] font-bold">
                     {note.note_pied_faible || "0"}
                   </span>
-                  <span className="text-violet-400"> BAF</span>
+                  <span className="text-violet-400"> PF</span>
                 </div>
               </React.Fragment>
             </>

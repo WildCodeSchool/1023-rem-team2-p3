@@ -3,10 +3,17 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { ImCross } from "react-icons/im";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { MdErrorOutline } from "react-icons/md";
 
 Modal.setAppElement("#root"); // This line is needed for accessibility reasons
 
-export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
+export default function AddProfileCopilotModal({
+  isOpen,
+  onRequestClose,
+  notification,
+  setNotification,
+}) {
   const [formData, setFormData] = useState({
     numero_de_telephone: "",
     ville: "",
@@ -29,6 +36,14 @@ export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
     }));
   };
 
+  const showNotification = (message, success) => {
+    setNotification({ message, success });
+
+    setTimeout(() => {
+      setNotification({ message: "", success: false });
+    }, 1000);
+  };
+
   console.info("formData", formData);
 
   const handleSubmit = (e) => {
@@ -39,7 +54,6 @@ export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
       formDataToSend.append(key, value);
     });
     console.info("formDataToSend", formDataToSend);
-    // Send a POST request to your API
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/info`, {
       method: "POST",
       headers: {
@@ -50,23 +64,13 @@ export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
       .then((response) => response.json())
       .then((data) => {
         console.info("Success:", data);
-        // Reset the form and close the modal
-        setFormData({
-          numero_de_telephone: "",
-          ville: "",
-          adresse_postale: "",
-          sexe: "",
-          taille: "",
-          poids: "",
-          poste: "",
-          pied_fort: "",
-          pointure: "",
-          img: "",
-        });
-
-        onRequestClose();
+        showNotification("Profile créer avec succès", true);
+        setTimeout(() => {
+          onRequestClose();
+        }, 1000);
       })
       .catch((error) => {
+        showNotification("Erreur lors de la création de votre profil", false);
         console.error("Error:", error);
       });
   };
@@ -82,8 +86,6 @@ export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
         <ImCross />
       </button>
       <h2 className=" font-bold mb-4 text-2xl">Saisir vos informations :</h2>
-      {/* <hr className="mb-4" /> */}
-
       <form
         onSubmit={handleSubmit}
         className="flex flex-col justify-between items-center gap-2 text-white"
@@ -91,7 +93,7 @@ export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
         <div className="flex flex-col items-center gap-2 ">
           <p> Numéro de téléphone :</p>
           <input
-            type="tel"
+            type="text"
             name="numero_de_telephone"
             value={formData.numero_de_telephone}
             placeholder="Numéro de téléphone"
@@ -124,16 +126,6 @@ export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
             required
           />
         </div>
-        {/* <div className="flex flex-col items-center gap-2">
-          <p>Sexe :</p>
-          <input
-            type="text"
-            name="sexe"
-            value={formData.sexe}
-            onChange={handleChange}
-            className="w-80 text-black rounded-lg p-2"
-          />
-        </div> */}
         <span className="flex flex-col items-center gap-2">
           <p>Sexe :</p>
           <select
@@ -171,16 +163,6 @@ export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
             required
           />
         </div>
-        {/* <div className="flex flex-col items-center gap-2">
-          <p>Poste</p>
-          <input
-            type="text"
-            name="poste"
-            value={formData.poste}
-            onChange={handleChange}
-            className="w-80 text-black rounded-lg p-2"
-          />
-        </div> */}
         <span className="flex flex-col items-center gap-2">
           <p>Poste :</p>
           <select
@@ -209,16 +191,6 @@ export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
             <option value="droit">Droite</option>
           </select>
         </span>
-        {/* <div className="flex flex-col items-center gap-2">
-          <p>Pied fort</p>
-          <input
-            type="text"
-            name="pied_fort"
-            value={formData.pied_fort}
-            onChange={handleChange}
-            className="w-80 text-black rounded-lg p-2"
-          />
-        </div> */}
         <div className="flex flex-col items-center gap-2">
           <p>Pointure</p>
           <input
@@ -234,29 +206,10 @@ export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
         <input
           type="file"
           name="img"
-          // value={`${import.meta.env.VITE_BACKEND_URL}/${formData.img}`}
           onChange={handleChange}
           className="w-[200px] p-2 rounded-lg text-sm text-white"
           required
         />
-        {/* <div className="flex flex-col items-center gap-2">
-          <p>Avatar :</p>
-          {formData.avatar ? (
-            <img
-              src={`${import.meta.env.VITE_BACKEND_URL}/${formData.avatar}`}
-              alt="Photos de profil"
-              // onChange={handleSearchChange}
-              className="w-20 h-20 rounded-full"
-            />
-          ) : (
-            <img
-              src="/user.svg"
-              alt="Photos de profil"
-              // onChange={handleSearchChange}
-              className="w-20 h-20 rounded-full"
-            />
-          )}
-        </div> */}
         <button
           type="submit"
           className="bg-[#544b5d] hover:bg-gray-300 w-[90px] h-[30px] text-base rounded-lg text-white"
@@ -264,6 +217,20 @@ export default function AddProfileCopilotModal({ isOpen, onRequestClose }) {
           Enregistrer
         </button>
       </form>
+      {notification.message && (
+        <div
+          className={`fixed bottom-4 right-4 px-5 sm:px-5 py-2 rounded-lg flex items-center ${
+            notification.success ? "bg-green-500" : "bg-red-500"
+          } text-white text-sm`}
+        >
+          {notification.success ? (
+            <IoCheckmarkDoneCircle className="mr-2" />
+          ) : (
+            <MdErrorOutline className="mr-2" />
+          )}
+          {notification.message}
+        </div>
+      )}
     </Modal>
   );
 }

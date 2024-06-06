@@ -6,10 +6,17 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { ImCross } from "react-icons/im";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { MdErrorOutline } from "react-icons/md";
 
 Modal.setAppElement("#root"); // This line is needed for accessibility reasons
 
-export default function AddDiscountModal({ isOpen, onRequestClose }) {
+export default function AddDiscountModal({
+  isOpen,
+  onRequestClose,
+  notification,
+  setNotification,
+}) {
   const [formData, setFormData] = useState({
     percent_value: "",
     promo_code: "",
@@ -17,6 +24,15 @@ export default function AddDiscountModal({ isOpen, onRequestClose }) {
     duree_de_validite: "",
   });
 
+  // Fonction pour afficher la notification et la cacher après 2 secondes
+  const showNotification = (message, success) => {
+    setNotification({ message, success });
+
+    // Masquer la notification après 2 secondes
+    setTimeout(() => {
+      setNotification({ message: "", success: false });
+    }, 1000);
+  };
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -45,6 +61,7 @@ export default function AddDiscountModal({ isOpen, onRequestClose }) {
       .then((response) => response.json())
       .then((data) => {
         console.info("Success:", data);
+        showNotification("Code promo ajoutée avec succès", true);
         // Reset the form and close the modal
         setFormData({
           percent_value: 10,
@@ -53,9 +70,12 @@ export default function AddDiscountModal({ isOpen, onRequestClose }) {
           duree_de_validite: "",
         });
 
-        onRequestClose();
+        setTimeout(() => {
+          onRequestClose();
+        }, 1000);
       })
       .catch((error) => {
+        showNotification("Erreur lors de l'ajout du code promo", false);
         console.error("Error:", error);
       });
   };
@@ -118,6 +138,22 @@ export default function AddDiscountModal({ isOpen, onRequestClose }) {
           Ajouter
         </button>
       </form>
+      {notification.message && (
+        <div
+          data-aos="fade-right"
+          data-aos-duration="3500"
+          className={`fixed bottom-4 right-4 px-5 sm:px-5 py-2 rounded-lg flex items-center ${
+            notification.success ? "bg-green-500" : "bg-red-500"
+          } text-white text-sm`}
+        >
+          {notification.success ? (
+            <IoCheckmarkDoneCircle className="mr-2" />
+          ) : (
+            <MdErrorOutline className="mr-2" />
+          )}
+          {notification.message}
+        </div>
+      )}
     </Modal>
   );
 }

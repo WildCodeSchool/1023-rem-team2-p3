@@ -32,41 +32,42 @@ const edit = async (req, res) => {
     const { name, color } = req.body;
     const [admin] = await tables.user.getUserById(userId);
     if (admin[0].is_admin !== "admin" && admin[0].is_admin !== "superAdmin") {
-      return res.status(401).json({ error: "Vous n'avez pas les droits" });
+      res.status(401).json({ error: "Vous n'avez pas les droits" });
+    } else {
+      const { id } = req.params;
+      const [oldProductInfo] = await tables.product.getProductById(id);
+      let { img } = oldProductInfo[0];
+      if (req.file) {
+        img = req.file.path;
+      }
+
+      const oldImgPath = oldProductInfo[0].img;
+      const updateFields = {
+        name,
+        img,
+        color,
+      };
+      // Créer un nouvel objet qui ne contient que les champs qui ne sont pas undefined
+      const definedFields = Object.entries(updateFields).reduce(
+        (a, [k, v]) => (v === undefined ? a : { ...a, [k]: v }),
+        {}
+      );
+
+      const [result] = await tables.product.updateSpecificProductById(
+        id,
+        definedFields
+      );
+      if (result.affectedRows) {
+        if (req.file) {
+          fs.unlinkSync(oldImgPath);
+        }
+        res.status(201).json({ message: "Product update !" });
+      } else {
+        fs.unlinkSync(req.file.path);
+        res.status(401).send("erreur lors de l'enregistrement");
+      }
     }
     // Récupérer l'ancienne photo de l'utilisateur
-    const { id } = req.params;
-    const [oldProductInfo] = await tables.product.getProductById(id);
-    let { img } = oldProductInfo[0];
-    if (req.file) {
-      img = req.file.path;
-    }
-
-    const oldImgPath = oldProductInfo[0].img;
-    const updateFields = {
-      name,
-      img,
-      color,
-    };
-    // Créer un nouvel objet qui ne contient que les champs qui ne sont pas undefined
-    const definedFields = Object.entries(updateFields).reduce(
-      (a, [k, v]) => (v === undefined ? a : { ...a, [k]: v }),
-      {}
-    );
-
-    const [result] = await tables.product.updateSpecificProductById(
-      id,
-      definedFields
-    );
-    if (result.affectedRows) {
-      if (req.file) {
-        fs.unlinkSync(oldImgPath);
-      }
-      res.status(201).send("Votre produit a été mise à jour avec succès");
-    } else {
-      fs.unlinkSync(req.file.path);
-      res.status(401).send("erreur lors de l'enregistrement");
-    }
   } catch (error) {
     fs.unlinkSync(req.file.path);
     res.status(500).send(error);

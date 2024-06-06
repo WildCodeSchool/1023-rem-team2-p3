@@ -54,11 +54,3 @@ export default function Timeline() {
     </>
   );
 }
-
-// TimelineCards.propTypes = {
-//   parcour: PropTypes.shape({
-//     id: PropTypes.string.isRequired,
-//     title: PropTypes.string.isRequired,
-//     description: PropTypes.string.isRequired,
-//   }).isRequired,
-// };

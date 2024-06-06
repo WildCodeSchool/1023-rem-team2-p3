@@ -4,17 +4,29 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { ImCross } from "react-icons/im";
-// import PropTypes from "prop-types";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { MdErrorOutline } from "react-icons/md";
 
 Modal.setAppElement("#root"); // This line is needed for accessibility reasons
 
-export default function EditUserModal({ isOpen, onRequestClose, userData }) {
+export default function EditUserModal({
+  isOpen,
+  onRequestClose,
+  userData,
+  notification,
+  setNotification,
+}) {
   const [formData, setFormData] = useState(userData[0]);
-  // const [selectedPied, setSelectedPied] = useState("");
 
-  console.info("userData", userData);
+  const showNotification = (message, success) => {
+    setNotification({ message, success });
+
+    setTimeout(() => {
+      setNotification({ message: "", success: false });
+    }, 1000);
+  };
+
   const handleChange = (event) => {
-    // setSelectedPied(event.target.value);
     const { name, value, files } = event.target;
     console.info("files", files);
     if (name === "img") {
@@ -39,39 +51,37 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
       }));
     }
   };
-  console.info("formData", formData);
 
   const updateUserInfo = (updatedUserInfo) => {
-    console.info("updatedUserInfo", updatedUserInfo);
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
-    console.info("formDataToSend", formDataToSend);
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/info`, {
       method: "PUT",
       headers: {
-        // "Content-Type": "application/json",
         Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
       },
-      // body: JSON.stringify(formData),
       body: formDataToSend,
     })
       .then((response) => response.json())
       .then((data) => {
         console.info("Success:", data);
+        showNotification("Profil mis à jour avec succès", true);
         setFormData(updatedUserInfo);
       })
       .catch((error) => {
+        showNotification("Erreur lors de la mise à jour du profil", false);
         console.error("Error:", error);
       });
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     updateUserInfo(formData);
-    onRequestClose();
+    setTimeout(() => {
+      onRequestClose();
+    }, 1000);
   };
-  console.info("formData", formData);
   return (
     <Modal
       isOpen={isOpen}
@@ -83,8 +93,6 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
         <ImCross />
       </button>
       <h2 className=" font-bold mb-4 text-2xl">Modifier vos informations :</h2>
-      {/* <hr className="mb-4" /> */}
-
       <form
         onSubmit={handleSubmit}
         className="flex flex-col justify-between items-center gap-2 text-white"
@@ -119,16 +127,6 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
             className="w-80 text-black rounded-lg p-2"
           />
         </div>
-        {/* <div className="flex flex-col items-center gap-2">
-          <p>Sexe :</p>
-          <input
-            type="text"
-            name="sexe"
-            value={formData.sexe}
-            onChange={handleChange}
-            className="w-80 text-black rounded-lg p-2"
-          />
-        </div> */}
         <span className="flex flex-col items-center gap-2">
           <p>Sexe :</p>
           <select
@@ -249,6 +247,22 @@ export default function EditUserModal({ isOpen, onRequestClose, userData }) {
           Enregistrer
         </button>
       </form>
+      {notification.message && (
+        <div
+          data-aos="fade-right"
+          data-aos-duration="3500"
+          className={`fixed bottom-4 right-4 px-5 sm:px-5 py-2 rounded-lg flex items-center ${
+            notification.success ? "bg-green-500" : "bg-red-500"
+          } text-white text-sm`}
+        >
+          {notification.success ? (
+            <IoCheckmarkDoneCircle className="mr-2" />
+          ) : (
+            <MdErrorOutline className="mr-2" />
+          )}
+          {notification.message}
+        </div>
+      )}
     </Modal>
   );
 }

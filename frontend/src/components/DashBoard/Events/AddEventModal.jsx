@@ -6,12 +6,29 @@
 import React, { useContext, useState } from "react";
 import { ImCross } from "react-icons/im";
 import Modal from "react-modal";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { MdErrorOutline } from "react-icons/md";
 import { UserContext } from "../../../context/UserContext";
 
 Modal.setAppElement("#root"); // This line is needed for accessibility reasons
 
-export default function AddEventModal({ isOpen, onRequestClose }) {
+export default function AddEventModal({
+  isOpen,
+  onRequestClose,
+  notification,
+  setNotification,
+}) {
   const { token } = useContext(UserContext);
+  // Fonction pour afficher la notification et la cacher après 2 secondes
+  const showNotification = (message, success) => {
+    setNotification({ message, success });
+
+    // Masquer la notification après 2 secondes
+    setTimeout(() => {
+      setNotification({ message: "", success: false });
+    }, 1000);
+  };
+
   const [formData, setFormData] = useState({
     city: "",
     date: "",
@@ -42,6 +59,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
       .then((response) => response.json())
       .then((data) => {
         console.info("Success:", data);
+        showNotification("Evénement ajoutée avec succès", true);
         // Reset the form and close the modal
         setFormData({
           city: "",
@@ -51,9 +69,12 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
           status: "active",
         });
 
-        onRequestClose();
+        setTimeout(() => {
+          onRequestClose();
+        }, 1000);
       })
       .catch((error) => {
+        showNotification("Erreur lors de l'ajout de l'événement", false);
         console.error("Error:", error);
       });
   };
@@ -113,6 +134,22 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
           Ajouter
         </button>
       </form>
+      {notification.message && (
+        <div
+          data-aos="fade-right"
+          data-aos-duration="3500"
+          className={`fixed bottom-3 right-4 px-2 sm:px-5 py-2 rounded-lg flex items-center ${
+            notification.success ? "bg-green-500" : "bg-red-500"
+          } text-white text-sm`}
+        >
+          {notification.success ? (
+            <IoCheckmarkDoneCircle className="mr-2" />
+          ) : (
+            <MdErrorOutline className="mr-2" />
+          )}
+          {notification.message}
+        </div>
+      )}
     </Modal>
   );
 }

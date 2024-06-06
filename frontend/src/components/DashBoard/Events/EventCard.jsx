@@ -12,7 +12,21 @@ export default function EventCard() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [notification, setNotification] = useState({
+    message: "",
+    success: false,
+  });
   const eventPerPage = 6;
+
+  // Fonction pour afficher la notification et la cacher après 2 secondes
+  const showNotification = (message, success) => {
+    setNotification({ message, success });
+
+    // Masquer la notification après 2 secondes
+    setTimeout(() => {
+      setNotification({ message: "", success: false });
+    }, 2000);
+  };
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/events`)
@@ -24,7 +38,7 @@ export default function EventCard() {
         setEvents(filtered);
       })
       .catch((error) => console.error("Error:", error));
-  }, [isAddModalOpen]);
+  }, [isAddModalOpen, notification.message]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -86,6 +100,7 @@ export default function EventCard() {
       .then((response) => response.json())
       .then((data) => {
         console.info("Success:", data);
+        showNotification("Evénement modifié avec succès", true);
         const updatedEvents = events.map((event) => {
           if (event.id === updatedEvent.id) {
             return updatedEvent;
@@ -95,6 +110,7 @@ export default function EventCard() {
         setEvents(updatedEvents);
       })
       .catch((error) => {
+        showNotification("Erreur lors de la mise à jour de l'événment", false);
         console.error("Error:", error);
       });
   };
@@ -151,6 +167,8 @@ export default function EventCard() {
           <AddEventModal
             isOpen={isAddModalOpen}
             onRequestClose={closeAddModal}
+            notification={notification}
+            setNotification={setNotification}
           />
         )}
       </div>
@@ -198,6 +216,8 @@ export default function EventCard() {
           onRequestClose={closeEditModal}
           eventData={selectedEvent}
           onUpdateEvent={updateEvent}
+          notification={notification}
+          setNotification={setNotification}
         />
       )}
     </div>
