@@ -45,18 +45,22 @@ export const services = [
   {
     title: "Nadir, CEO / développeur Fullstack",
     picture: nadir,
+    Portfolio: "https://asitouze.github.io/Portefolio/",
   },
   {
     title: "Aleksandra, développeuse Fullstack",
     picture: aleksandra,
+    Portfolio: "https://my-portfolio-fawn-kappa-27.vercel.app/",
   },
   {
     title: "Aurélien, développeur Fullstack",
     picture: aurelien,
+    Portfolio: "https://asitouze.github.io/Portefolio/",
   },
   {
     title: "Nicolas, développeur Fullstack",
     picture: nicolas,
+    Portfolio: "https://lcdp69.github.io/portfolio/",
   },
 ];
 

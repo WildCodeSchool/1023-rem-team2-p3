@@ -2,7 +2,6 @@ import React from "react";
 import Sidebar from "../../components/DashBoard/Sidebar";
 import Payment from "../../components/DashBoard/Payment/Payment";
 import Header from "../../components/DashBoard/HeaderBackOffice";
-// import SidebarMobile from "../../components/DashBoard/Sidebar/SidebarMobile";
 
 export default function Payments() {
   return (

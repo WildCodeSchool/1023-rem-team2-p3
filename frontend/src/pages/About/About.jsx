@@ -1,5 +1,7 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prop-types */
 import React from "react";
+import { Link } from "react-router-dom";
 import { Tilt } from "react-tilt";
 import footballPlayerPic from "../../assets/image/Frame 5.png";
 import calendar from "../../assets/image/calendar.png";
@@ -41,7 +43,7 @@ export default function About() {
   };
 
   return (
-    <div className="font-secondary-font">
+    <div className="font-secondary-font w-full flex justify-center items-center flex-col">
       <TopMain title="A propos" description="Venez découvrir le concept !" />
       <div className="font-secondary_font min-h-[calc(100vh-160px)] flex flex-col flex-wrap justify-center bg-gradient-to-b from-background-color-second to-background-color-first ">
         <div className="z-10 flex flex-col m-auto justify-center mt-'4rem' h-[350px] md:h-[500px] md:w-[600px]">
@@ -67,8 +69,8 @@ export default function About() {
         </div>
 
         <div
-          className="container mx-auto px-4 relative mt-[68px] flex flex-wrap flex-col items-center text-center lg:.absolute lg:.right-[13%] bottom-[166px] lg:text-left lg:items-left lg:flow lg:ml-[25px]"
-          data-aos="fade-right"
+          className="container mx-auto px-4 relative mt-[68px] flex flex-wrap flex-col items-center text-center bottom-[166px] lg:text-left lg:items-left"
+          data-aos="fade-up"
           data-aos-duration="3000"
         >
           <img
@@ -92,7 +94,7 @@ export default function About() {
 
         <div
           className="container px-4 relative mb-20"
-          data-aos="fade-left"
+          data-aos="fade-up"
           data-aos-duration="3000"
         >
           <div className="flex flex-wrap flex-col items-center text-center lg:text-right">
@@ -117,14 +119,14 @@ export default function About() {
 
         <div
           className="container mx-auto px-4 m-14 relative lg:mt-[150px]"
-          data-aos="fade-right"
+          data-aos="fade-up"
           data-aos-duration="3000"
         >
           <div className="flex flex-wrap flex-col items-center text-center">
             <img
               src={calendar}
               alt="Expérience THE LAB"
-              className="h-40  mb-[20px] lg:absolute lg:ml-[650px]"
+              className="h-40  mb-[20px] lg:absolute lg:right-[12%]"
             />
             <div>
               <h2 className="text-2xl font-bold mb-4 text-white lg:text-left">
@@ -153,15 +155,15 @@ export default function About() {
         </h1>
       </div>
       <div
-        className="mt-20 flex gap-10 mb-[200px]  w-[50%] mx-auto flex-col lg:flex-row lg:w-[100%] justify-between"
+        className="mt-20 flex gap-10 mb-[200px]  w-[50%] px-0 sm:px-6 flex-col lg:flex-row lg:w-full justify-around items-center"
         data-aos="fade-up"
         data-aos-duration="3000"
       >
         {services.map((service, index) => (
-          // eslint-disable-next-line react/jsx-props-no-spreading
-          <ServiceCard key={service.title} index={index} {...service} />
+          <Link to={service.Portfolio}>
+            <ServiceCard key={service.title} index={index} {...service} />
+          </Link>
         ))}
-        ;
       </div>
     </div>
   );

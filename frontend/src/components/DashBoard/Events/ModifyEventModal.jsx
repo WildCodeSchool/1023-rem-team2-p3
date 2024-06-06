@@ -7,6 +7,8 @@ import { ImCross } from "react-icons/im";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { MdErrorOutline } from "react-icons/md";
 
 Modal.setAppElement("#root"); // This line is needed for accessibility reasons
 
@@ -15,6 +17,7 @@ export default function EditEventModal({
   onRequestClose,
   eventData,
   onUpdateEvent,
+  notification,
 }) {
   const [formData, setFormData] = useState(
     {
@@ -42,7 +45,9 @@ export default function EditEventModal({
     event.preventDefault();
     onUpdateEvent(formData);
     console.info("formData", formData);
-    onRequestClose();
+    setTimeout(() => {
+      onRequestClose();
+    }, 1000);
   };
   console.info("formData.date", formData.date);
   return (
@@ -104,6 +109,22 @@ export default function EditEventModal({
           Enregistrer
         </button>
       </form>
+      {notification.message && (
+        <div
+          data-aos="fade-right"
+          data-aos-duration="3500"
+          className={`fixed bottom-4 right-4 px-5 sm:px-5 py-2 rounded-lg flex items-center ${
+            notification.success ? "bg-green-500" : "bg-red-500"
+          } text-white text-sm`}
+        >
+          {notification.success ? (
+            <IoCheckmarkDoneCircle className="mr-2" />
+          ) : (
+            <MdErrorOutline className="mr-2" />
+          )}
+          {notification.message}
+        </div>
+      )}
     </Modal>
   );
 }

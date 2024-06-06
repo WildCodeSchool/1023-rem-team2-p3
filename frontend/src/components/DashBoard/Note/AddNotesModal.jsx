@@ -273,7 +273,7 @@ export default function AddEventModal({ isOpen, onRequestClose }) {
         <div
           data-aos="fade-right"
           data-aos-duration="3500"
-          className={`absolute bottom-4 right-4 px-10 py-2 rounded-lg flex items-center ${
+          className={`fixed bottom-4 right-4 px-5 sm:px-10 py-2 rounded-lg flex items-center ${
             notification.success ? "bg-green-500" : "bg-red-500"
           } text-white text-sm`}
         >

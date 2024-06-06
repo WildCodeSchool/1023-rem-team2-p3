@@ -4,7 +4,7 @@ import CopilotScoreCardNotes from "./CopilotScoreCardNotes";
 
 export default function CopilotScoreCardComponents() {
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center w-full">
       <div className="flex flex-col justify-center text-center items-center m-10">
         <h2 className=" text-2xl font-primary-font mb-4">Mes notes</h2>
         <p className="text-xl font-secondary-font">
