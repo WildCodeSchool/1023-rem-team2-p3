@@ -264,6 +264,11 @@ router.put("/missions/:id", verifyToken, missionsController.updateMissions);
 
 // user
 router.get("/missions", verifyToken, missionsController.getAllMissions);
+router.get(
+  "/missions-by-poste",
+  verifyToken,
+  missionsController.getAllMissionsByPoste
+);
 
 // --------------------ROUTES FOR missions -------------------//
 

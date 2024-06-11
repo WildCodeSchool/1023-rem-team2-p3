@@ -9,92 +9,23 @@ export default function CopilotMissionComponent() {
   const { user } = useContext(UserContext);
   const [formData, setFormData] = useState([]);
   const [missions, setMissions] = useState([]);
-  // useEffect(() => {
-  //   fetch(`${import.meta.env.VITE_BACKEND_URL}/api/usermissions`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.info("Success:", data);
-  //     })
-  //     .catch((err) => console.info(err));
-  // }, []);
-  // const [allMissions, setAllMissions] = useState();
-
-  // const mission = [
-  //   {
-  //     id: 1,
-  //     missi: "Réalise 2 passes décisives durant le même match.",
-  //     status: "Non commencé",
-  //     difficulty: 1,
-  //   },
-  //   {
-  //     id: 2,
-  //     missi:
-  //       "Réalise 10 passes précises dans les pieds au sol durant le même match.",
-  //     status: "Non commencé",
-  //     difficulty: 2,
-  //   },
-  //   {
-  //     id: 3,
-  //     missi: "Marquez 3 buts durant le même match.",
-  //     status: "Non commencé",
-  //     difficulty: 3,
-  //   },
-  //   {
-  //     id: 4,
-  //     missi: "Cours 5 km durant le même match.",
-  //     status: "Non commencé",
-  //     difficulty: 2,
-  //   },
-  //   {
-  //     id: 5,
-  //     missi: "Gagne 5 duels de la tête durant le même match.",
-  //     status: "Non commencé",
-  //     difficulty: 2,
-  //   },
-  //   {
-  //     id: 6,
-  //     missi: "Réalise 5 interceptions défensives.",
-  //     status: "Non commencé",
-  //     difficulty: 1,
-  //   },
-  // ];
-  // console.info("user", user.data);
-  // console.info("allMissions", allMissions);
-  // console.info("formData", formData);
-  // console.info("user.poste", user.data.poste);
-
+  console.info("user :>> ", user.data.poste);
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/usermissions`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-      },
-    })
+    fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/missions-by-poste?poste=${user.data.poste}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.info(data);
         setFormData(data);
       })
       .catch((err) => console.info(err));
-
-    // fetch(`${import.meta.env.VITE_BACKEND_URL}/api/missions`, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
-    //   },
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.info(data);
-    //     setAllMissions(data);
-    //   })
-    //   .catch((err) => console.info(err));
   }, [missions]);
   const filterFormdata = formData.filter(
     (form) => form.user_id === user.data.user_id

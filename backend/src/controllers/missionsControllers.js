@@ -8,6 +8,15 @@ const getAllMissions = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+const getAllMissionsByPoste = async (req, res) => {
+  try {
+    const { poste } = req.query;
+    const [mission] = await tables.missions.getAllMissions(poste);
+    res.status(200).json(mission);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 const addMissions = async (req, res) => {
   try {
@@ -61,4 +70,5 @@ module.exports = {
   getAllMissions,
   addMissions,
   updateMissions,
+  getAllMissionsByPoste,
 };

@@ -16,6 +16,13 @@ class missionsManager extends AbstractManager {
     return this.database.query(`SELECT * FROM ${this.table}`);
   }
 
+  async getAllMissionsByPoste(poste) {
+    return this.database.query(
+      `SELECT * FROM ${this.table} WHERE ${this.table}.poste =? `,
+      [poste]
+    );
+  }
+
   async updateMissions(id, updateFields) {
     const setClause = Object.keys(updateFields)
       .map((key) => `${key} = ?`)
