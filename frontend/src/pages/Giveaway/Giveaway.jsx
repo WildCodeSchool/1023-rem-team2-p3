@@ -6,6 +6,7 @@ import Button from "../../components/Button/Button";
 import Event1 from "../../components/event/Event1";
 import { UserContext } from "../../context/UserContext";
 import reglement from "../../data/Reglement.json";
+import TopMain from "../../components/TopMain/TopMain";
 
 export default function Giveaway() {
   const navigate = useNavigate();
@@ -26,10 +27,11 @@ export default function Giveaway() {
     "bg-gradient-to-l leading-none py-2 px-2 from-[#4CACFF] via-[#A070EF] to-[#8E78DA] text-white font-[400] text-[10px] w-[300px] h-[65px] flex items-center justify-center rounded-[20px] hover:bg-gradient-to-l hover:from-[#4CACFF] hover:via-[#4CACFF] hover:to-[#4CACFF] text-[40px] ease-in ";
   return (
     <div className=" z-10 flex flex-col gap-10 pb-28 pt-10">
-      <div className="flex flex-col justify-center items-center gap-20 flex-wrap ">
-        <h1 className="text-7xl font-secondary-font text-center  bg-gradient-to-t from-gradient-color2  via-gradient-color3 to-gradient-color1 text-transparent bg-clip-text font-bold ">
-          Participer au jeu concours
-        </h1>
+      <TopMain
+        title="Participer au jeu concours"
+        description="Découvrez les régles !"
+      />
+      <div className="flex justify-center items-center ">
         <Button
           type="button"
           content="Participer"
