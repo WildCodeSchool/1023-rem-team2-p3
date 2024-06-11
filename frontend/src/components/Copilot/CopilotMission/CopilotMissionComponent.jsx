@@ -5,10 +5,24 @@ import { UserContext } from "../../../context/UserContext";
 
 export default function CopilotMissionComponent() {
   const { user } = useContext(UserContext);
-  const [formData, setFormData] = useState([]);
+  const [formDataMissions, setFormDataMissions] = useState([]);
+  const [formDataUserMissions, setFormDataUserMissions] = useState([]);
+
   const [missions, setMissions] = useState([]);
 
   useEffect(() => {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/missions`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setFormDataMissions(data);
+      })
+      .catch((err) => console.info(err));
+
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/usermissions`, {
       headers: {
         "Content-Type": "application/json",
@@ -17,40 +31,83 @@ export default function CopilotMissionComponent() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setFormData(data);
+        setFormDataUserMissions(data);
       })
       .catch((err) => console.info(err));
-  }, [missions]);
-  const filterFormdata = formData.filter(
-    (form) => form.user_id === user.data.user_id
+  }, [missions, formDataUserMissions]);
+
+  const filterFormdata = formDataUserMissions
+    .filter((form) => form.user_id === user.data.user_id)
+    .sort((a, b) => a.missions_id - b.missions_id);
+  const filterAllMissions = formDataMissions.filter(
+    (form) => form.poste === user.data.poste || form.poste === "all"
   );
   const updateMission = (id, newStatus, index) => {
     const updatedMissions = filterFormdata.map((missi) =>
       missi.id === id ? { ...missi, status: newStatus } : missi
     );
     setMissions(updatedMissions);
-    fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/usermissions/${filterFormdata[index]?.missions_id}`,
-      {
-        method: "PUT",
+    if (filterFormdata.length !== filterAllMissions.length) {
+      fetch(`${import.meta.env.VITE_BACKEND_URL}/api/usermissions`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
         },
-        body: JSON.stringify({ status: newStatus }),
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.info("Success:", data);
-        const updatedMission = missions.map((mission) =>
-          mission.id === id ? { ...mission, status: newStatus } : mission
-        );
-        setMissions(updatedMission);
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+        .then((response) => response.json())
+        .then(() => {
+          console.info("Success");
+        })
+        .catch((err) => console.info(err));
+      setTimeout(() => {
+        fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/usermissions/${filterAllMissions[index]?.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+            },
+            body: JSON.stringify({ status: "En cours" }),
+          }
+        )
+          .then((response) => response.json())
+          .then(() => {
+            console.info("Success");
+            const updatedMission = missions.map((mission) =>
+              mission.id === id ? { ...mission, status: newStatus } : mission
+            );
+            setMissions(updatedMission);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }, 1000);
+    } else {
+      fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/usermissions/${filterFormdata[index]?.missions_id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem("token"))}`,
+          },
+          body: JSON.stringify({ status: newStatus }),
+        }
+      )
+        .then((response) => response.json())
+        .then(() => {
+          console.info("Success");
+          const updatedMission = missions.map((mission) =>
+            mission.id === id ? { ...mission, status: newStatus } : mission
+          );
+          setMissions(updatedMission);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   };
 
   const renderStars = (difficulty) => {
@@ -107,35 +164,66 @@ export default function CopilotMissionComponent() {
         <p className="w-auto md:w-[240px] text-center">Description</p>
         <p className="w-auto md:w-[134px] md:p-2 text-center">Status</p>
       </div>
-      {filterFormdata?.map((miss, index) => (
-        <div
-          key={miss.id}
-          onSubmit={handleSubmit}
-          className={`flex flex-row justify-around items-center h-[105px] w-[95%] md:h-[72px] gap-2 ${
-            index % 2 === 0 ? "bg-background-color-second" : "bg-[#5b4f67]"
-          }`}
-        >
-          <div className="w-20 md:flex md:flex-row hidden">
-            {renderStars(miss.difficulty, miss.id)}
-          </div>
-          <p className="w-[240px] hidden md:block text-center">
-            {miss.mission}
-          </p>
-          <div className="flex flex-col justify-center items-center w-full md:hidden">
-            <div className="flex flex-row h-auto">
-              {renderStars(miss.difficulty, miss.id)}
+
+      {filterFormdata.length
+        ? filterFormdata?.map((miss, index) => (
+            <div
+              key={miss.id}
+              onSubmit={handleSubmit}
+              className={`flex flex-row justify-around items-center h-[105px] w-[95%] md:h-[72px] gap-2 ${
+                index % 2 === 0 ? "bg-background-color-second" : "bg-[#5b4f67]"
+              }`}
+            >
+              <div className="w-20 md:flex md:flex-row hidden">
+                {renderStars(miss.difficulty, miss.id)}
+              </div>
+              <p className="w-[240px] hidden md:block text-center">
+                {miss.mission}
+              </p>
+              <div className="flex flex-col justify-center items-center w-full md:hidden">
+                <div className="flex flex-row h-auto">
+                  {renderStars(miss.difficulty, miss.id)}
+                </div>
+                <p className="w-48 text-center">{miss.mission}</p>
+              </div>
+              <button
+                onClick={() => handleClick(miss.id, miss.status, index)}
+                value={miss.status}
+                className="rounded-lg mr-2 md:mr-0 border-2 hover:bg-white hover:text-black h-[67px] md:h-[50px] p-2 w-full md:w-[134px]"
+              >
+                {miss.status}
+              </button>
             </div>
-            <p className="w-48 text-center">{miss.mission}</p>
-          </div>
-          <button
-            onClick={() => handleClick(miss.id, miss.status, index)}
-            value={miss.status}
-            className="rounded-lg mr-2 md:mr-0 border-2 hover:bg-white hover:text-black h-[67px] md:h-[50px] p-2 w-full md:w-[134px]"
-          >
-            {miss.status}
-          </button>
-        </div>
-      ))}
+          ))
+        : filterAllMissions?.map((miss, index) => (
+            <div
+              key={miss.id}
+              onSubmit={handleSubmit}
+              className={`flex flex-row justify-around items-center h-[105px] w-[95%] md:h-[72px] gap-2 ${
+                index % 2 === 0 ? "bg-background-color-second" : "bg-[#5b4f67]"
+              }`}
+            >
+              <div className="w-20 md:flex md:flex-row hidden">
+                {renderStars(miss.difficulty, miss.id)}
+              </div>
+              <p className="w-[240px] hidden md:block text-center">
+                {miss.mission}
+              </p>
+              <div className="flex flex-col justify-center items-center w-full md:hidden">
+                <div className="flex flex-row h-auto">
+                  {renderStars(miss.difficulty, miss.id)}
+                </div>
+                <p className="w-48 text-center">{miss.mission}</p>
+              </div>
+              <button
+                onClick={() => handleClick(miss.id, miss.status, index)}
+                value={miss.status}
+                className="rounded-lg mr-2 md:mr-0 border-2 hover:bg-white hover:text-black h-[67px] md:h-[50px] p-2 w-full md:w-[134px]"
+              >
+                Non commencé
+              </button>
+            </div>
+          ))}
     </div>
   );
 }

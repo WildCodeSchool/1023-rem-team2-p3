@@ -38,13 +38,13 @@ composant : DashBoard/AddScoreCard
 
 Description : Après avoir regarder les notes de l'utilisateur, récupérer l'ID des notes de l'utilisateur et d'ajouter une photos du user qui sera pris lors de l'événement afin de l'ajouter dans le back et qui pourra être réutilisé pour les ScoreCards.
 
-**Titre : Mettre des alertes après un PUT || POST || DELETE**
+**Titre : Mettre des alertes après un PUT || POST || DELETE OK**
 
 composant : Tous les composants utilisant un PUT || POST || DELETE.
 
 Description : Simplifier l'utilisation du site en alertant sois le user soit l'admin que son actions a été effectuer avec succès.
 
-**Titre : Après un PUT mise à jour de la page**
+**Titre : Après un PUT mise à jour de la page OK**
 
 composant : les composants qui utilise un PUT.
 
@@ -84,12 +84,11 @@ composant : tous où on ajoute TOPMAIN.
 
 Description : le title n'est pas centré.
 
-**Titre : Input date de naissance page inscription ??**
+**Titre : Input date de naissance page inscription OK**
 
 composant : .
 
 Description : le input ne s'affiche pas correctement.
 
-Description des notes modifié lorem avec icone + titre
-Le calcul de la note général exclure les 0 et PUT dans le bac
+Le calcul de la note général PUT dans le bac
 Changer le qr Code pour que ça renvoie un PDF

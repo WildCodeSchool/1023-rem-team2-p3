@@ -98,8 +98,8 @@ export default function EventCard() {
       body: JSON.stringify(updatedEvent),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.info("Success:", data);
+      .then(() => {
+        console.info("Success");
         showNotification("Evénement modifié avec succès", true);
         const updatedEvents = events.map((event) => {
           if (event.id === updatedEvent.id) {

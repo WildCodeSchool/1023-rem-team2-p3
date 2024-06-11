@@ -40,7 +40,6 @@ export default function AddDiscountModal({
     });
   };
 
-  console.info("formData", formData);
   const handleSubmit = (e) => {
     e.preventDefault();
     // Send a POST request to your API
@@ -59,8 +58,8 @@ export default function AddDiscountModal({
       }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.info("Success:", data);
+      .then(() => {
+        console.info("Success");
         showNotification("Code promo ajoutée avec succès", true);
         // Reset the form and close the modal
         setFormData({

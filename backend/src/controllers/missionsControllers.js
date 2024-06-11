@@ -49,7 +49,9 @@ const updateMissions = async (req, res) => {
           .status(200)
           .json({ message: "La mission a été modifiée avec succès !" });
       } else {
-        res.status(401).send("Problème lors de la modification de la mission.");
+        res
+          .status(401)
+          .json({ message: "Problème lors de la modification de la mission." });
       }
     }
   } catch (error) {

@@ -12,13 +12,11 @@ export default function CopilotScoreCardNotes() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.info(data);
         setScoreCards(data);
       })
       .catch((err) => console.info(err));
   }, []);
 
-  // console.info("scoreCards", scoreCards[0].photo_user);
   return (
     <div className="flex flex-col items-center justify-center">
       {scoreCards[0] ? (

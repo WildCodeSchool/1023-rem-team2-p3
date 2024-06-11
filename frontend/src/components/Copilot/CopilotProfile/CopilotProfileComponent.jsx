@@ -35,7 +35,6 @@ export default function UserCopilot() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.info(data);
         setFormData(data);
       })
       .catch((err) => console.info(err));

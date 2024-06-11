@@ -28,17 +28,13 @@ export default function EditUserModal({
 
   const handleChange = (event) => {
     const { name, value, files } = event.target;
-    console.info("files", files);
     if (name === "img") {
       if (files === null) {
-        const file = `${import.meta.env.VITE_BACKEND_URL}/${formData[0].avatar}`;
-        console.info("file", file);
         setFormData((prevFormData) => ({
           ...prevFormData,
         }));
       } else {
         const file = files[0];
-        console.info("file", file);
         setFormData((prevFormData) => ({
           ...prevFormData,
           [name]: file,
@@ -65,8 +61,8 @@ export default function EditUserModal({
       body: formDataToSend,
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.info("Success:", data);
+      .then(() => {
+        console.info("Success");
         showNotification("Profil mis à jour avec succès", true);
         setFormData(updatedUserInfo);
       })

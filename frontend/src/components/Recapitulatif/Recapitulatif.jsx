@@ -2,13 +2,8 @@
 /* eslint-disable react/prop-types */
 // eslint-disable-next-line react/prop-types
 export default function Recapitulatif({ selectedEvent, selectedFormula }) {
-  console.info("selectedEvent", selectedEvent);
-  console.info("selectedFormula", selectedFormula);
   const { city, address, date } = selectedEvent;
   const { description, price, title } = selectedFormula;
-  //   const handlePromoCode = (e) => {
-  //     console.info("promo code");
-  //   };
 
   return (
     <>

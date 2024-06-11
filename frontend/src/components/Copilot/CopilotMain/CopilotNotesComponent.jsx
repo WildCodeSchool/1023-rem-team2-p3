@@ -5,7 +5,7 @@ import { UserContext } from "../../../context/UserContext";
 export default function CopilotNotesComponent() {
   const [notes, setNotes] = useState([]);
   const { user } = useContext(UserContext);
-  console.info("user", user);
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/mynote`, {
       headers: {
@@ -63,7 +63,7 @@ export default function CopilotNotesComponent() {
             </div>
             <div className="rounded-full border-white border-2 bg-background-color-second text-white w-16 h-16 md:w-20 md:h-20 flex justify-center items-center flex-col">
               <span className="text-[16px] font-bold">0</span>
-              <span className="text-violet-400"> BAF</span>
+              <span className="text-violet-400"> PF</span>
             </div>
           </>
         ) : (

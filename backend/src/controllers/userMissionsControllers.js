@@ -63,7 +63,9 @@ const updateUserMissions = async (req, res) => {
         .status(200)
         .json({ message: "Le status a été modifié avec succès !" });
     } else {
-      res.status(401).send("Problème lors de la modification du status.");
+      res
+        .status(401)
+        .json({ message: "Problème lors de la modification du status." });
     }
   } catch (err) {
     res.status(500).json({ error: err.message });

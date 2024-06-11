@@ -42,8 +42,6 @@ export default function AddEventModal({
     }));
   };
 
-  console.info("formData", formData);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -51,7 +49,6 @@ export default function AddEventModal({
     Object.entries(formData).forEach(([key, value]) => {
       formDataToSend.append(key, value);
     });
-    console.info("formDataToSend", formDataToSend);
     // Send a POST request to your API
     fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products`, {
       method: "POST",
@@ -61,8 +58,8 @@ export default function AddEventModal({
       body: formDataToSend,
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.info("Success:", data);
+      .then(() => {
+        console.info("Success");
         showNotification("Produit ajoutée avec succès", true);
         // Reset the form and close the modal
         setFormData({

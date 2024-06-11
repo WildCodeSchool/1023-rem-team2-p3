@@ -42,8 +42,6 @@ export default function AddMissionsModal({
     }));
   };
 
-  console.info("formData", formData);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -56,8 +54,8 @@ export default function AddMissionsModal({
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.info("Success:", data);
+      .then(() => {
+        console.info("Success");
         showNotification("Mission ajoutée avec succès", true);
         // Reset the form and close the modal
         setFormData({
@@ -96,7 +94,7 @@ export default function AddMissionsModal({
         <label>
           <span className="text-white text-[20px] font-secondary-font flex flex-col items-center gap-5">
             Description de la mission :
-            <input
+            <textarea
               type="text"
               name="mission"
               placeholder="Description de la mission"

@@ -37,8 +37,8 @@ export default function MainContentUser() {
       body: JSON.stringify({ id: userId }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.info("Success:", data);
+      .then(() => {
+        console.info("Success");
         // Met à jour localement le rôle de l'utilisateur après succès
         setUsers(
           users.map((user) =>
@@ -71,7 +71,6 @@ export default function MainContentUser() {
         value.toString().toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
-  console.info("filteredUsers", filteredUsers);
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);

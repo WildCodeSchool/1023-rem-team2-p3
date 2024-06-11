@@ -44,13 +44,11 @@ export default function ProductDashBoard() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.info(data);
         setProduct(data);
       })
       .catch((err) => console.info(err));
   }, [isAddModalOpen, isEditModalOpen, notification.message]);
 
-  console.info("product", product);
   return (
     <div className="flex flex-col justify-center items-center w-full lg:pt-10">
       <h1 className="text-center text-[30px] font-primary-font">

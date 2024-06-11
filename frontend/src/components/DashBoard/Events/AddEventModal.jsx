@@ -57,8 +57,8 @@ export default function AddEventModal({
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.info("Success:", data);
+      .then(() => {
+        console.info("Success");
         showNotification("Evénement ajoutée avec succès", true);
         // Reset the form and close the modal
         setFormData({
